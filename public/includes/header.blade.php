@@ -3,7 +3,6 @@ session_start();
 
 $urlServer = $_SERVER['SERVER_NAME'];
 $urlPage = $_SERVER['REQUEST_URI'];
-$urlProt = $_SERVER['HTTPS'];
 
 
 $title = 'bimCraft';
@@ -14,7 +13,7 @@ $keywords = 'keywords';
 <html lang="ru" itemscope itemtype="http://schema.org/WebPage">
 <head>
     <meta name="robots" content="noindex, nofollow" />
-    
+
     <?php
         switch($urlPage) {
             case '/pages/policy/policy.php':
@@ -37,7 +36,7 @@ $keywords = 'keywords';
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-    <title><?=$title?></title>   
+    <title><?=$title?></title>
     <meta name="description" content="<?=$description?>" />
     <meta name="keywords" content="<?=$keywords?>" />
 
@@ -57,7 +56,7 @@ $keywords = 'keywords';
     <link rel="apple-touch-icon" sizes="180x180" href="/css/img/favicon/apple-touch-icon-180x180.svg" />
     <meta name="theme-color" content="#767067" />
 
-    <link rel="stylesheet" href="/css/style.min.css">
+    <link rel="stylesheet" href="/css/style.css">
 
 </head>
 <body>

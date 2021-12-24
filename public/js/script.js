@@ -3835,7 +3835,7 @@ DynamicAdapt.prototype.moveBack = function (parent, element, index) {
 DynamicAdapt.prototype.indexInParent = function (parent, element) {
   const array = Array.prototype.slice.call(parent.children);
   return Array.prototype.indexOf.call(array, element);
-}; // Функция сортировки массива по breakpoint и place 
+}; // Функция сортировки массива по breakpoint и place
 // по возрастанию для this.type = min
 // по убыванию для this.type = max
 
@@ -14412,7 +14412,7 @@ $(function () {
   const body = $('body');
   const modal = $('.modal');
   const popup = $('.popup');
-  $('.drop').on('click', function (e) {
+  $(document).on('click', '.drop',function (e) {
     let val = $(e.target).text();
 
     if ($(this).prev().find('input').length > 0) {

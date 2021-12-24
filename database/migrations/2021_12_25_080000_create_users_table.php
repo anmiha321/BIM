@@ -20,8 +20,8 @@ class CreateUsersTable extends Migration
             $table->string('name')->nullable();
             $table->string('patronymic')->nullable();
             $table->string('id_company')->nullable();
-            $table->string('country')->nullable();
-            $table->string('city')->nullable();
+            $table->foreignId('city_id')->nullable()->constrained()->onDelete('set null');
+            $table->foreignId('country_id')->nullable()->constrained()->onDelete('set null');
             $table->string('phone')->nullable()->unique();
             $table->string('email')->unique()->nullable();
             $table->string('tariff_id')->nullable();
