@@ -21,3 +21,4 @@ Auth::routes();
 
 Route::get('/home', [ProfileController::class, 'index'])->name('profile');
 Route::get('fetchprofile', [ProfileController::class, 'fetchprofile'])->name('fetchprofile');
+Route::post('update_profile/{id}', [ProfileController::class, 'update']);

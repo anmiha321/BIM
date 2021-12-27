@@ -20,7 +20,13 @@ class User extends Authenticatable
      */
     protected $table = 'users';
     protected $fillable = [
+        'surname',
         'name',
+        'patronymic',
+        'id_company',
+        'city',
+        'country',
+        'phone',
         'email',
         'password',
     ];
@@ -45,13 +51,19 @@ class User extends Authenticatable
     ];
 
 
-    public function cities()
+    public function getNameInitials()
     {
-        return $this->belongsTo(cities::class, 'city_id','id');
+        $words = $this->name;
+        $first_char = mb_substr($words, 0, 1);
+
+        return($first_char);
     }
 
-    public function countries()
+    public function getPatronymicInitials()
     {
-        return $this->belongsTo(countries::class, 'country_id','id');
+        $words = $this->patronymic;
+        $first_char = mb_substr($words, 0, 1);
+
+        return($first_char);
     }
 }

@@ -157,10 +157,10 @@ $keywords = 'keywords';
                     <div class="header__drop"></div>
                 </div>
                 <div class="header__person" data-da=".header__title,1440,1">
-                    <div class="header__photo"><img src="/uploads/units/1s.png" alt="Человек" class="header__img"></div>
+                    <div class="header__photo"><img src="/uploads/units/{{Auth::user()->image}}" alt="Человек" class="header__img"></div>
                     <div class="header__info">
-                        <p class="header__name smtext">Евдокимов А. Д.</p>
-                        <p class="header__company smtext">ООО "ГИС"</p>
+                        <p class="header__name smtext">{{Auth::user()->surname}} {{Auth::user()->getNameInitials()}}. {{Auth::user()->getPatronymicInitials()}}.</p>
+                        <p class="header__company smtext">{{Auth::user()->id_company}}</p>
                     </div>
                 </div>
             </div>
