@@ -74,7 +74,7 @@ $keywords = 'keywords';
                             class="menu__text text">Входящие</span></a>
                 </div>
                 <div class="menu__wrap">
-                    <a href="/modules/lk/" class="menu__link ic_m_lk"><span
+                    <a href="{{route('profile')}}" class="menu__link ic_m_lk"><span
                             class="menu__text text">Личный кабинет</span></a>
                 </div>
                 <div class="menu__wrap">
@@ -160,7 +160,7 @@ $keywords = 'keywords';
                     <div class="header__photo"><img src="/uploads/units/{{Auth::user()->image}}" alt="Человек" class="header__img"></div>
                     <div class="header__info">
                         <p class="header__name smtext">{{Auth::user()->surname}} {{Auth::user()->getNameInitials()}}. {{Auth::user()->getPatronymicInitials()}}.</p>
-                        <p class="header__company smtext">{{Auth::user()->id_company}}</p>
+                        <p class="header__company smtext">"{{Auth::user()->id_company}}"</p>
                     </div>
                 </div>
             </div>
@@ -177,3 +177,5 @@ $keywords = 'keywords';
 </div>
 <script src="{{asset('/js/script.js')}}"></script>
 @yield('profile')
+@yield('users')
+@yield('new-user')

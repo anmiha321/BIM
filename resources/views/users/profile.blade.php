@@ -141,7 +141,7 @@
                             <div class="lk__photo"><img src="/uploads/units/' + item.image + '" alt="Пользователь" class="lk__img"></div>\
                         <div class="lk__info">\
                             <p class="lk__name text"><span class="lk__bold">' + item.surname + '</span> <br>' + item.name + ' ' + item.patronymic + '</p>\
-                            <p class="lk__name-company text ic_m_treat">' + item.id_company + '</p>\
+                            <p class="lk__name-company text ic_m_treat">"' + item.id_company + '"</p>\
                         </div>\
                     </div>\
                         <div class="lk__inputs">\
@@ -160,7 +160,7 @@
                             </div>\
                             <div class="lk__input-wrapper lk__input-wrapper_big">\
                                 <p class="lk__label smtext">Компания</p>\
-                                <input type="text" name="id_company" id="id_company" class="form__input lk__input" placeholder="' + item.id_company + '" maxlength="150">\
+                                <input type="text" name="id_company" id="id_company" class="form__input lk__input" placeholder="'+item.id_company+'" maxlength="150">\
                             </div>\
                             <div class="lk__input-wrapper">\
                                 <p class="lk__label smtext">Страна</p>\
@@ -245,6 +245,100 @@
                     }
                 });
             });
+            $(document).on('submit', '#changePass', function (e) {
+                e.preventDefault();
+                var id = $('#id_edit').val();
+                let EditFormData = new FormData($('#changePass')[0]);
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                    type: "POST",
+                    enctype: 'multipart/form-data',
+                    url: "/update_password/" + id,
+                    data: EditFormData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        if (response.status == 400) {
+                            $('#update_msgList').html("");
+                            $('#update_msgList').addClass('alert alert-danger');
+                            $.each(response.errors, function (key, err_value) {
+                                $('#update_msgList').append('<li>' + err_value +
+                                    '</li>');
+                            });
+                            $('.update_student').text('Update');
+                        } else {
+                            $('#update_msgList').html("");
+
+                            $('#success_message').addClass('alert alert-success');
+                            $('#success_message').text(response.message);
+                            $('#old_password').val('');
+                            $('#password').val('');
+                            $('#password_confirmation_edit-password').val('');
+                            $('.modal').removeClass('active');
+                            $('#popup-change-passw').removeClass('active');
+                            fetchprofile();
+                        }
+                    }
+                });
+
+            });
+
+            $(document).ready(function () {
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                    $.ajax({
+                        type: "GET",
+                        url: "fullinfo",
+                        dataType: "json",
+                        success: function (response) {
+                            $('#popup-account__table').html("");
+                            $.each(response, function (key, item) {
+                                $('#popup-account__table').append('<div class="popup-account__row">\
+                                    <p class="popup-account__left ic_user smtext">ФИО</p>\
+                                <p class="popup-account__right smtext">' + item.surname + ' ' + item.name + ' ' + item.patronymic + '</p>\
+                            </div>\
+                                <div class="popup-account__row">\
+                                    <p class="popup-account__left ic_mail smtext">E-mail</p>\
+                                    <p class="popup-account__right smtext">' + item.email + '</p>\
+                                </div>\
+                                <div class="popup-account__row">\
+                                    <p class="popup-account__left ic_call smtext">Телефон</p>\
+                                    <p class="popup-account__right smtext">' + item.phone + '</p>\
+                                </div>\
+                                <div class="popup-account__row">\
+                                    <p class="popup-account__left ic_earth smtext">Страна</p>\
+                                    <p class="popup-account__right smtext">' + item.country + '</p>\
+                                </div>\
+                                <div class="popup-account__row">\
+                                    <p class="popup-account__left ic_role smtext">Роль</p>\
+                                    <p class="popup-account__right smtext">' + (item.role == 1 ? '<p class="popup-account__right smtext">Администратор</p>' : '<p class="popup-account__right smtext">Пользователь</p>') + '</p>\
+                                </div>\
+                                <div class="popup-account__row">\
+                                    <p class="popup-account__left ic_cal smtext">Дата регистрации</p>\
+                                    <p class="popup-account__right smtext">' + item.created_at + '</p>\
+                                </div>\
+                                <div class="popup-account__row">\
+                                    <p class="popup-account__left ic_time smtext">Последняя активность</p>\
+                                    <p class="popup-account__right smtext"><span class="popup-account__right-time">' + item.last_seen + '</p>\
+                                </div>')
+                            });
+
+
+                        }
+                    });
+
+                });
         });
     </script>
 @endsection

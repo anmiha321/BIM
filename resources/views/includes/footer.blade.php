@@ -118,15 +118,15 @@
                     <form action="#" name="changePass" id="" class="popup__form form">
                         <div class="form__row">
                             <p class="form__label smtext">Старый пароль</p>
-                            <input type="text" name="old_passw" class="form__input" placeholder="ZYZ7456HH" maxlength="20">
+                            <input type="password" name="old_password" id="" class="form__input" placeholder="ZYZ7456HH" maxlength="20">
                         </div>
                         <div class="form__row">
                             <p class="form__label smtext">Новый пароль</p>
-                            <input type="text" name="new_passw" class="form__input" placeholder="555699JKIY" maxlength="20">
+                            <input type="password" name="password" id="" class="form__input" placeholder="555699JKIY" maxlength="20">
                         </div>
                         <div class="form__row">
                             <p class="form__label smtext">Подтверждение пароля</p>
-                            <input type="text" name="conf_new_passw" class="form__input" placeholder="555699JKIY" maxlength="20">
+                            <input type="password" name="password_confirmation_edit-password" id="" class="form__input" placeholder="555699JKIY" maxlength="20">
                         </div>
                         <div class="popup__btns form__btns">
                             <input type="submit" value="Сохранить" class="popup__btn btngreen smtext">

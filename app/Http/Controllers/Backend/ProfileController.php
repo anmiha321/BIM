@@ -27,10 +27,18 @@ class ProfileController extends Controller
 
         ]);
     }
-
-    public function update(Request $request)
+    public function fullinfo()
     {
         $id = Auth::user()->getAuthIdentifier();
+        $data = User::find($id);
+        return response()->json([
+            'user' => $data,
+
+        ]);
+    }
+    public function update(Request $request, $id)
+    {
+
         $validator = Validator::make($request->all(), [
             'surname' => ['max:255'],
             'name' => ['max:255'],
@@ -77,4 +85,46 @@ class ProfileController extends Controller
 
         }
     }
+    public function updatepassword(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'old_password' => ['required', 'different:password'],
+            'password' => ['required', 'min:8','same:password_confirmation_edit-password'],
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->messages(),
+            ]);
+        } else {
+
+            $user = User::find($id);
+            $profile = Auth::user();
+            if (!Hash::check($request->input('old_password'), $user->password)) {
+                return response()->json([
+                    'status' => 400,
+                    'errors' => 'The specified password does not match the database password',
+                ]);
+            } else {
+                if ($profile) {
+                    $user->password = $request->input('password');
+                    if (!empty($user['password'])) {
+                        $user['password'] = Hash::make($user['password']);
+                    }
+                    $user->update();
+                    return response()->json([
+                        'status' => 200,
+                        'message' => 'Password Updated Successfully.'
+                    ]);
+                } else {
+                    return response()->json([
+                        'status' => 404,
+                        'message' => 'No Worker were Found.'
+                    ]);
+                }
+
+            }
+        }
+    }
+
 }
