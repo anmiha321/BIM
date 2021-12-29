@@ -36,9 +36,9 @@ class ProfileController extends Controller
 
         ]);
     }
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-
+        $id = Auth::user()->getAuthIdentifier();
         $validator = Validator::make($request->all(), [
             'surname' => ['max:255'],
             'name' => ['max:255'],
@@ -48,7 +48,7 @@ class ProfileController extends Controller
             'city' => ['max:255'],
             'position' => ['max:255'],
             'phone' => ['max:255', 'unique:users,phone,' . $id],
-            'email' => ['max:255', 'unique:users,email,' . $id],
+            'email_profile' => ['max:255', 'unique:users,email,' . $id],
         ]);
 
         if ($validator->fails()) {
@@ -68,7 +68,7 @@ class ProfileController extends Controller
                 $profile->country = $request->input('country', $user->country);
                 $profile->city = $request->input('city', $user->city);
                 $profile->phone = $request->input('phone', $user->phone);
-                $profile->email = $request->input('email', $user->email);
+                $profile->email = $request->input('email_profile', $user->email);
                 $credentials = array_filter($request->all());
                 $user->update($credentials);
                 return response()->json([
@@ -85,7 +85,7 @@ class ProfileController extends Controller
 
         }
     }
-    public function updatepassword(Request $request, $id)
+    public function updatepasswordprofile(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
             'old_password' => ['required', 'different:password'],

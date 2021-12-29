@@ -63,31 +63,28 @@
                     <p class="popup-arch-units__close popup__close ic_close"></p>
                 </div>
                 <div class="popup__main">
-                    <div class="popup__photo"><img src="/uploads/units/1.png" alt="Пользователь" class="popup__img"></div>
-                    <form action="#" name="popupInfoUnit" id="" class="popup__form form">
+                    <form action="#" name="popupInfoUnit" id="popupInfoUnit" class="popup__form form">
+                        <div class="popup__photo"><img src="/css/img/svg/add_foto.svg" id="edit_user_image" alt="Пользователь" class="popup__img"></div>
                         <div class="form__row">
+                            <input id="edit_user_id" type="hidden" value="">
                             <p class="form__label smtext">Фамилия</p>
-                            <input type="text" name="surname" class="form__input onlyAlpha" placeholder="Артем" maxlength="30">
+                            <input type="text" name="surname" id="surname_edit" class="form__input onlyAlpha" placeholder="Артем" maxlength="30">
                         </div>
                         <div class="form__row">
                             <p class="form__label smtext">Имя</p>
-                            <input type="text" name="name" class="form__input onlyAlpha" placeholder="Артем" maxlength="30">
+                            <input type="text" name="name" id="name_edit" class="form__input onlyAlpha" placeholder="Артем" maxlength="30">
                         </div>
                         <div class="form__row">
                             <p class="form__label smtext">Отчество</p>
-                            <input type="text" name="patron" class="form__input onlyAlpha" placeholder="Дмитриевич" maxlength="30">
+                            <input type="text" name="patronymic" id="patronymic_edit" class="form__input onlyAlpha" placeholder="Дмитриевич" maxlength="30">
                         </div>
                         <div class="form__row">
                             <p class="form__label smtext">E-mail</p>
-                            <input type="email" name="email" class="form__input" placeholder="example@gmail.com" maxlength="40">
+                            <input type="email" name="email" id="emai_edit" class="form__input" placeholder="example@gmail.com" maxlength="40">
                         </div>
                         <div class="form__row">
                             <p class="form__label smtext">Телефон=логин</p>
-                            <input type="tel" name="phone" class="form__input" placeholder="+7 (999) 999-99-99" maxlength="17">
-                        </div>
-                        <div class="form__row">
-                            <p class="form__label smtext">Пароль для входа в систему</p>
-                            <input type="text" name="passw" class="form__input" placeholder="XYZ7965305k" maxlength="20">
+                            <input type="tel" name="phone" id="phone_edit" class="form__input" placeholder="+7 (999) 999-99-99" maxlength="17">
                         </div>
                         <div class="form__row">
                             <p class="form__label smtext">Проектируемые разделы</p>
@@ -95,14 +92,14 @@
                         </div>
                         <div class="form__row">
                             <p class="form__label smtext">Должность</p>
-                            <input type="text" name="position" class="form__input onlyAlpha" placeholder="" maxlength="60">
+                            <input type="text" name="experience" id="expirience_edit" class="form__input onlyAlpha" placeholder="BOSS" maxlength="60">
                         </div>
                         <div class="form__row">
                             <p class="form__label smtext">Оклад</p>
                             <input type="text" name="salary" class="popup-info-unit__salary form__input" placeholder="75 000 руб" maxlength="20">
                         </div>
                         <div class="popup__btns form__btns">
-                            <input type="submit" value="Вернуть из архива" class="popup__btn btngreen smtext">
+                            <input type="submit" value="Сохранить" class="popup__btn btngreen smtext">
                             <div class="popup__cancel cancel">Отменить</div>
                         </div>
                     </form>
@@ -216,12 +213,13 @@
                     <p class="popup__close ic_close"></p>
                 </div>
                 <div class="">
-                    <form action="#" name="saChangePass" id="" class="popup-auth__form popup-sa-ch-p__form">
+                    <form action="#" name="saChangePass" id="saChangePass" class="popup-auth__form popup-sa-ch-p__form">
                         <div class="popup-sa-ch-p__inputs">
+                            <input id="user_id" type="hidden" value="">
                             <label for="four-num" class="popup-auth__label popup-sa-ch-p__label"><span class="popup-auth__label-span lgtext">Введите новый пароль</span>
-                            <input type="text" name="four_numbers" id="four-num" class="popup-auth__input lgtext" maxlength="20"></label>
+                            <input type="password" name="password" id="four-num" class="popup-auth__input lgtext" maxlength="20"></label>
                             <label for="four-num" class="popup-auth__label popup-sa-ch-p__label"><span class="popup-auth__label-span lgtext">Подтвердите новый пароль</span>
-                            <input type="text" name="four_numbers" id="four-num" class="popup-auth__input lgtext" maxlength="20"></label>
+                            <input type="password" name="password_confirmation" id="four-num" class="popup-auth__input lgtext" maxlength="20"></label>
                         </div>
                         <input type="submit" value="Подтвердить" class="popup-sa-ch-p__submit btn lgtext">
                     </form>
@@ -241,7 +239,7 @@
                             <input type="text" name="new_state" class="form__input onlyAlpha" placeholder="Введите название статьи" maxlength="50">
                         </div>
                         <div class="popup-add-state__btns popup__btns form__btns">
-                            <input type="submit" value="Сохранить" class="popup__btn btngreen smtext">
+                            <input type="submit" id="change_password_save" value="Сохранить" class="popup__btn btngreen smtext">
                         </div>
                     </form>
                 </div>

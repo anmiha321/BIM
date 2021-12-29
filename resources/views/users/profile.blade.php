@@ -259,7 +259,7 @@
                 $.ajax({
                     type: "POST",
                     enctype: 'multipart/form-data',
-                    url: "/update_password/" + id,
+                    url: "/update_password_profile/" + id,
                     data: EditFormData,
                     processData: false,
                     contentType: false,

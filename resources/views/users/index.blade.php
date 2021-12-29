@@ -105,6 +105,7 @@
             });
 
             fetchusers();
+
             function fetchusers(query = '') {
                 $.ajax({
                     type: "GET",
@@ -119,7 +120,141 @@
 
             $(document).on('keyup', '#search', function () {
                 var query = $(this).val();
-                fetchworker(query);
+                fetchusers(query);
+            });
+
+
+            $(document).on('click', '#edit_pass', function (e) {
+                e.preventDefault();
+                var user_id = $(this).val();
+                $.ajax({
+                    type: "GET",
+                    url: "/edit_user/" + user_id,
+                    success: function (response) {
+                        if (response.status == 404) {
+                            $('#success_message').addClass('alert alert-success');
+                            $('#success_message').text(response.message);
+                            $('.modal').modal('hide');
+                        } else {
+                            $('#user_id').val(user_id);
+                        }
+
+                    }
+                });
+                $('.popup__close').find('input').val('');
+            });
+
+            $(document).on('click', '#edit_user', function (e) {
+                e.preventDefault();
+                var user_id = $(this).val();
+                $.ajax({
+                    type: "GET",
+                    url: "/edit_user/" + user_id,
+                    success: function (response) {
+                        if (response.status == 404) {
+                            $('#success_message').addClass('alert alert-success');
+                            $('#success_message').text(response.message);
+                            $('.modal').modal('hide');
+                        } else {
+                            $('#edit_user_id').val(user_id);
+                            $('#edit_user_image').attr("src", '/uploads/units/' + response.user.image);
+                            $('#surname_edit').val(response.user.surname);
+                            $('#name_edit').val(response.user.name);
+                            $('#patronymic_edit').val(response.user.patronymic);
+                            $('#emai_edit').val(response.user.email);
+                            $('#phone_edit').val(response.user.phone);
+                            $('#expirience_edit').val(response.user.experience);
+                        }
+
+                    }
+                });
+                $('.popup__close').find('input').val('');
+            });
+
+            $(document).on('submit', '#saChangePass', function (e) {
+                e.preventDefault();
+                var id = $('#user_id').val();
+                let UpdateFormData = new FormData($('#saChangePass')[0]);
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                    type: "POST",
+                    enctype: 'multipart/form-data',
+                    url: "/update_password/" + id,
+                    data: UpdateFormData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        // console.log(response);
+                        if (response.status == 400) {
+                            $('#update_msgList').html("");
+                            $('#update_msgList').addClass('alert alert-danger');
+                            $.each(response.errors, function (key, err_value) {
+                                $('#update_msgList').append('<li>' + err_value +
+                                    '</li>');
+                            });
+                            $('.update_student').text('Update');
+                        } else {
+                            $('#update_msgList').html("");
+
+                            $('#success_message').addClass('alert alert-success');
+                            $('#success_message').text(response.message);
+                            $('#saChangePass').find('input').val('');
+                            alert('Пароль изменен успешно!')
+                            $('.modal').removeClass('active');
+                            $('#popup-sa-ch-pass').removeClass('active');
+                            $('#change_password_save').val('Сохранить');
+                            fetchusers();
+                        }
+                    }
+                });
+            });
+
+            $(document).on('submit', '#popupInfoUnit', function (e) {
+                e.preventDefault();
+                var id = $('#edit_user_id').val();
+                let UpdateFormData = new FormData($('#popupInfoUnit')[0]);
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                    type: "POST",
+                    enctype: 'multipart/form-data',
+                    url: "/update_user/" + id,
+                    data: UpdateFormData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        // console.log(response);
+                        if (response.status == 400) {
+                            $('#update_msgList').html("");
+                            $('#update_msgList').addClass('alert alert-danger');
+                            $.each(response.errors, function (key, err_value) {
+                                $('#update_msgList').append('<li>' + err_value +
+                                    '</li>');
+                            });
+                            $('.update_student').text('Update');
+                        } else {
+                            $('#update_msgList').html("");
+
+                            $('#success_message').addClass('alert alert-success');
+                            $('#success_message').text(response.message);
+                            $('.update_student').text('Update');
+                            $('.modal').removeClass('active');
+                            $('#popup-info-unit').removeClass('active');
+                            fetchusers();
+                        }
+                    }
+                });
             });
         });
     </script>

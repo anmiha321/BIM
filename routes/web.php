@@ -19,12 +19,15 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
+Route::resource('users', UserController::class);
 Route::get('/home', [ProfileController::class, 'index'])->name('profile');
 Route::get('/users', [UserController::class, 'index'])->name('users');
 Route::get('/new-user', [UserController::class, 'newuser'])->name('new-user');
+Route::get('/edit_user/{id}', [UserController::class, 'edit'])->name('edit_user');
 Route::get('fetchprofile', [ProfileController::class, 'fetchprofile'])->name('fetchprofile');
 Route::get('fullinfo', [ProfileController::class, 'fullinfo'])->name('fullinfo');
 Route::get('search', [UserController::class, 'search'])->name('search');
 Route::post('update_profile/{id}', [ProfileController::class, 'update']);
-Route::post('update_password/{id}', [ProfileController::class, 'updatepassword']);
+Route::post('update_password_profile/{id}', [ProfileController::class, 'updatepasswordprofile']);
+Route::post('update_password/{id}', [UserController::class, 'updatepassword']);
+Route::post('update_user/{id}', [UserController::class, 'update']);
