@@ -9,27 +9,27 @@
             <div class="sa__head">
                 <form action="#" class="sa__filters form">
                     <div class="sa__filter">
-                        <div class="sa__input-wrapper form__input-wrapper ic_search"><input data-search type="text" name="fio_id" id="" class="sa__input form__input" placeholder="Поиск по ФИО или ID"></div>
-                        <div class="sa__drop drop">
-                            <p class="sa__drop-item drop__item">Петров Сергей<span class="sa__drop-span">id 787877889</span></p>
-                            <p class="sa__drop-item drop__item">Савельев Николай<span class="sa__drop-span">id 787877889</span></p>
-                            <p class="sa__drop-item drop__item">Савельев Николай<span class="sa__drop-span">id 787877889</span></p>
-                        </div>
+                        <div class="sa__input-wrapper form__input-wrapper ic_search"><input data-search type="text" name="fio_id" id="fio_id" class="sa__input form__input" placeholder="Поиск по ФИО или ID"></div>
+{{--                        <div class="sa__drop drop">--}}
+{{--                            <p class="sa__drop-item drop__item">Петров Сергей<span class="sa__drop-span">id 787877889</span></p>--}}
+{{--                            <p class="sa__drop-item drop__item">Савельев Николай<span class="sa__drop-span">id 787877889</span></p>--}}
+{{--                            <p class="sa__drop-item drop__item">Савельев Николай<span class="sa__drop-span">id 787877889</span></p>--}}
+{{--                        </div>--}}
                     </div>
                     <div class="sa__filter">
-                        <div class="sa__input-wrapper form__input-wrapper ic_search"><input data-search type="text" name="inn_tel" id="" class="sa__input form__input" placeholder="Поиск по ИНН или телефону"></div>
-                        <div class="sa__drop drop">
-                            <p class="sa__drop-item drop__item">+7 (999) 999-99-99</p>
-                            <p class="sa__drop-item drop__item">+7 (999) 999-99-99</p>
-                            <p class="sa__drop-item drop__item">+7 (000) 999-99-90</p>
-                            <p class="sa__drop-item drop__item">589315452</p>
-                        </div>
+                        <div class="sa__input-wrapper form__input-wrapper ic_search"><input data-search type="text" name="inn_tel" id="inn_tel" class="sa__input form__input" placeholder="Поиск по ИНН или телефону"></div>
+{{--                        <div class="sa__drop drop">--}}
+{{--                            <p class="sa__drop-item drop__item">+7 (999) 999-99-99</p>--}}
+{{--                            <p class="sa__drop-item drop__item">+7 (999) 999-99-99</p>--}}
+{{--                            <p class="sa__drop-item drop__item">+7 (000) 999-99-90</p>--}}
+{{--                            <p class="sa__drop-item drop__item">589315452</p>--}}
+{{--                        </div>--}}
                     </div>
                     <div class="sa__filter">
-                        <div class="sa__input-wrapper form__input-wrapper ic_arr_d"><input type="text" name="status" id="" class="sa__input form__input" placeholder="Сортировка по статусу"></div>
+                        <div class="sa__input-wrapper form__input-wrapper ic_arr_d"><input type="text" disabled="disabled" name="status" id="status" class="sa__input form__input" placeholder="Сортировка по статусу"></div>
                         <div class="sa__drop drop">
-                            <p class="sa__drop-item drop__item">Активный</p>
-                            <p class="sa__drop-item drop__item">Архивный</p>
+                            <button id="active" value="Активный" class="sa__drop-item drop__item">Активный</button>
+                            <button id="archive" value="Архивный" class="sa__drop-item drop__item">Архивный</button>
                         </div>
                     </div>
                 </form>
@@ -118,12 +118,61 @@
                 });
             }
 
-            $(document).on('keyup', '#search', function () {
+            function archive() {
+                $.ajax({
+                    type: "GET",
+                    url: "archive",
+                    dataType: "json",
+                    success: function (data) {
+                        $('#users').html(data.users);
+                    }
+                });
+            }
+            function tellInn(telinn = '') {
+                $.ajax({
+                    type: "GET",
+                    data: {telinn:telinn},
+                    url: "search",
+                    dataType: "json",
+                    success: function (data) {
+                        $('#users').html(data.users);
+                    }
+                });
+            }
+
+            function activearchive(sorting = '') {
+                $.ajax({
+                    type: "GET",
+                    data: {sorting:sorting},
+                    url: "search",
+                    dataType: "json",
+                    success: function (data) {
+                        $('#users').html(data.users);
+                    }
+                });
+            }
+
+            $(document).on('keyup', '#fio_id', function () {
                 var query = $(this).val();
                 fetchusers(query);
             });
 
+            $(document).on('keyup', '#inn_tel', function () {
+                var telinn = $(this).val();
+                tellInn(telinn);
+            });
 
+            $(document).on('click', '#active', function (e) {
+                e.preventDefault();
+                var sorting = $(this).val();
+                activearchive(sorting);
+            });
+
+            $(document).on('click', '#archive', function (e) {
+                e.preventDefault();
+                var sorting = $(this).val();
+                activearchive(sorting);
+            });
             $(document).on('click', '#edit_pass', function (e) {
                 e.preventDefault();
                 var user_id = $(this).val();
@@ -252,6 +301,63 @@
                             $('.modal').removeClass('active');
                             $('#popup-info-unit').removeClass('active');
                             fetchusers();
+                        }
+                    }
+                });
+            });
+
+            $(document).on('click', '#arhivate', function (e) {
+                e.preventDefault();
+                var id = $(this).val();
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                    $.ajax({
+                        type: "DELETE",
+                        url: "/delete_user/" + id,
+                        dataType: "json",
+                        success: function (response) {
+                            // console.log(response);
+                            if (response.status == 404) {
+                                $('#success_message').addClass('alert alert-success');
+                                $('#success_message').text(response.message);
+                            } else {
+                                $('#success_message').html("");
+                                $('#success_message').addClass('alert alert-success');
+                                $('#success_message').text(response.message);
+                                fetchusers();
+                            }
+                        }
+                    });
+            });
+
+            $(document).on('click', '#activate', function (e) {
+                e.preventDefault();
+                var id = $(this).val();
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                    type: "GET",
+                    url: "/return_user/" + id,
+                    dataType: "json",
+                    success: function (response) {
+                        // console.log(response);
+                        if (response.status == 404) {
+                            $('#success_message').addClass('alert alert-success');
+                            $('#success_message').text(response.message);
+                        } else {
+                            $('#success_message').html("");
+                            $('#success_message').addClass('alert alert-success');
+                            $('#success_message').text(response.message);
+                            archive();
                         }
                     }
                 });

@@ -131,8 +131,13 @@ $keywords = 'keywords';
                 <p class="menu__hide text">Свернуть окно</p>
                 <p class="menu__arrow ic_m_arr"></p>
             </div>
-            <p class="header__exit-mobile text">Выйти</p>
+            <a class="header__exit text" href="{{ route('logout') }}"
+               onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">Выйти</a>
         </div>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+            @csrf
+        </form>
         <div class="header__top">
             <div class="header__title">
                 <h2 class="header__heading heading">Личный кабинет</h2>

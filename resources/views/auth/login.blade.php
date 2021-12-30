@@ -33,7 +33,7 @@
                     <p class="auth__subtitle text">Для продолжения работы введите логин и пароль</p>
                     <div class="auth__inputs">
                         <label for="phone" class="auth__label"><span class="auth__label-span">Логин</span>
-                            <input type="text" name="phone" id="phone" class="auth__input lgtext" value="{{ old('phone') }}" placeholder="+7 (999) 999-99-99"></label>
+                            <input type="tel" name="phone" id="phone" class="auth__input lgtext" value="{{ old('phone') }}" placeholder="+7 (999) 999-99-99"></label>
                         <label for="password" class="auth__label">
                             <span class="auth__label-span">Пароль</span>
                             <div class="auth__input-wrapper">

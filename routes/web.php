@@ -14,8 +14,8 @@ use App\Http\Controllers\Backend\UserController;
 |
 */
 
-Route::get('/', function () {
-    return view('auth.login');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/', [ProfileController::class, 'index']);
 });
 
 Auth::routes();
@@ -27,7 +27,10 @@ Route::get('/edit_user/{id}', [UserController::class, 'edit'])->name('edit_user'
 Route::get('fetchprofile', [ProfileController::class, 'fetchprofile'])->name('fetchprofile');
 Route::get('fullinfo', [ProfileController::class, 'fullinfo'])->name('fullinfo');
 Route::get('search', [UserController::class, 'search'])->name('search');
+Route::get('archive', [UserController::class, 'archive'])->name('archive');
 Route::post('update_profile/{id}', [ProfileController::class, 'update']);
 Route::post('update_password_profile/{id}', [ProfileController::class, 'updatepasswordprofile']);
 Route::post('update_password/{id}', [UserController::class, 'updatepassword']);
 Route::post('update_user/{id}', [UserController::class, 'update']);
+Route::delete('delete_user/{id}', [UserController::class, 'destroy']);
+Route::get('return_user/{id}', [UserController::class, 'restore']);
