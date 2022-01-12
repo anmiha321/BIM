@@ -18,6 +18,11 @@ class ProfileController extends Controller
         return view('users.profile');
     }
 
+    public function data_company()
+    {
+        return view('users.data-company');
+    }
+
     public function fetchprofile()
     {
         $id = Auth::user()->getAuthIdentifier();

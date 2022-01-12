@@ -90,8 +90,8 @@ class UserController extends Controller
                     ' . ($row->acssess_as == 1 ? '<p class="sa__text text">Да</p>' : '<p class="sa__text text">Нет</p>') . '
                    </div>
                     <div class="sa__cell sa__cell_auth"> ' . ($row->last_seen == 0 ? '<p class="sa__text text">Не проявлял активности</p>' : '<p class="sa__text text">' . $row->last_seen . '</p>') . '</div>
-                    <div class="sa__cell sa__cell_control"><button value="' . $row->id . '" id="edit_user" class="sa__text text ic_edit">Редактировать</button></div>
-                    <div class="sa__cell sa__cell_ch-pass"><button value="' . $row->id . '" id="edit_pass" class="sa__text text ic_lock">Изменить пароль</button></div>
+                    <div data-popup="info-unit" class="sa__cell sa__cell_control"><button value="' . $row->id . '" id="edit_user" class="sa__text text ic_edit">Редактировать</button></div>
+                    <div  data-popup="sa-ch-pass" class="sa__cell sa__cell_ch-pass"><button value="' . $row->id . '" id="edit_pass" class="sa__text text ic_lock">Изменить пароль</button></div>
                 </div>
                 ';
                 }
@@ -318,8 +318,8 @@ class UserController extends Controller
                     ' . ($row->acssess_as == 1 ? '<p class="sa__text text">Да</p>' : '<p class="sa__text text">Нет</p>') . '
                    </div>
                     <div class="sa__cell sa__cell_auth"> ' . ($row->last_seen == 0 ? '<p class="sa__text text">Не проявлял активности</p>' : '<p class="sa__text text">' . $row->last_seen . '</p>') . '</div>
-                    <div class="sa__cell sa__cell_control"><button value="' . $row->id . '" id="edit_user" class="sa__text text ic_edit">Редактировать</button></div>
-                    <div class="sa__cell sa__cell_ch-pass"><button value="' . $row->id . '" id="edit_pass" class="sa__text text ic_lock">Изменить пароль</button></div>
+                    <div data-popup="info-unit" class="sa__cell sa__cell_control"><button value="' . $row->id . '" id="edit_user" class="sa__text text ic_edit">Редактировать</button></div>
+                    <div data-popup="sa-ch-pass"  class="sa__cell sa__cell_ch-pass"><button value="' . $row->id . '" id="edit_pass" class="sa__text text ic_lock">Изменить пароль</button></div>
                 </div>
                 ';
             }

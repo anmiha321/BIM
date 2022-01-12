@@ -107,7 +107,7 @@
                 <div class="nav-lk__item"><a href="#" class="nav-lk__link text ic_mob">Мобильное приложение</a></div>
                 <div class="nav-lk__item"><p class="nav-lk__text text ic_user">Аккаунт</p></div>
                 <div class="nav-lk__item"><p class="nav-lk__text text ic_c_mark">Подписки</p></div>
-                <div class="nav-lk__item"><a href="/modules/lk/data-company/" class="nav-lk__link text ic_portfel">Данные
+                <div class="nav-lk__item"><a href="{{route('data_company')}}" class="nav-lk__link text ic_portfel">Данные
                         компании</a></div>
             </nav>
         </div>

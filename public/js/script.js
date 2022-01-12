@@ -14276,15 +14276,7 @@ window.onload = function () {
   const menuCircle = document.querySelector('.header__plus');
   const submenu = document.querySelector('.header__mobsettings');
   const salaryPopup = document.querySelector('.popup-info-unit__salary');
-  const path = document.location.pathname; // function checkWidth() {
-  //     let windowWidth = window.innerWidth;
-  //     if (windowWidth > 1024) {
-  //         burger.classList.remove('active');
-  //         // mobileMenu.classList.remove('active');
-  //     }
-  // };
-  // this.onresize = () => checkWidth();
-  //Бургер меню
+  const path = document.location.pathname; //Бургер меню
 
   if (burger !== null) {
     burger.addEventListener('click', function () {
@@ -14346,14 +14338,16 @@ window.onload = function () {
     }
   }
 
-  salaryPopup.addEventListener('change', function () {
-    this.value.match(/[0-9]*/)[0] ? this.value = this.value.match(/[0-9]*/) + ' руб' : this.value = '';
-  });
+  if (salaryPopup !== null) {
+    salaryPopup.addEventListener('change', function () {
+      this.value.match(/[0-9]*/)[0] ? this.value = this.value.match(/[0-9]*/) + ' руб' : this.value = '';
+    });
+  }
 
-  if (path === '/modules/lk/data-company/') {
-    const tabs = document.querySelector(".company__content");
-    const tabButton = document.querySelectorAll(".nav-company__link");
-    const contents = document.querySelectorAll(".company__block");
+  if (document.querySelector('.module.company')) {
+    const tabs = document.querySelector('.company__content');
+    const tabButton = document.querySelectorAll('.nav-company__link');
+    const contents = document.querySelectorAll('.company__block');
     const btnGen = document.querySelector('.company-state__generate');
     const currency = [...document.querySelectorAll('.company-expend__input')];
     const salary = document.querySelector('.company-state__salary');
@@ -14363,14 +14357,14 @@ window.onload = function () {
 
       if (id) {
         tabButton.forEach(btn => {
-          btn.classList.remove("active");
+          btn.classList.remove('active');
         });
-        e.target.classList.add("active");
+        e.target.classList.add('active');
         contents.forEach(content => {
-          content.classList.remove("active");
+          content.classList.remove('active');
         });
         const element = document.getElementById(id);
-        element.classList.add("active");
+        element.classList.add('active');
       }
     };
     /* Генерация пароля */
@@ -14412,19 +14406,6 @@ $(function () {
   const body = $('body');
   const modal = $('.modal');
   const popup = $('.popup');
-  $(document).on('click', '.drop',function (e) {
-    let val = $(e.target).text();
-
-    if ($(this).prev().find('input').length > 0) {
-      $(this).prev().find('input').val(val);
-      $(this).removeClass('active');
-      $(this).prev().removeClass('active');
-    } else {
-      $(this).prev().text(val);
-      $(this).removeClass('active');
-      $(this).prev().removeClass('active');
-    }
-  });
 
   function openModal(popup) {
     modal.addClass('active');
@@ -14454,72 +14435,70 @@ $(function () {
     window.scrollTo(0, parseInt(scrollY || '0') * -1);
   }
 
-  $(document).on('click', function (e) {
-    let target = $(e.target);
+  $(document).on('click', '[data-popup]', function (e) {
+    let idPopup = $(this).attr('data-popup');
+    openModal(idPopup);
+  });
+  $(document).on('click', '[data-add-input]', function () {
+    let phone = $(this).prev().clone().mask('+7 (999) 999-9999');
+    $(this).before(phone);
+  });
+  $(document).on('click', '[data-close]', function () {
+    if ($('.popup.active').length <= 1) {
+      modal.removeClass('active');
+    }
 
-    if (target.hasClass('company-docs__load')) {
-      openModal('add-doc');
-    } else if (target.hasClass('company-state__show-arch')) {
-      openModal('arch-units');
-    } else if (target.hasClass('units-list__edit')) {
-      openModal('info-unit');
-    } else if (target.hasClass('sa__text') && target.hasClass('ic_edit')) {
-      openModal('info-unit');
-    } else if (target.hasClass('nav-lk__text') && target.hasClass('ic_lock')) {
-      openModal('change-passw');
-    } else if (target.hasClass('nav-lk__text') && target.hasClass('ic_user')) {
-      openModal('account');
-    } else if (target.hasClass('nav-lk__text') && target.hasClass('ic_c_mark')) {
-      openModal('subscribe');
-    } else if (target.hasClass('company-expend__add')) {
-      openModal('add-state');
-    } else if (target.hasClass('sa__text') && target.hasClass('ic_lock')) {
-      openModal('sa-ch-pass');
-    } else if (target.hasClass('company-expend__del')) {
-      target.parents('.company-expend__item').remove();
-    } else if (target.hasClass('modal')) {
-      closeModal();
-    } else if (target.hasClass('form__cancel')) {
-      target.parents('form')[0].reset();
-    } else if (target.hasClass('company-main__add-phone')) {
-      let phone = target.prev().clone().mask('+7 (999) 999-9999');
-      target.before(phone);
-    } else if (target.hasClass('company-state__cancel')) {
-      target.parents('form')[0].reset();
-    } else if (target.hasClass('ic_arr_d')) {
-      target.toggleClass('active');
-      target.next().toggleClass('active');
-    } else if (target.hasClass('popup__close') || target.hasClass('popup-auth__btn')) {
-      if ($('.popup.active').length <= 1) {
-        modal.removeClass('active');
-      }
+    $(this).parents('.popup').removeClass('active');
+  });
+  $(document).on('click', '[data-status]', function () {
+    $(this).next().toggleClass('active');
 
-      target.parents('.popup').removeClass('active');
+    if ($('[data-status-drop].active').length > 1) {
+      $('[data-status-drop]').not($(this).next()).removeClass('active');
     }
   });
-  $('[data-search]').on('input', function (e) {
-    $(this).parent().next().toggleClass('active');
-  }); // $('.form__input-wrapper').on('click', function() {
-  //     $(this).toggleClass('active');
-  //     $(this).next().toggleClass('active');
-  // })
-  // $('.popup__close, .popup-auth__btn').on('click', function() {
-  //     if($('.popup.active').length <= 1) {
-  //         modal.removeClass('active');
-  //     }
-  //     $(this).parents('.popup').removeClass('active');
-  // })
-
-  /* Всплывающая подсказка в модуле ЛК - Данные о компании - Расхдные статьи*/
-
-  $(".company-expend__text-span.ic_m_brif").mousemove(function (e) {
-    $(".company-expend__tooltip").addClass('active');
-  }).mouseout(function () {
-    $(".company-expend__tooltip").removeClass('active');
+  $(document).on('click', '[data-status-drop]', function (e) {
+    let target = $(e.target);
+    $(this).prev().text(target.text());
+    $(this).removeClass('active');
   });
+  $(document).on('click', '[data-logout]', function (e) {
+    $(this).find('[data-drop-logout]').toggleClass('active');
+  });
+  $(document).on('click', '[data-drop]', function (e) {
+    let target = $(e.target);
+
+    if (target.attr('data-drop-arr') === '') {
+      if ($(this).next().attr('data-drop-list') === '') {
+        $(this).next().toggleClass('active');
+      }
+
+      $('[data-drop-list]').not($(this).next()).removeClass('active');
+    }
+  });
+  $(document).on('click', '[data-drop-list]', function (e) {
+    let target = $(e.target);
+    let value = target.text();
+    target.parent().prev().find('input').val(value);
+    $(this).removeClass('active');
+  });
+  $(document).on('click', '[data-reset]', function () {
+    $(this).parents('form')[0].reset();
+  });
+
+  if ($('#expend').length > 0) {
+    $(document).on('mouseover', '[data-tip]', function () {
+      console.log(1);
+      $(this).parents('.company-expend__item').find('[data-tooltip]').addClass('active');
+    });
+    $(document).on('mouseout', '[data-tip]', function () {
+      $(this).parents('.company-expend__item').find('[data-tooltip]').removeClass('active');
+    });
+  }
   /* Показать/скрыть пароль */
 
-  $('.auth__input-wrapper').on('click', '.auth__icon', function () {
+
+  $(document).on('click', '.auth__icon', function () {
     let input = $(this).prev();
 
     if (input.attr('type') == 'password') {
@@ -14536,8 +14515,7 @@ $(function () {
   });
   /* Блокировка части вёрстки при первичной аторизации */
 
-  $('#auth-system').on('click', function () {
-    console.log($(this).siblings('.auth__label'));
+  $(document).on('click', '#auth-system', function () {
     $(this).siblings('.auth__label').css({
       'opacity': '.5',
       'pointer-events': 'none'
@@ -14555,17 +14533,85 @@ $(function () {
       'pointer-events': 'none'
     });
   });
-  /* Ограничение ввода символов для input[type=number] */
+  /* Фильтра на input (только буквы) */
 
-  if ($('.numLength').length > 0) {
-    $('.numLength').on('keyup', function () {
-      $(this).val(this.value.match(/[0-9]*/));
-    });
-  }
-
-  if ($('.onlyAlpha').length > 0) {
-    $('.onlyAlpha').on('keyup', function () {
+  if ($('[data-aplha]').length > 0) {
+    $('[data-aplha]').on('keyup', function () {
       $(this).val(this.value.match(/^[a-zA-Zа-яА-ЯёЁ]*/)); //[ ]?[a-zA-Zа-яА-ЯёЁ]*$ - разрешает 1 пробел
     });
   }
+  /* Фильтра на input (только цифры) */
+
+
+  if ($('[data-num]').length > 0) {
+    $('[data-num]').on('keyup', function () {
+      $(this).val(this.value.match(/[0-9]*/));
+    });
+  } // else if(target.hasClass('company-state__show-arch')) {
+  //     openModal('arch-units');
+  // }
+  // else if(target.hasClass('units-list__edit')) {
+  //     openModal('info-unit');
+  // }
+  // else if(target.hasClass('company-expend__add')) {
+  //     openModal('add-state');
+  // }
+  // else if(target.hasClass('sa__text') && target.hasClass('ic_lock')) {
+  //     openModal('sa-ch-pass');
+  // }
+  // else if(target.hasClass('sa__text') && target.hasClass('ic_edit')) {
+  //     openModal('info-unit');
+  // }
+  // else if(target.parent().hasClass('drop')) {
+  //     let val = target.text();
+  //     target.parent().prev().find('input').val(val);
+  //     target.parent().removeClass('active');
+  // }
+  // else if(target.hasClass('modal')) {
+  //     closeModal();
+  // }
+  // else if(target.attr('data-close') === '') {
+  //     if($('.popup.active').length <= 1) {
+  //         modal.removeClass('active');
+  //     }
+  //     target.parents('.popup').removeClass('active');
+  // }
+  // else if(target.attr('data-drop') === '') {
+  //     target.parent().next().addClass('active');
+  // }
+  // else if(target.attr('data-search') === '') {
+  //     target.parent().next().toggleClass('active');
+  // }
+  // $('.popup__close, .popup-auth__btn').on('click', function() {
+  //     if($('.popup.active').length <= 1) {
+  //         modal.removeClass('active');
+  //     }
+  //     $(this).parents('.popup').removeClass('active');
+  // })
+  // $('.drop').on('click', function(e) {
+  //     let val = $(e.target).text();
+  //     if($(this).prev().find('input').length > 0) {
+  //         $(this).prev().find('input').val(val);
+  //         $(this).removeClass('active');
+  //         $(this).prev().removeClass('active');
+  //     }else {
+  //         $(this).prev().text(val);
+  //         $(this).removeClass('active');
+  //         $(this).prev().removeClass('active');
+  //     }
+  // })
+  // $('[data-search]').on('input', function(e) {
+  //     $(this).parent().next().toggleClass('active');
+  // })
+  // $('.form__input-wrapper').on('click', function() {
+  //     $(this).toggleClass('active');
+  //     $(this).next().toggleClass('active');
+  // })
+  // $('.popup__close, .popup-auth__btn').on('click', function() {
+  //     if($('.popup.active').length <= 1) {
+  //         modal.removeClass('active');
+  //     }
+  //     $(this).parents('.popup').removeClass('active');
+  // })
+
 });
