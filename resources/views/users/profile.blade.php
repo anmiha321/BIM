@@ -148,23 +148,23 @@
                             <div class="lk__input-wrapper">\
                             <input type="hidden" name="id_edit" id="id_edit" class="form__input lk__input onlyAlpha" value="' + item.id + '" placeholder="' + item.id + '" maxlength="30">\
                                 <p class="lk__label smtext">Фамилия</p>\
-                                <input type="text" name="surname" id="surname" class="form__input lk__input onlyAlpha" placeholder="' + item.surname + '" maxlength="30">\
+                                <input type="text" name="surname" id="surname" class="form__input lk__input onlyAlpha" value="' + item.surname + '" placeholder="' + item.surname + '" maxlength="30">\
                             </div>\
                             <div class="lk__input-wrapper">\
                                 <p class="lk__label smtext">Имя</p>\
-                                <input type="text" name="name" id="name" class="form__input lk__input onlyAlpha" placeholder="' + item.name + '" maxlength="30">\
+                                <input type="text" name="name" id="name" class="form__input lk__input onlyAlpha" placeholder="' + item.name + '" value="' + item.name + '" maxlength="30">\
                             </div>\
                             <div class="lk__input-wrapper">\
                                 <p class="lk__label smtext">Отчество</p>\
-                                <input type="text" name="patronymic" id="patronymic" class="form__input lk__input onlyAlpha" placeholder="' + item.patronymic + '" maxlength="30">\
+                                <input type="text" name="patronymic" id="patronymic" class="form__input lk__input onlyAlpha" placeholder="' + item.patronymic + '" value="' + item.patronymic + '" maxlength="30">\
                             </div>\
                             <div class="lk__input-wrapper lk__input-wrapper_big">\
                                 <p class="lk__label smtext">Компания</p>\
-                                <input type="text" name="id_company" id="id_company" class="form__input lk__input" placeholder="'+item.id_company+'" maxlength="150">\
+                                <input type="text" name="id_company" id="id_company" class="form__input lk__input" placeholder="'+item.id_company+'" value="'+item.id_company+'" maxlength="150">\
                             </div>\
                             <div class="lk__input-wrapper">\
                                 <p class="lk__label smtext">Страна</p>\
-                                <div class="form__input-wrapper ic_arr_d"><input type="text" name="country" id="country" class="form__input lk__input onlyAlpha" placeholder="' + item.country + '" maxlength="30"></div>\
+                                <div class="form__input-wrapper ic_arr_d"><input type="text" name="country" id="country" class="form__input lk__input onlyAlpha" placeholder="' + item.country + '" value="' + item.country + '" maxlength="30"></div>\
                                 <div id="drop_county" class="drop">\
                                 <p class="drop__item">Россия</p>\
                                 <p class="drop__item">Украина</p>\
@@ -176,7 +176,7 @@
                             </div>\
                             <div class="lk__input-wrapper">\
                                 <p class="lk__label smtext">Город</p>\
-                                <div class="form__input-wrapper ic_arr_d"><input type="text" name="city" id="city" class="form__input lk__input onlyAlpha" placeholder="' + item.city + '" maxlength="30"></div>\
+                                <div class="form__input-wrapper ic_arr_d"><input type="text" name="city" id="city" class="form__input lk__input onlyAlpha" placeholder="' + item.city + '" value="' + item.city + '" maxlength="30"></div>\
                                 <div id="drop_city" class="drop">\
                                 <p class="drop__item">Тюмень</p>\
                                 <p class="drop__item">Москва</p>\
@@ -188,11 +188,11 @@
                             </div>\
                             <div class="lk__input-wrapper">\
                                 <p class="lk__label smtext">Телефон</p>\
-                                <input type="tel" name="phone" id="phone" class="form__input lk__input" placeholder="' + item.phone + '" maxlength="17">\
+                                <input type="tel" name="phone" id="phone" class="form__input lk__input" placeholder="' + item.phone + '" value="' + item.phone + '" maxlength="17">\
                             </div>\
                             <div class="lk__input-wrapper">\
                                 <p class="lk__label smtext">E-mail</p>\
-                                <input type="email" name="email" id="email" class="form__input lk__input" placeholder="' + item.email + '" maxlength="30">\
+                                <input type="email" name="email" id="email" class="form__input lk__input" placeholder="' + item.email + '" value="' + item.email + '" maxlength="30">\
                             </div>\
                         </div>\
                     </div>\

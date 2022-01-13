@@ -184,3 +184,4 @@ $keywords = 'keywords';
 @yield('profile')
 @yield('users')
 @yield('new-user')
+@yield('company')

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Company;
+use App\Models\Manager;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -65,17 +67,28 @@ class ProfileController extends Controller
 
             $user = User::find($id);
             $profile = Auth::user();
+            $company = new Company;
+            $companyid = User::find($id)->company;
             if ($profile) {
-
+                $profile->surname = $request->input('surname', $user->surname);
                 $profile->name = $request->input('name', $user->name);
                 $profile->patronymic = $request->input('patronymic', $user->patronymic);
-                $profile->id_company = $request->input('id_company', $user->id_company);
+                $company->title = $request->input('id_company', $user->id_company);
                 $profile->country = $request->input('country', $user->country);
                 $profile->city = $request->input('city', $user->city);
                 $profile->phone = $request->input('phone', $user->phone);
                 $profile->email = $request->input('email_profile', $user->email);
                 $credentials = array_filter($request->all());
                 $user->update($credentials);
+                if(empty($companyid))
+                {
+                    $user->company()->save($company);
+                }
+                else
+                {
+                    $companyid->title = $request['id_company'];
+                    $companyid->update();
+                }
                 return response()->json([
                     'status' => 200,
                     'message' => 'Worker Updated Successfully.'
@@ -130,6 +143,59 @@ class ProfileController extends Controller
 
             }
         }
+    }
+    public function CreateAndUpdateCompany(Request $request)
+    {
+            $id = Auth::user()->getAuthIdentifier();
+            $companyid = User::find($id)->company;
+            if(empty($companyid))
+            {
+                $newmanagerid = new Manager();
+
+                $newmanagerid->surname = $request['surname'];
+                $newmanagerid->name = $request['name'];
+                $newmanagerid->patronymic = $request['patronymic'];
+                $newmanagerid->phone =  $request['phone_dir'];
+                $newmanagerid->email = $request['email_dir'];
+                $newmanagerid->save();
+                $managerid = Manager::latest()->first()->id;
+                $manager = Manager::find($managerid);
+                $companyid->manager()->associate($manager)->save();
+            }
+            else
+            {
+                $newmanagerid = Company::where('id', $companyid)->manager;
+
+                $newmanagerid->surname = $request['surname'];
+                $newmanagerid->name = $request['name'];
+                $newmanagerid->patronymic = $request['patronymic'];
+                $newmanagerid->phone =  $request['phone_dir'];
+                $newmanagerid->email = $request['email_dir'];
+                $newmanagerid->update();
+            }
+            $credentialcompany = array_filter([
+                'INN' => $request['INN'],
+                'BIK' => $request['BIK'],
+                'law_address' => $request['law_address'],
+                'mail_address' => $request['mail_address'],
+                'fact_address' => $request['fact_address'],
+                'KPP' => $request['KPP'],
+                'OKPO' => $request['OKPO'],
+                'tax_system' => $request['tax_system'],
+                'OGPH' => $request['OGPH'],
+                'email' => $request['email'],
+                'bank_name' => $request['bank_name'],
+                'ch_acc' => $request['ch_acc'],
+                'corr_acc' => $request['corr_acc'],
+                'bank_BIK' => $request['bank_BIK'],
+            ]);
+            $companyid->ch_acc = $request->input('ch_acc');
+            $companyid->corr_acc = $request->input('corr_acc');
+            $companyid->update($credentialcompany);
+            return response()->json([
+                'status' => 200,
+                'message' => 'Компания успешно создана!',
+            ]);
     }
 
 }
