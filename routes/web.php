@@ -26,6 +26,7 @@ Route::get('/data-company', [ProfileController::class, 'data_company'])->name('d
 Route::get('/new-user', [UserController::class, 'newuser'])->name('new-user');
 Route::get('/edit_user/{id}', [UserController::class, 'edit'])->name('edit_user');
 Route::get('fetchprofile', [ProfileController::class, 'fetchprofile'])->name('fetchprofile');
+Route::get('fetchcompany', [ProfileController::class, 'fetchcompany'])->name('fetchcompany');
 Route::get('fullinfo', [ProfileController::class, 'fullinfo'])->name('fullinfo');
 Route::get('search', [UserController::class, 'search'])->name('search');
 Route::get('archive', [UserController::class, 'archive'])->name('archive');

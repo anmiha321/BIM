@@ -14439,10 +14439,10 @@ $(function () {
     let idPopup = $(this).attr('data-popup');
     openModal(idPopup);
   });
-  $(document).on('click', '[data-add-input]', function () {
-    let phone = $(this).prev().clone().mask('+7 (999) 999-9999');
-    $(this).before(phone);
-  });
+  // $(document).on('click', '[data-add-input]', function () {
+  //   let phone = $(this).prev().clone().mask('+7 (999) 999-9999');
+  //   $(this).before(phone);
+  // });
   $(document).on('click', '[data-close]', function () {
     if ($('.popup.active').length <= 1) {
       modal.removeClass('active');

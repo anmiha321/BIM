@@ -16,127 +16,127 @@
         <div class="company__body">
             <div id="main" class="company__block active">
                 <form action="#" name="main_info" id="company" class="company-main form">
-                    <div class="company-main__main">
-                        <div class="company-main__left">
-                            <div class="company-main__checking block">
-                                <div class="company-main__input-wrapper">
-                                    <p class="company-main__label smtext form__label">ИНН</p>
-                                    <input data-num type="text" name="INN" id="" class="company-main__input form__input" placeholder="1234 5482 2266" maxlength="12">
-                                </div>
-                                <div class="company-main__input-wrapper">
-                                    <p class="company-main__label smtext form__label">БИК</p>
-                                    <input data-num type="text" name="BIK" id="" class="company-main__input form__input" placeholder="125 478 785" maxlength="9">
-                                </div>
-                                <div class="company-main__btn smtext">Проверить</div>
-                            </div>
-                            <div class="company-main__requisites block">
-                                <div class="company-main__input-wrapper">
-                                    <p class="company-main__label smtext form__label">Юридический адрес</p>
-                                    <input type="text" name="law_address" id="" class="company-name__input form__input" placeholder="г. Тюмень ул. Тюменская 27" maxlength="50">
-                                </div>
-                                <div class="company-main__input-wrapper">
-                                    <p class="company-main__label smtext form__label">Почтовый адрес</p>
-                                    <input type="text" name="mail_address" id="" class="company-name__input form__input" placeholder="г. Тюмень ул. Первомайская 3 оф.211" maxlength="50">
-                                </div>
-                                <div class="company-main__input-wrapper">
-                                    <p class="company-main__label smtext form__label">Фактический адрес</p>
-                                    <input type="text" name="fact_address" id="" class="company-name__input form__input" placeholder="г. Тюмень ул. Первомайская 3 оф.211" maxlength="50">
-                                </div>
-                                <div class="company-main__input-wrapper">
-                                    <p class="company-main__label smtext form__label">КПП</p>
-                                    <input data-num type="text" name="KPP" id="" class="company-name__input form__input" placeholder="152752553" maxlength="9">
-                                </div>
-                                <div class="company-main__input-wrapper">
-                                    <p class="company-main__label smtext form__label">ОКПО</p>
-                                    <input data-num type="text" name="OKPO" id="" class="company-name__input form__input" placeholder="4512538884" maxlength="10">
-                                </div>
-                                <div class="company-main__input-wrapper">
-                                    <p class="company-main__label smtext form__label">Система налогообложения</p>
-                                    <div data-drop class="form__input-wrapper">
-                                        <span data-drop-arr class="form__input-arr ic_arr_d"></span>
-                                        <input data-aplha type="text" name="tax_system" id="" class="company-name__input form__input " placeholder="Упрощенная" maxlength="20" readonly>
-                                    </div>
-                                    <div data-drop-list class="drop">
-                                        <p class="drop__item">Упрощенная</p>
-                                        <p class="drop__item">Другая</p>
-                                    </div>
-                                </div>
-                                <div class="company-main__input-wrapper">
-                                    <p class="company-main__label smtext form__label">ОГРН</p>
-                                    <input data-num type="text" name="OGPH" id="" class="company-name__input form__input" placeholder="8546 996 631 663 " maxlength="13">
-                                </div>
-                                <div class="company-main__input-wrapper">
-                                    <p class="company-main__label smtext form__label">Телефон</p>
-                                    <input type="tel" name="phone" id="" class="company-name__input form__input" placeholder="+ 7 (999) 999-99-99" maxlength="17">
-                                    <p data-add-input class="company-main__add-phone smtext">+ Добавить еще</p>
-                                </div>
-                                <div class="company-main__input-wrapper">
-                                    <p class="company-main__label smtext form__label">E-mail</p>
-                                    <input type="email" name="email" id="" class="company-name__input form__input" placeholder="example@gmail.com" maxlength="30">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="company-main__director block">
-                            <p class="company-main__heading text ic_m_lk">Руководитель</p>
-                            <div class="company-main__input-wrapper">
-                                <p class="company-main__label smtext form__label">Фамилия</p>
-                                <input data-aplha type="text" name="surname" id="" class="form__input " placeholder="Петров" maxlength="30">
-                            </div>
-                            <div class="company-main__input-wrapper">
-                                <p class="company-main__label smtext form__label">Имя</p>
-                                <input data-aplha type="text" name="name" id="" class="form__input " placeholder="Сергей" maxlength="30">
-                            </div>
-                            <div class="company-main__input-wrapper">
-                                <p class="company-main__label smtext form__label">Отчество</p>
-                                <input data-aplha type="text" name="patronymic" id="" class="form__input " placeholder="Леонидович" maxlength="30">
-                            </div>
-                            <div class="company-main__input-wrapper">
-                                <p class="company-main__label smtext form__label">Контактный телефон</p>
-                                <input type="tel" name="phone_dir" id="" class="form__input" placeholder="+7 (999) 999-99-99" maxlength="17">
-                            </div>
-                            <div class="company-main__input-wrapper">
-                                <p class="company-main__label smtext form__label">E-mail</p>
-                                <input type="email" name="email_dir" id="" class="form__input" placeholder="example@gmail.com" maxlength="30">
-                            </div>
-                        </div>
-                        <div class="company-main__bank block">
-                            <p class="company-main__heading company-main__heading_bank text ic_m_treat">Банковские реквизиты</p>
-                            <div class="company-main__bank-row">
-                                <div class="company-main__input-wrapper">
-                                    <p class="company-main__label smtext form__label">Наименование банка</p>
-                                    <div data-drop class="form__input-wrapper">
-                                        <span data-drop-arr class="form__input-arr ic_arr_d"></span>
-                                        <input type="text" name="bank_name" id="" class="form__input" placeholder="ПАО “Сбербанк”" maxlength="30" readonly>
-                                    </div>
-                                    <div data-drop-list class="drop">
-                                        <p class="drop__item">ПАО “Сбербанк”</p>
-                                        <p class="drop__item">Другой банк</p>
-                                    </div>
-                                </div>
-                                <div class="company-main__input-wrapper">
-                                    <p class="company-main__label smtext form__label">БИК</p>
-                                    <input data-num type="text" name="bank_BIK" id="" class="form__input" placeholder="125 478 785" maxlength="9">
-                                </div>
-                            </div>
-                            <div class="company-main__bank-row">
-                                <div class="company-main__input-wrapper">
-                                    <p class="company-main__label smtext form__label">Р/С</p>
-                                    <input data-num type="text" name="ch_acc" id="" class="form__input" placeholder="08854731786216325794" maxlength="20">
-                                </div>
-                                <p class="company-main__balance text ic_m_econ">Баланс 12&nbsp;600&nbsp;&#8381;</p>
-                            </div>
-                            <div class="company-main__bank-row">
-                                <div class="company-main__input-wrapper">
-                                    <p class="company-main__label smtext form__label">К/С</p>
-                                    <input data-num type="text" name="corr_acc" id="" class="form__input" placeholder="856 479 115 782 437 167 42" maxlength="20">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="lk-btns form__btns">
-                        <button type="submit"  class="form__btn lk-btns__submit btn smtext">Сохранить</button>
-                        <div data-reset class="form__cancel smtext cancel">Отменить</div>
-                    </div>
+{{--                    <div class="company-main__main">--}}
+{{--                        <div class="company-main__left">--}}
+{{--                            <div class="company-main__checking block">--}}
+{{--                                <div class="company-main__input-wrapper">--}}
+{{--                                    <p class="company-main__label smtext form__label">ИНН</p>--}}
+{{--                                    <input data-num type="text" name="INN" id="" class="company-main__input form__input" placeholder="1234 5482 2266" maxlength="12">--}}
+{{--                                </div>--}}
+{{--                                <div class="company-main__input-wrapper">--}}
+{{--                                    <p class="company-main__label smtext form__label">БИК</p>--}}
+{{--                                    <input data-num type="text" name="BIK" id="" class="company-main__input form__input" placeholder="125 478 785" maxlength="9">--}}
+{{--                                </div>--}}
+{{--                                <div class="company-main__btn smtext">Проверить</div>--}}
+{{--                            </div>--}}
+{{--                            <div class="company-main__requisites block">--}}
+{{--                                <div class="company-main__input-wrapper">--}}
+{{--                                    <p class="company-main__label smtext form__label">Юридический адрес</p>--}}
+{{--                                    <input type="text" name="law_address" id="" class="company-name__input form__input" placeholder="г. Тюмень ул. Тюменская 27" maxlength="50">--}}
+{{--                                </div>--}}
+{{--                                <div class="company-main__input-wrapper">--}}
+{{--                                    <p class="company-main__label smtext form__label">Почтовый адрес</p>--}}
+{{--                                    <input type="text" name="mail_address" id="" class="company-name__input form__input" placeholder="г. Тюмень ул. Первомайская 3 оф.211" maxlength="50">--}}
+{{--                                </div>--}}
+{{--                                <div class="company-main__input-wrapper">--}}
+{{--                                    <p class="company-main__label smtext form__label">Фактический адрес</p>--}}
+{{--                                    <input type="text" name="fact_address" id="" class="company-name__input form__input" placeholder="г. Тюмень ул. Первомайская 3 оф.211" maxlength="50">--}}
+{{--                                </div>--}}
+{{--                                <div class="company-main__input-wrapper">--}}
+{{--                                    <p class="company-main__label smtext form__label">КПП</p>--}}
+{{--                                    <input data-num type="text" name="KPP" id="" class="company-name__input form__input" placeholder="152752553" maxlength="9">--}}
+{{--                                </div>--}}
+{{--                                <div class="company-main__input-wrapper">--}}
+{{--                                    <p class="company-main__label smtext form__label">ОКПО</p>--}}
+{{--                                    <input data-num type="text" name="OKPO" id="" class="company-name__input form__input" placeholder="4512538884" maxlength="10">--}}
+{{--                                </div>--}}
+{{--                                <div class="company-main__input-wrapper">--}}
+{{--                                    <p class="company-main__label smtext form__label">Система налогообложения</p>--}}
+{{--                                    <div data-drop class="form__input-wrapper">--}}
+{{--                                        <span data-drop-arr class="form__input-arr ic_arr_d"></span>--}}
+{{--                                        <input data-aplha type="text" name="tax_system" id="" class="company-name__input form__input " placeholder="Упрощенная" maxlength="20" readonly>--}}
+{{--                                    </div>--}}
+{{--                                    <div data-drop-list class="drop">--}}
+{{--                                        <p class="drop__item">Упрощенная</p>--}}
+{{--                                        <p class="drop__item">Другая</p>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                <div class="company-main__input-wrapper">--}}
+{{--                                    <p class="company-main__label smtext form__label">ОГРН</p>--}}
+{{--                                    <input data-num type="text" name="OGPH" id="" class="company-name__input form__input" placeholder="8546 996 631 663 " maxlength="13">--}}
+{{--                                </div>--}}
+{{--                                <div class="company-main__input-wrapper">--}}
+{{--                                    <p class="company-main__label smtext form__label">Телефон</p>--}}
+{{--                                    <input type="tel" name="phone" id="" class="company-name__input form__input" placeholder="+ 7 (999) 999-99-99" maxlength="17">--}}
+{{--                                    <p data-add-input class="company-main__add-phone smtext">+ Добавить еще</p>--}}
+{{--                                </div>--}}
+{{--                                <div class="company-main__input-wrapper">--}}
+{{--                                    <p class="company-main__label smtext form__label">E-mail</p>--}}
+{{--                                    <input type="email" name="email" id="" class="company-name__input form__input" placeholder="example@gmail.com" maxlength="30">--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                        <div class="company-main__director block">--}}
+{{--                            <p class="company-main__heading text ic_m_lk">Руководитель</p>--}}
+{{--                            <div class="company-main__input-wrapper">--}}
+{{--                                <p class="company-main__label smtext form__label">Фамилия</p>--}}
+{{--                                <input data-aplha type="text" name="surname" id="" class="form__input " placeholder="Петров" maxlength="30">--}}
+{{--                            </div>--}}
+{{--                            <div class="company-main__input-wrapper">--}}
+{{--                                <p class="company-main__label smtext form__label">Имя</p>--}}
+{{--                                <input data-aplha type="text" name="name" id="" class="form__input " placeholder="Сергей" maxlength="30">--}}
+{{--                            </div>--}}
+{{--                            <div class="company-main__input-wrapper">--}}
+{{--                                <p class="company-main__label smtext form__label">Отчество</p>--}}
+{{--                                <input data-aplha type="text" name="patronymic" id="" class="form__input " placeholder="Леонидович" maxlength="30">--}}
+{{--                            </div>--}}
+{{--                            <div class="company-main__input-wrapper">--}}
+{{--                                <p class="company-main__label smtext form__label">Контактный телефон</p>--}}
+{{--                                <input type="tel" name="phone" id="" class="form__input" placeholder="+7 (999) 999-99-99" maxlength="17">--}}
+{{--                            </div>--}}
+{{--                            <div class="company-main__input-wrapper">--}}
+{{--                                <p class="company-main__label smtext form__label">E-mail</p>--}}
+{{--                                <input type="email" name="email" id="" class="form__input" placeholder="example@gmail.com" maxlength="30">--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                        <div class="company-main__bank block">--}}
+{{--                            <p class="company-main__heading company-main__heading_bank text ic_m_treat">Банковские реквизиты</p>--}}
+{{--                            <div class="company-main__bank-row">--}}
+{{--                                <div class="company-main__input-wrapper">--}}
+{{--                                    <p class="company-main__label smtext form__label">Наименование банка</p>--}}
+{{--                                    <div data-drop class="form__input-wrapper">--}}
+{{--                                        <span data-drop-arr class="form__input-arr ic_arr_d"></span>--}}
+{{--                                        <input type="text" name="bank_name" id="" class="form__input" placeholder="ПАО “Сбербанк”" maxlength="30" readonly>--}}
+{{--                                    </div>--}}
+{{--                                    <div data-drop-list class="drop">--}}
+{{--                                        <p class="drop__item">ПАО “Сбербанк”</p>--}}
+{{--                                        <p class="drop__item">Другой банк</p>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                <div class="company-main__input-wrapper">--}}
+{{--                                    <p class="company-main__label smtext form__label">БИК</p>--}}
+{{--                                    <input data-num type="text" name="bank_BIK" id="" class="form__input" placeholder="125 478 785" maxlength="9">--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="company-main__bank-row">--}}
+{{--                                <div class="company-main__input-wrapper">--}}
+{{--                                    <p class="company-main__label smtext form__label">Р/С</p>--}}
+{{--                                    <input data-num type="text" name="ppppcccc" id="" class="form__input" placeholder="08854731786216325794" maxlength="20">--}}
+{{--                                </div>--}}
+{{--                                <p class="company-main__balance text ic_m_econ">Баланс 12&nbsp;600&nbsp;&#8381;</p>--}}
+{{--                            </div>--}}
+{{--                            <div class="company-main__bank-row">--}}
+{{--                                <div class="company-main__input-wrapper">--}}
+{{--                                    <p class="company-main__label smtext form__label">К/С</p>--}}
+{{--                                    <input data-num type="text" name="kkkkcccc" id="" class="form__input" placeholder="856 479 115 782 437 167 42" maxlength="20">--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <div class="lk-btns form__btns">--}}
+{{--                        <button type="submit"  class="form__btn lk-btns__submit btn smtext">Сохранить</button>--}}
+{{--                        <div data-reset class="form__cancel smtext cancel">Отменить</div>--}}
+{{--                    </div>--}}
                 </form>
             </div>
             <div id="docs" class="company__block company-docs ">
@@ -452,9 +452,7 @@
 @endsection
 @section('company')
     <script>
-        $(document).on('submit', '#company', function (e) {
-            e.preventDefault();
-            let EditFormData = new FormData($('#company')[0]);
+        $(document).ready(function () {
 
             $.ajaxSetup({
                 headers: {
@@ -462,29 +460,69 @@
                 }
             });
 
-            $.ajax({
-                type: "POST",
-                enctype: 'multipart/form-data',
-                url: "create_and_update_company",
-                data: EditFormData,
-                processData: false,
-                contentType: false,
-                success: function (response) {
-                    if (response.status == 400) {
-                        $('#update_msgList').html("");
-                        $('#update_msgList').addClass('alert alert-danger');
-                        $.each(response.errors, function (key, err_value) {
-                            $('#update_msgList').append('<li>' + err_value +
-                                '</li>');
-                        });
-                        $('.update_student').text('Update');
-                    } else {
-                        $('#update_msgList').html("");
-                        $('#success_message').addClass('alert alert-success');
-                        $('#success_message').text(response.message);
-                        $('#company').find('input').val('');
+            fetchcompany();
+
+            function fetchcompany() {
+                $.ajax({
+                    type: "GET",
+                    url: "fetchcompany",
+                    dataType: "json",
+                    success: function (data) {
+                        $('#company').html(data.company);
                     }
-                }
+                });
+            }
+
+            $(document).on('submit', '#company', function (e) {
+                e.preventDefault();
+                let EditFormData = new FormData($('#company')[0]);
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                    type: "POST",
+                    enctype: 'multipart/form-data',
+                    url: "create_and_update_company",
+                    data: EditFormData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        if (response.status == 400) {
+                            $('#update_msgList').html("");
+                            $('#update_msgList').addClass('alert alert-danger');
+                            $.each(response.errors, function (key, err_value) {
+                                $('#update_msgList').append('<li>' + err_value +
+                                    '</li>');
+                            });
+                            $('.update_student').text('Update');
+                        } else {
+                            alert('Информация успешно обновлена!')
+                            $('#update_msgList').html("");
+                            $('#success_message').addClass('alert alert-success');
+                            $('#success_message').text(response.message);
+                            fetchcompany();
+                        }
+                    }
+                });
+            });
+
+            var i = 0;
+            var maxField = 9;
+
+            $(document).on( 'click', '#add_phone', function (e) {
+                e.preventDefault();
+                $(document).each(function() {
+                    if (i < maxField) {
+                        i++;
+                        $('#imput_phone').append('<input type="tel" name="phonecompany['+i+'][phone]" id="phone_input" class="company-name__input form__input" placeholder="+ 7 (999) 999-99-99" maxlength="17">');
+                    } else {
+                        alert('привышен лимит!')
+                    }
+                });
             });
         });
     </script>

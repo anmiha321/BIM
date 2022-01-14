@@ -14,6 +14,6 @@ class Phone extends Model
     ];
     public function companies()
     {
-        return $this->belongsToMany(Phone::class);
+        return $this->belongsToMany(Company::class);
     }
 }
