@@ -511,13 +511,13 @@
             });
 
             var i = 0;
-            var inputcount = $('#count_imputs').val();
+            var inputcount = $('#count_inputs').val();
             var maxField = 9;
-
+            console.log(inputcount);
             $(document).on( 'click', '#add_phone', function (e) {
                 e.preventDefault();
                 $(document).each(function() {
-                    if (i < maxField) {
+                    if (inputcount < maxField) {
                         i++;
                         $('#imput_phone').append('<input type="tel" name="phonecompany['+i+'][phone]" id="phone_input" class="company-name__input form__input" placeholder="+ 7 (999) 999-99-99" maxlength="17">');
                     } else {

@@ -261,7 +261,7 @@ class ProfileController extends Controller
                     $output .= '<input type="tel" name="phonecompany[' . $i++ . '][phone]" id="phone_input" class="company-name__input form__input" value="' . $phonoe->phone . '" placeholder="+ 7 (999) 999-99-99" maxlength="17">';
             }
             $output .='
-<input type="text" name="" id="count_imputs" class="" value="' . $i++ . '" placeholder="+ 7 (999) 999-99-99" maxlength="17">
+<input type="text" name="" id="count_inputs" class="" value="' . $i . '" placeholder="+ 7 (999) 999-99-99" maxlength="17">
 </div>
                                     <p data-add-input id="add_phone" class="company-main__add-phone smtext">+ Добавить еще</p>
                                 </div>
