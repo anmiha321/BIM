@@ -511,6 +511,7 @@
             });
 
             var i = 0;
+            var inputcount = $('#count_imputs').val();
             var maxField = 9;
 
             $(document).on( 'click', '#add_phone', function (e) {
