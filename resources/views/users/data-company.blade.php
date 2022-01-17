@@ -461,7 +461,6 @@
             });
 
             fetchcompany();
-
             function fetchcompany() {
                 $.ajax({
                     type: "GET",
@@ -469,6 +468,21 @@
                     dataType: "json",
                     success: function (data) {
                         $('#company').html(data.company);
+                        var inputcount = $('#count_inputs').val();
+                        console.log(inputcount);
+                        var i = 0;
+                        var maxField = 9;
+                        $(document).on( 'click', '#add_phone', function (e) {
+                            e.preventDefault();
+                            $(document).each(function() {
+                                if (inputcount < maxField) {
+                                    inputcount++;
+                                    $('#imput_phone').append('<input type="tel" name="phonecompany['+inputcount+'][phone]" id="phone_input" class="company-name__input form__input" placeholder="+ 7 (999) 999-99-99" maxlength="17">');
+                                } else {
+                                    alert('привышен лимит!')
+                                }
+                            });
+                        });
                     }
                 });
             }
@@ -510,21 +524,6 @@
                 });
             });
 
-            var i = 0;
-            var inputcount = $('#count_inputs').val();
-            var maxField = 9;
-            console.log(inputcount);
-            $(document).on( 'click', '#add_phone', function (e) {
-                e.preventDefault();
-                $(document).each(function() {
-                    if (inputcount < maxField) {
-                        i++;
-                        $('#imput_phone').append('<input type="tel" name="phonecompany['+i+'][phone]" id="phone_input" class="company-name__input form__input" placeholder="+ 7 (999) 999-99-99" maxlength="17">');
-                    } else {
-                        alert('привышен лимит!')
-                    }
-                });
-            });
         });
     </script>
 @endsection

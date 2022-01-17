@@ -179,14 +179,31 @@ class ProfileController extends Controller
         $companyid->kkkkcccc = $request->input('kkkkcccc');
 
         $request->validate([
-            'phonecompany.*.phone' => 'required'
+            'phonecompany.*.phone' => 'required',
         ]);
-        foreach($request->phonecompany as $key => $value) {
-            $phone = Phone::create($value);
-//            $phone->phone = $value;
-//            $phone->save();
-            $phone->companies()->attach($companyid);
-        }
+        $phoneinfo = Company::find($companyid->id)->phones;
+        foreach ($phoneinfo as $phone)
+            {
+
+                foreach ($request->phonecompany as $value) {
+                    foreach ($value as $imputval) {
+                        foreach ($request->phoneid as $phoneid) {
+                            if (empty($phone) | !empty($imputval)) {
+//                                $phone = Phone::create($value);
+//                                $phone->companies()->attach($companyid);
+                                echo "<pre>Создать";
+                            }
+//                            else {
+////                                $phoneinfo = Phone::find($phone->id);
+////                                $filter = array_filter($value);
+////                                $phoneinfo->update($filter);
+//                                echo "<pre>Обновить";
+//                            }
+                        }
+                    }
+                }
+            }
+
         $companyid->update($credentialcompany);
         return response()->json([
             'status' => 200,
@@ -197,6 +214,8 @@ class ProfileController extends Controller
     public function fetchcompany()
     {
         $i = 0;
+        $b = 0;
+        $id =
         $id = Auth::user()->getAuthIdentifier();
         $data = User::find($id)->company;
         $newmanagerid = Company::find($data->id)->manager;
@@ -208,40 +227,40 @@ class ProfileController extends Controller
                             <div class="company-main__checking block">
                                 <div class="company-main__input-wrapper">
                                     <p class="company-main__label smtext form__label">ИНН</p>
-                                    <input data-num type="text" name="INN" id="" class="company-main__input form__input" value="'.$data->INN.'" placeholder="1234 5482 2266" maxlength="12">
+                                    <input data-num type="text" name="INN" id="" class="company-main__input form__input" value="' . $data->INN . '" placeholder="1234 5482 2266" maxlength="12">
                                 </div>
                                 <div class="company-main__input-wrapper">
                                     <p class="company-main__label smtext form__label">БИК</p>
-                                    <input data-num type="text" name="BIK" id="" class="company-main__input form__input" value="'.$data->BIK.'" placeholder="125 478 785" maxlength="9">
+                                    <input data-num type="text" name="BIK" id="" class="company-main__input form__input" value="' . $data->BIK . '" placeholder="125 478 785" maxlength="9">
                                 </div>
                                 <div class="company-main__btn smtext">Проверить</div>
                             </div>
                             <div class="company-main__requisites block">
                                 <div class="company-main__input-wrapper">
                                     <p class="company-main__label smtext form__label">Юридический адрес</p>
-                                    <input type="text" name="law_address" id="" class="company-name__input form__input" value="'.$data->law_address.'" placeholder="г. Тюмень ул. Тюменская 27" maxlength="50">
+                                    <input type="text" name="law_address" id="" class="company-name__input form__input" value="' . $data->law_address . '" placeholder="г. Тюмень ул. Тюменская 27" maxlength="50">
                                 </div>
                                 <div class="company-main__input-wrapper">
                                     <p class="company-main__label smtext form__label">Почтовый адрес</p>
-                                    <input type="text" name="mail_address" id="" class="company-name__input form__input" value="'.$data->mail_address.'" placeholder="г. Тюмень ул. Первомайская 3 оф.211" maxlength="50">
+                                    <input type="text" name="mail_address" id="" class="company-name__input form__input" value="' . $data->mail_address . '" placeholder="г. Тюмень ул. Первомайская 3 оф.211" maxlength="50">
                                 </div>
                                 <div class="company-main__input-wrapper">
                                     <p class="company-main__label smtext form__label">Фактический адрес</p>
-                                    <input type="text" name="fact_address" id="" class="company-name__input form__input" value="'.$data->fact_address.'" placeholder="г. Тюмень ул. Первомайская 3 оф.211" maxlength="50">
+                                    <input type="text" name="fact_address" id="" class="company-name__input form__input" value="' . $data->fact_address . '" placeholder="г. Тюмень ул. Первомайская 3 оф.211" maxlength="50">
                                 </div>
                                 <div class="company-main__input-wrapper">
                                     <p class="company-main__label smtext form__label">КПП</p>
-                                    <input data-num type="text" name="KPP" id="" class="company-name__input form__input" value="'.$data->KPP.'" placeholder="152752553" maxlength="9">
+                                    <input data-num type="text" name="KPP" id="" class="company-name__input form__input" value="' . $data->KPP . '" placeholder="152752553" maxlength="9">
                                 </div>
                                 <div class="company-main__input-wrapper">
                                     <p class="company-main__label smtext form__label">ОКПО</p>
-                                    <input data-num type="text" name="OKPO" id="" class="company-name__input form__input" value="'.$data->OKPO.'" placeholder="4512538884" maxlength="10">
+                                    <input data-num type="text" name="OKPO" id="" class="company-name__input form__input" value="' . $data->OKPO . '" placeholder="4512538884" maxlength="10">
                                 </div>
                                 <div class="company-main__input-wrapper">
                                     <p class="company-main__label smtext form__label">Система налогообложения</p>
                                     <div data-drop class="form__input-wrapper">
                                         <span data-drop-arr class="form__input-arr ic_arr_d"></span>
-                                        <input data-aplha type="text" name="tax_system" id="" class="company-name__input form__input " value="'.$data->tax_system.'" placeholder="Упрощенная" maxlength="20" readonly>
+                                        <input data-aplha type="text" name="tax_system" id="" class="company-name__input form__input " value="' . $data->tax_system . '" placeholder="Упрощенная" maxlength="20" readonly>
                                     </div>
                                     <div data-drop-list class="drop">
                                         <p class="drop__item">Упрощенная</p>
@@ -250,24 +269,24 @@ class ProfileController extends Controller
                                 </div>
                                 <div class="company-main__input-wrapper">
                                     <p class="company-main__label smtext form__label">ОГРН</p>
-                                    <input data-num type="text" name="OGPH" id="" class="company-name__input form__input" value="'.$data->OGPH.'" placeholder="8546 996 631 663 " maxlength="13">
+                                    <input data-num type="text" name="OGPH" id="" class="company-name__input form__input" value="' . $data->OGPH . '" placeholder="8546 996 631 663 " maxlength="13">
                                 </div>
                                 <div class="company-main__input-wrapper" id="phone_div">
                                     <p class="company-main__label smtext form__label">Телефон</p>
                                     <div id="imput_phone">
                                     ';
-                                    foreach ($data->phones as $phonoe)
-            {
-                    $output .= '<input type="tel" name="phonecompany[' . $i++ . '][phone]" id="phone_input" class="company-name__input form__input" value="' . $phonoe->phone . '" placeholder="+ 7 (999) 999-99-99" maxlength="17">';
+            foreach ($data->phones as $phonoe) {
+                $output .= '<input type="text" name="phoneid[' . $b++ . '][phoneidecach]" id="phone_input_id" class="company-name__input form__input" value="' . $phonoe->id . '" placeholder="+ 7 (999) 999-99-99" maxlength="17">
+                <input type="tel" name="phonecompany[' . $i++ . '][phone]" id="phone_input" class="company-name__input form__input" value="' . $phonoe->phone . '" placeholder="+ 7 (999) 999-99-99" maxlength="17">';
             }
-            $output .='
+            $output .= '
 <input type="text" name="" id="count_inputs" class="" value="' . $i . '" placeholder="+ 7 (999) 999-99-99" maxlength="17">
 </div>
                                     <p data-add-input id="add_phone" class="company-main__add-phone smtext">+ Добавить еще</p>
                                 </div>
                                 <div class="company-main__input-wrapper">
                                     <p class="company-main__label smtext form__label">E-mail</p>
-                                    <input type="email" name="email" id="" class="company-name__input form__input" value="'.$data->email.'" placeholder="example@gmail.com" maxlength="30">
+                                    <input type="email" name="email" id="" class="company-name__input form__input" value="' . $data->email . '" placeholder="example@gmail.com" maxlength="30">
                                 </div>
                             </div>
                         </div>
@@ -275,23 +294,23 @@ class ProfileController extends Controller
                             <p class="company-main__heading text ic_m_lk">Руководитель</p>
                             <div class="company-main__input-wrapper">
                                 <p class="company-main__label smtext form__label">Фамилия</p>
-                                <input data-aplha type="text" name="surname" id="" class="form__input " value="'.$newmanagerid->surname.'" placeholder="Петров" maxlength="30">
+                                <input data-aplha type="text" name="surname" id="" class="form__input " value="' . $newmanagerid->surname . '" placeholder="Петров" maxlength="30">
                             </div>
                             <div class="company-main__input-wrapper">
                                 <p class="company-main__label smtext form__label">Имя</p>
-                                <input data-aplha type="text" name="name" id="" class="form__input " value="'.$newmanagerid->name.'" placeholder="Сергей" maxlength="30">
+                                <input data-aplha type="text" name="name" id="" class="form__input " value="' . $newmanagerid->name . '" placeholder="Сергей" maxlength="30">
                             </div>
                             <div class="company-main__input-wrapper">
                                 <p class="company-main__label smtext form__label">Отчество</p>
-                                <input data-aplha type="text" name="patronymic" id="" class="form__input " value="'.$newmanagerid->patronymic.'" placeholder="Леонидович" maxlength="30">
+                                <input data-aplha type="text" name="patronymic" id="" class="form__input " value="' . $newmanagerid->patronymic . '" placeholder="Леонидович" maxlength="30">
                             </div>
                             <div class="company-main__input-wrapper">
                                 <p class="company-main__label smtext form__label">Контактный телефон</p>
-                                <input type="tel" name="phone" id="" class="form__input" value="'.$newmanagerid->phone.'" placeholder="+7 (999) 999-99-99" maxlength="17">
+                                <input type="tel" name="phone" id="" class="form__input" value="' . $newmanagerid->phone . '" placeholder="+7 (999) 999-99-99" maxlength="17">
                             </div>
                             <div class="company-main__input-wrapper">
                                 <p class="company-main__label smtext form__label">E-mail</p>
-                                <input type="email" name="email" id="" class="form__input" value="'.$newmanagerid->email.'" placeholder="example@gmail.com" maxlength="30">
+                                <input type="email" name="email" id="" class="form__input" value="' . $newmanagerid->email . '" placeholder="example@gmail.com" maxlength="30">
                             </div>
                         </div>
                         <div class="company-main__bank block">
@@ -301,7 +320,7 @@ class ProfileController extends Controller
                                     <p class="company-main__label smtext form__label">Наименование банка</p>
                                     <div data-drop class="form__input-wrapper">
                                         <span data-drop-arr class="form__input-arr ic_arr_d"></span>
-                                        <input type="text" name="bank_name" id="" class="form__input" value="'.$data->bank_name.'" placeholder="ПАО “Сбербанк”" maxlength="30" readonly>
+                                        <input type="text" name="bank_name" id="" class="form__input" value="' . $data->bank_name . '" placeholder="ПАО “Сбербанк”" maxlength="30" readonly>
                                     </div>
                                     <div data-drop-list class="drop">
                                         <p class="drop__item">ПАО “Сбербанк”</p>
@@ -310,20 +329,20 @@ class ProfileController extends Controller
                                 </div>
                                 <div class="company-main__input-wrapper">
                                     <p class="company-main__label smtext form__label">БИК</p>
-                                    <input data-num type="text" name="bank_BIK" id="" class="form__input" value="'.$data->bank_BIK.'" placeholder="125 478 785" maxlength="9">
+                                    <input data-num type="text" name="bank_BIK" id="" class="form__input" value="' . $data->bank_BIK . '" placeholder="125 478 785" maxlength="9">
                                 </div>
                             </div>
                             <div class="company-main__bank-row">
                                 <div class="company-main__input-wrapper">
                                     <p class="company-main__label smtext form__label">Р/С</p>
-                                    <input data-num type="text" name="ppppcccc" id="" class="form__input" value="'.$data->ppppcccc.'" placeholder="08854731786216325794" maxlength="20">
+                                    <input data-num type="text" name="ppppcccc" id="" class="form__input" value="' . $data->ppppcccc . '" placeholder="08854731786216325794" maxlength="20">
                                 </div>
                                 <p class="company-main__balance text ic_m_econ">Баланс 12&nbsp;600&nbsp;&#8381;</p>
                             </div>
                             <div class="company-main__bank-row">
                                 <div class="company-main__input-wrapper">
                                     <p class="company-main__label smtext form__label">К/С</p>
-                                    <input data-num type="text" name="kkkkcccc" id="" class="form__input" value="'.$data->kkkkcccc.'" placeholder="856 479 115 782 437 167 42" maxlength="20">
+                                    <input data-num type="text" name="kkkkcccc" id="" class="form__input" value="' . $data->kkkkcccc . '" placeholder="856 479 115 782 437 167 42" maxlength="20">
                                 </div>
                             </div>
                         </div>
