@@ -153,15 +153,15 @@
                                         <input type="text" name="doc_name" id="" class="company-docs__input form__input" placeholder="Свидетельство о регистрации.pdf" maxlength="100">
                                         <button type="button" class="company-docs__del ic_close"></button>
                                     </div>
-                                    <div class="company-docs__add smtext">Добавить в список</div>
+                                    <div class="company-docs__add smtext"><input type="submit" value="">Добавить в список</div>
                                 </div>
                                 <div data-popup="add-doc" class="company-docs__load  btngreen">+ Загрузить другие документы</div>
                             </div>
                         </div>
-                        <div class="lk-btns form__btns">
-                            <input type="submit" value="Сохранить" class="form__btn lk-btns__submit btn smtext">
-                            <div data-reset class="form__cancel smtext cancel">Отменить</div>
-                        </div>
+{{--                        <div class="lk-btns form__btns">--}}
+{{--                            <input type="submit" value="Сохранить" class="form__btn lk-btns__submit btn smtext">--}}
+{{--                            <div data-reset class="form__cancel smtext cancel">Отменить</div>--}}
+{{--                        </div>--}}
                     </form>
                     <div class="company-docs__right block">
                         <div class="module__head">

@@ -150,7 +150,6 @@ class ProfileController extends Controller
     {
         $id = Auth::user()->getAuthIdentifier();
         $companyid = User::find($id)->company;
-        $phone = new Phone;
         if (empty($companyid->manager_id)) {
             $newmanagerid = new Manager();
 
@@ -181,29 +180,19 @@ class ProfileController extends Controller
         $request->validate([
             'phonecompany.*.phone' => 'required',
         ]);
-        $phoneinfo = Company::find($companyid->id)->phones;
-        foreach ($phoneinfo as $phone)
-            {
 
-                foreach ($request->phonecompany as $value) {
-                    foreach ($value as $imputval) {
-                        foreach ($request->phoneid as $phoneid) {
-                            if (empty($phone) | !empty($imputval)) {
-//                                $phone = Phone::create($value);
-//                                $phone->companies()->attach($companyid);
-                                echo "<pre>Создать";
-                            }
-//                            else {
-////                                $phoneinfo = Phone::find($phone->id);
-////                                $filter = array_filter($value);
-////                                $phoneinfo->update($filter);
-//                                echo "<pre>Обновить";
-//                            }
-                        }
-                    }
-                }
-            }
+        print_r($request->phoneid);
+        foreach ($request->phoneid as $id)
+        {
+    print_r($id);
+        }
 
+
+//        $phone = Phone::updateOrCreate($values);
+//        $phone->companies()->sync($companyid);
+//        $item = Phone::firstOrNew($values);
+//        $item->save();
+//        $item->companies()->sync($companyid);
         $companyid->update($credentialcompany);
         return response()->json([
             'status' => 200,
@@ -215,7 +204,9 @@ class ProfileController extends Controller
     {
         $i = 0;
         $b = 0;
-        $id =
+        $c = 0;
+        $c1 = 0;
+        $c2 = 0;
         $id = Auth::user()->getAuthIdentifier();
         $data = User::find($id)->company;
         $newmanagerid = Company::find($data->id)->manager;
@@ -276,11 +267,12 @@ class ProfileController extends Controller
                                     <div id="imput_phone">
                                     ';
             foreach ($data->phones as $phonoe) {
-                $output .= '<input type="text" name="phoneid[' . $b++ . '][phoneidecach]" id="phone_input_id" class="company-name__input form__input" value="' . $phonoe->id . '" placeholder="+ 7 (999) 999-99-99" maxlength="17">
+                $output .= '<input type="text" style="color:red" name="phoneid[' . $c1++ . '][id' . $c2++ . ']" id="phone_input_id" class="company-name__input form__input" value="' . $phonoe->id . '" placeholder="+ 7 (999) 999-99-99" maxlength="17">
+                <input type="tel" style="color:yellow"  name="phonecompanyreqvery[' . $b++ . '][input' . $c++ . ']" id="phone_input" class="company-name__input form__input" value="' . $phonoe->phone . '" placeholder="+ 7 (999) 999-99-99" maxlength="17">
                 <input type="tel" name="phonecompany[' . $i++ . '][phone]" id="phone_input" class="company-name__input form__input" value="' . $phonoe->phone . '" placeholder="+ 7 (999) 999-99-99" maxlength="17">';
             }
             $output .= '
-<input type="text" name="" id="count_inputs" class="" value="' . $i . '" placeholder="+ 7 (999) 999-99-99" maxlength="17">
+<input type="hidden" name="" id="count_inputs" class="" value="' . $i . '" placeholder="+ 7 (999) 999-99-99" maxlength="17">
 </div>
                                     <p data-add-input id="add_phone" class="company-main__add-phone smtext">+ Добавить еще</p>
                                 </div>
@@ -360,4 +352,8 @@ class ProfileController extends Controller
         echo json_encode($data);
     }
 
+    public function addfile()
+    {
+
+    }
 }

@@ -40,6 +40,11 @@ class Company extends Model
         return $this->belongsToMany(Phone::class);
     }
 
+    public function documents()
+    {
+        return $this->belongsToMany(Document::class);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
