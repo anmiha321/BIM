@@ -11,6 +11,8 @@ class Document extends Model
     protected $table = 'documents';
     protected $fillable = [
         'title',
+        'filename',
+        'type',
         'weight',
     ];
 

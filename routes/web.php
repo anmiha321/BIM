@@ -35,5 +35,9 @@ Route::post('update_password_profile/{id}', [ProfileController::class, 'updatepa
 Route::post('update_password/{id}', [UserController::class, 'updatepassword']);
 Route::post('update_user/{id}', [UserController::class, 'update']);
 Route::post('create_and_update_company', [ProfileController::class, 'CreateAndUpdateCompany']);
+Route::post('add_file', [ProfileController::class, 'addfile']);
+Route::get('/download_file/{file}', [ProfileController::class, 'downloadfile']);
+Route::get('/downloadArchive',[ProfileController::class, 'downloadarchive'])->name('downloadarchive');
+Route::delete('/deletefile/{id}',[ProfileController::class, 'deletefile'])->name('deletefile');
 Route::delete('delete_user/{id}', [UserController::class, 'destroy']);
 Route::get('return_user/{id}', [UserController::class, 'restore']);

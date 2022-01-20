@@ -141,67 +141,68 @@
             </div>
             <div id="docs" class="company__block company-docs ">
                 <div class="company-docs__content">
-                    <form action="#" name="add-docs" id="" class="company-docs__left form ">
-                        <div class="company-docs__head module__head">
-                            <p class="module__heading ic_m_corr">Добавление нового документа</p>
-                        </div>
-                        <div class="company-docs__body block">
-                            <p class="company-docs__label smtext">Название</p>
-                            <div class="company-docs__row">
-                                <div class="company-docs__main">
-                                    <div class="company-docs__input-wrapper">
-                                        <input type="text" name="doc_name" id="" class="company-docs__input form__input" placeholder="Свидетельство о регистрации.pdf" maxlength="100">
-                                        <button type="button" class="company-docs__del ic_close"></button>
-                                    </div>
-                                    <div class="company-docs__add smtext"><input type="submit" value="">Добавить в список</div>
-                                </div>
-                                <div data-popup="add-doc" class="company-docs__load  btngreen">+ Загрузить другие документы</div>
-                            </div>
-                        </div>
+                    <form action="#" name="add-docs" id="documents" class="company-docs__left form ">
+{{--                        <div class="company-docs__head module__head">--}}
+{{--                            <p class="module__heading ic_m_corr">Добавление нового документа</p>--}}
+{{--                        </div>--}}
+{{--                        <div class="company-docs__body block">--}}
+{{--                            <p class="company-docs__label smtext">Название</p>--}}
+{{--                            <div class="company-docs__row">--}}
+{{--                                <div class="company-docs__main">--}}
+{{--                                    <div class="company-docs__input-wrapper">--}}
+{{--                                        <input type="text" name="doc_name" id="" class="company-docs__input form__input" placeholder="Свидетельство о регистрации.pdf" maxlength="100">--}}
+{{--                                        <input type="file" name="doc_name" id="" class="company-docs__input form__input" maxlength="100">--}}
+{{--                                        <button type="button" class="company-docs__del ic_close"></button>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="company-docs__add smtext"><input type="submit" value="">Добавить в список</div>--}}
+{{--                                </div>--}}
+{{--                                <div data-popup="add-doc" class="company-docs__load  btngreen">+ Загрузить другие документы</div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
 {{--                        <div class="lk-btns form__btns">--}}
 {{--                            <input type="submit" value="Сохранить" class="form__btn lk-btns__submit btn smtext">--}}
 {{--                            <div data-reset class="form__cancel smtext cancel">Отменить</div>--}}
 {{--                        </div>--}}
                     </form>
-                    <div class="company-docs__right block">
-                        <div class="module__head">
-                            <p class="module__heading ic_m_corr">Список документов</p>
-                        </div>
-                        <div class="company-docs__list">
-                            <div class="company-docs__item">
-                                <div class="company-docs__item-wrapper">
-                                    <button type="button" class="company-docs__delete ic_close"></button>
-                                    <a href="#" class="company-docs__name smtext" target="_blank">Св-во о регистрации.pdf</a>
-                                </div>
-                                <p class="company-docs__size smtext">500&nbsp;kb</p>
-                                <a href="#" class="company-docs__dload ic_dload"></a>
-                            </div>
-                            <div class="company-docs__item">
-                                <div class="company-docs__item-wrapper">
-                                    <button type="button" class="company-docs__delete ic_close"></button>
-                                    <a href="#" class="company-docs__name smtext" target="_blank">Документ 1.xml</a>
-                                </div>
-                                <p class="company-docs__size smtext">467&nbsp;kb</p>
-                                <a href="#" class="company-docs__dload ic_dload"></a>
-                            </div>
-                            <div class="company-docs__item">
-                                <div class="company-docs__item-wrapper">
-                                    <button type="button" class="company-docs__delete ic_close"></button>
-                                    <a href="#" class="company-docs__name smtext" target="_blank">СРО.pdf</a>
-                                </div>
-                                <p class="company-docs__size smtext">234&nbsp;kb</p>
-                                <a href="#" class="company-docs__dload ic_dload"></a>
-                            </div>
-                            <div class="company-docs__item">
-                                <div class="company-docs__item-wrapper">
-                                    <button type="button" class="company-docs__delete ic_close"></button>
-                                    <a href="#" class="company-docs__name smtext" target="_blank">Иной документ.doc</a>
-                                </div>
-                                <p class="company-docs__size smtext">586&nbsp;kb</p>
-                                <a href="#" class="company-docs__dload ic_dload"></a>
-                            </div>
-                        </div>
-                        <a href="#" class="company-docs__dload-all smtext ic_dload">Скачать все одним архивом</a>
+                    <div id="right_docs" class="company-docs__right block">
+{{--                        <div class="module__head">--}}
+{{--                            <p class="module__heading ic_m_corr">Список документов</p>--}}
+{{--                        </div>--}}
+{{--                        <div class="company-docs__list">--}}
+{{--                            <div class="company-docs__item">--}}
+{{--                                <div class="company-docs__item-wrapper">--}}
+{{--                                    <button type="button" class="company-docs__delete ic_close"></button>--}}
+{{--                                    <a href="#" class="company-docs__name smtext" target="_blank">Св-во о регистрации.pdf</a>--}}
+{{--                                </div>--}}
+{{--                                <p class="company-docs__size smtext">500&nbsp;kb</p>--}}
+{{--                                <a href="#" class="company-docs__dload ic_dload"></a>--}}
+{{--                            </div>--}}
+{{--                            <div class="company-docs__item">--}}
+{{--                                <div class="company-docs__item-wrapper">--}}
+{{--                                    <button type="button" class="company-docs__delete ic_close"></button>--}}
+{{--                                    <a href="#" class="company-docs__name smtext" target="_blank">Документ 1.xml</a>--}}
+{{--                                </div>--}}
+{{--                                <p class="company-docs__size smtext">467&nbsp;kb</p>--}}
+{{--                                <a href="#" class="company-docs__dload ic_dload"></a>--}}
+{{--                            </div>--}}
+{{--                            <div class="company-docs__item">--}}
+{{--                                <div class="company-docs__item-wrapper">--}}
+{{--                                    <button type="button" class="company-docs__delete ic_close"></button>--}}
+{{--                                    <a href="#" class="company-docs__name smtext" target="_blank">СРО.pdf</a>--}}
+{{--                                </div>--}}
+{{--                                <p class="company-docs__size smtext">234&nbsp;kb</p>--}}
+{{--                                <a href="#" class="company-docs__dload ic_dload"></a>--}}
+{{--                            </div>--}}
+{{--                            <div class="company-docs__item">--}}
+{{--                                <div class="company-docs__item-wrapper">--}}
+{{--                                    <button type="button" class="company-docs__delete ic_close"></button>--}}
+{{--                                    <a href="#" class="company-docs__name smtext" target="_blank">Иной документ.doc</a>--}}
+{{--                                </div>--}}
+{{--                                <p class="company-docs__size smtext">586&nbsp;kb</p>--}}
+{{--                                <a href="#" class="company-docs__dload ic_dload"></a>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                        <a href="#" class="company-docs__dload-all smtext ic_dload">Скачать все одним архивом</a>--}}
                     </div>
                 </div>
             </div>
@@ -454,13 +455,7 @@
     <script>
         $(document).ready(function () {
 
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            fetchcompany();
+            phoneadd();
             function fetchcompany() {
                 $.ajax({
                     type: "GET",
@@ -468,19 +463,59 @@
                     dataType: "json",
                     success: function (data) {
                         $('#company').html(data.company);
+                        $('#documents').html(data.document);
+                        $('#right_docs').html(data.rightdocuments);
+                    }
+                });
+            }
+
+            function phoneadd() {
+                $.ajax({
+                    type: "GET",
+                    url: "fetchcompany",
+                    dataType: "json",
+                    success: function (data) {
+                        $('#company').html(data.company);
+                        $('#documents').html(data.document);
+                        $('#right_docs').html(data.rightdocuments);
                         var inputcount = $('#count_inputs').val();
-                        console.log(inputcount);
-                        var i = 0;
                         var maxField = 9;
-                        $(document).on( 'click', '#add_phone', function (e) {
+                        $(document).on('click', '#add_phone', function (e) {
                             e.preventDefault();
-                            $(document).each(function() {
+                            $(document).each(function () {
                                 if (inputcount < maxField) {
                                     inputcount++;
-                                    $('#imput_phone').append('<input type="tel" name="phonecompany['+inputcount+'][phone]" id="phone_input" class="company-name__input form__input" placeholder="+ 7 (999) 999-99-99" maxlength="17">');
+                                    $('#imput_phone').append('<input type="tel" name="phonecompany[' + inputcount + '][phone]" id="phone_input" class="company-name__input form__input" placeholder="+ 7 (999) 999-99-99" maxlength="17">');
                                 } else {
                                     alert('привышен лимит!')
                                 }
+                            });
+                        });
+
+
+
+                        var filecoutnt = $('#file_coutnt').val();
+                        var  i = 0;
+                        var maxFileField = 99;
+                        $(document).on('click', '#add_new_imput', function (e) {
+                            e.preventDefault();
+                            $(document).each(function () {
+                                if (i < maxFileField) {
+                                    i++;
+                                    $('#file_inputs_list').append('<div class="company-docs__input-wrapper" id="item_file">\
+                                        <input type="text" name="doc_name['+i+'][title]" id="" class="company-docs__input form__input" placeholder="Свидетельство о регистрации.pdf" maxlength="100">\
+                                        <label class="popup-add-doc__btn">\
+                                        <input type="file" name="doc_file['+i+'][filename]" id="doc_file" class="popup-add-doc__file">\
+                                        Выбрать файл\
+                                    </label>\
+                                    <button type="button" id="remove-input-field['+i+']" class="company-docs__del ic_close"></button>\
+                                </div>');
+                                } else {
+                                    alert('привышен лимит!')
+                                }
+                                $(document).on('click', '.ic_close', function () {
+                                    $('#item_file').remove();
+                                });
                             });
                         });
                     }
@@ -524,6 +559,71 @@
                 });
             });
 
+            $(document).on('click', '#submitbutton', function (e) {
+                e.preventDefault();
+                let EditFormData = new FormData($('#documents')[0]);
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                    type: "POST",
+                    enctype: 'multipart/form-data',
+                    url: "add_file",
+                    data: EditFormData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        if (response.status == 400) {
+                            $('#update_msgList').html("");
+                            $('#update_msgList').addClass('alert alert-danger');
+                            $.each(response.errors, function (key, err_value) {
+                                $('#update_msgList').append('<li>' + err_value +
+                                    '</li>');
+                            });
+                            $('.update_student').text('Update');
+                        } else {
+                            alert('Информация успешно обновлена!')
+                            $('#update_msgList').html("");
+                            $('#success_message').addClass('alert alert-success');
+                            $('#success_message').text(response.message);
+                            fetchcompany();
+                        }
+                    }
+                });
+            });
+
+            $(document).on('click', '#deletefile', function (e) {
+                e.preventDefault();
+                var id = $(this).val();
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                    type: "DELETE",
+                    url: "/deletefile/" + id,
+                    dataType: "json",
+                    success: function (response) {
+                        // console.log(response);
+                        if (response.status == 404) {
+                            $('#success_message').addClass('alert alert-success');
+                            $('#success_message').text(response.message);
+                        } else {
+                            $('#success_message').html("");
+                            $('#success_message').addClass('alert alert-success');
+                            $('#success_message').text(response.message);
+                            fetchcompany();
+                        }
+                    }
+                });
+            });
         });
     </script>
 @endsection

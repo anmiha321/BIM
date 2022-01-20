@@ -1,8 +1,6 @@
 <footer class="footer">
 
 </footer>
-</div>
-
 <div class="modal">
     <div id="popup-add-doc" class="popup popup-add-doc">
         <div class="popup-add-doc__content">
@@ -30,28 +28,32 @@
                 <div class="popup-arch-units__item units-list__item">
                     <button data-popup="info-unit" type="button" class="units-list__edit ic_edit"></button>
                     <button type="button" class="units-list__arch ic_close"></button>
-                    <div class="units-list__photo"><img src="/uploads/units/2s.png" alt="Пользователь" class="units-list__img"></div>
-                    <p class="units-list__name smtext">Грозный П.У.  - Проектировщик - АР - 50&nbsp;000&nbsp;₽</p>
+                    <div class="units-list__photo"><img src="/uploads/units/2s.png" alt="Пользователь"
+                                                        class="units-list__img"></div>
+                    <p class="units-list__name smtext">Грозный П.У. - Проектировщик - АР - 50&nbsp;000&nbsp;₽</p>
                     <button type="button" class="units-list__unarch ic_unarch"></button>
                 </div>
                 <div class="popup-arch-units__item units-list__item">
                     <button data-popup="info-unit" type="button" class="units-list__edit ic_edit"></button>
                     <button type="button" class="units-list__arch ic_close"></button>
-                    <div class="units-list__photo"><img src="/uploads/units/3s.png" alt="Пользователь" class="units-list__img"></div>
-                    <p class="units-list__name smtext">Петров В.В. -  Бухгалтер - 60&nbsp;000&nbsp;₽</p>
+                    <div class="units-list__photo"><img src="/uploads/units/3s.png" alt="Пользователь"
+                                                        class="units-list__img"></div>
+                    <p class="units-list__name smtext">Петров В.В. - Бухгалтер - 60&nbsp;000&nbsp;₽</p>
                     <button type="button" class="units-list__unarch ic_unarch"></button>
                 </div>
                 <div class="popup-arch-units__item units-list__item">
                     <button data-popup="info-unit" type="button" class="units-list__edit ic_edit"></button>
                     <button type="button" class="units-list__arch ic_close"></button>
-                    <div class="units-list__photo"><img src="/uploads/units/4s.png" alt="Пользователь" class="units-list__img"></div>
+                    <div class="units-list__photo"><img src="/uploads/units/4s.png" alt="Пользователь"
+                                                        class="units-list__img"></div>
                     <p class="units-list__name smtext">Сидоров С.С. - Юрист - 70&nbsp;000&nbsp;₽</p>
                     <button type="button" class="units-list__unarch ic_unarch"></button>
                 </div>
                 <div class="popup-arch-units__item units-list__item">
                     <button data-popup="info-unit" type="button" class="units-list__edit ic_edit"></button>
                     <button type="button" class="units-list__arch ic_close"></button>
-                    <div class="units-list__photo"><img src="/uploads/units/5s.png" alt="Пользователь" class="units-list__img"></div>
+                    <div class="units-list__photo"><img src="/uploads/units/5s.png" alt="Пользователь"
+                                                        class="units-list__img"></div>
                     <p class="units-list__name smtext">Проект В.Е. - ГИП - 150&nbsp;000&nbsp;₽</p>
                     <button type="button" class="units-list__unarch ic_unarch"></button>
                 </div>
@@ -75,35 +77,43 @@
                 <form action="#" name="popupInfoUnit" id="" class="popup__form form">
                     <div class="form__row">
                         <p class="form__label smtext">Фамилия</p>
-                        <input data-aplha type="text" name="surname" class="form__input " placeholder="Артем" maxlength="30">
+                        <input data-aplha type="text" name="surname" class="form__input " placeholder="Артем"
+                               maxlength="30">
                     </div>
                     <div class="form__row">
                         <p class="form__label smtext">Имя</p>
-                        <input data-aplha type="text" name="name" class="form__input " placeholder="Артем" maxlength="30">
+                        <input data-aplha type="text" name="name" class="form__input " placeholder="Артем"
+                               maxlength="30">
                     </div>
                     <div class="form__row">
                         <p class="form__label smtext">Отчество</p>
-                        <input data-aplha type="text" name="patron" class="form__input " placeholder="Дмитриевич" maxlength="30">
+                        <input data-aplha type="text" name="patron" class="form__input " placeholder="Дмитриевич"
+                               maxlength="30">
                     </div>
                     <div class="form__row">
                         <p class="form__label smtext">E-mail</p>
-                        <input type="email" name="email" class="form__input" placeholder="example@gmail.com" maxlength="40">
+                        <input type="email" name="email" class="form__input" placeholder="example@gmail.com"
+                               maxlength="40">
                     </div>
                     <div class="form__row">
                         <p class="form__label smtext">Телефон=логин</p>
-                        <input type="tel" name="phone" class="form__input" placeholder="+7 (999) 999-99-99" maxlength="17">
+                        <input type="tel" name="phone" class="form__input" placeholder="+7 (999) 999-99-99"
+                               maxlength="17">
                     </div>
                     <div class="form__row">
                         <p class="form__label smtext">Проектируемые разделы</p>
-                        <input data-aplha type="text" name="des_sec" class="form__input " placeholder="XYZ7965305k" maxlength="60">
+                        <input data-aplha type="text" name="des_sec" class="form__input " placeholder="XYZ7965305k"
+                               maxlength="60">
                     </div>
                     <div class="form__row">
                         <p class="form__label smtext">Должность</p>
-                        <input data-aplha type="text" name="position" class="form__input " placeholder="" maxlength="60">
+                        <input data-aplha type="text" name="position" class="form__input " placeholder=""
+                               maxlength="60">
                     </div>
                     <div class="form__row">
                         <p class="form__label smtext">Оклад</p>
-                        <input type="text" name="salary" class="popup-info-unit__salary form__input" placeholder="75 000 руб" maxlength="20">
+                        <input type="text" name="salary" class="popup-info-unit__salary form__input"
+                               placeholder="75 000 руб" maxlength="20">
                     </div>
                     <div class="popup__btns form__btns">
                         <input type="submit" value="Сохранить" class="popup__btn">
@@ -131,7 +141,8 @@
                     </div>
                     <div class="form__row">
                         <p class="form__label smtext">Подтверждение пароля</p>
-                        <input type="text" name="conf_new_passw" class="form__input" placeholder="555699JKIY" maxlength="20">
+                        <input type="text" name="conf_new_passw" class="form__input" placeholder="555699JKIY"
+                               maxlength="20">
                     </div>
                     <div class="popup__btns form__btns">
                         <input type="submit" value="Сохранить" class="popup__btn">
@@ -175,7 +186,8 @@
                     </div>
                     <div class="popup-account__row">
                         <p class="popup-account__left ic_time smtext">Последняя активность</p>
-                        <p class="popup-account__right smtext"><span class="popup-account__right-time">15.10.2021</span>18:41</p>
+                        <p class="popup-account__right smtext"><span class="popup-account__right-time">15.10.2021</span>18:41
+                        </p>
                     </div>
                 </div>
             </div>
@@ -190,32 +202,42 @@
             <form action="#" name="popupSubscr" id="" class="popup__main">
                 <div class="popup-subscribe__spoilers" data-spoilers>
                     <div class="popup-subscribe__spoiler">
-                        <div class="popup-subscribe__head" data-spoller><span class="popup-subscribe__heading smtext ic_arr_d">Активные подписки</span></div>
+                        <div class="popup-subscribe__head" data-spoller><span
+                                class="popup-subscribe__heading smtext ic_arr_d">Активные подписки</span></div>
                         <div class="popup-subscribe__body">
                             <div class="popup-subscribe__item">
                                 <input type="checkbox" name="new_projects" id="new-projects" class="chios-inp"></input>
-                                <label for="new-projects" class="popup-subscribe__label smtext chios-lab">Новые проекты в компании “Название”?</label>
+                                <label for="new-projects" class="popup-subscribe__label smtext chios-lab">Новые проекты
+                                    в компании “Название”?</label>
                             </div>
                             <div class="popup-subscribe__item">
-                                <input type="checkbox" name="change_system" id="change-system" class="chios-inp"></input>
-                                <label for="change-system" class="popup-subscribe__label smtext chios-lab">Изменения в системе</label>
+                                <input type="checkbox" name="change_system" id="change-system"
+                                       class="chios-inp"></input>
+                                <label for="change-system" class="popup-subscribe__label smtext chios-lab">Изменения в
+                                    системе</label>
                             </div>
                             <div class="popup-subscribe__item">
-                                <input type="checkbox" name="name_subscribe" id="name-subscribe" class="chios-inp"></input>
-                                <label for="name-subscribe" class="popup-subscribe__label smtext chios-lab">Подписка №3</label>
+                                <input type="checkbox" name="name_subscribe" id="name-subscribe"
+                                       class="chios-inp"></input>
+                                <label for="name-subscribe" class="popup-subscribe__label smtext chios-lab">Подписка
+                                    №3</label>
                             </div>
                         </div>
                     </div>
                     <div class="popup-subscribe__spoiler">
-                        <div class="popup-subscribe__head" data-spoller><span class="popup-subscribe__heading smtext ic_arr_d">Неактивные подписки</span></div>
+                        <div class="popup-subscribe__head" data-spoller><span
+                                class="popup-subscribe__heading smtext ic_arr_d">Неактивные подписки</span></div>
                         <div class="popup-subscribe__body">
                             <div class="popup-subscribe__item">
                                 <input type="checkbox" name="new_projects" id="new-projects1" class="chios-inp"></input>
-                                <label for="new-projects1" class="popup-subscribe__label smtext chios-lab">Новые проекты в компании “Название”?</label>
+                                <label for="new-projects1" class="popup-subscribe__label smtext chios-lab">Новые проекты
+                                    в компании “Название”?</label>
                             </div>
                             <div class="popup-subscribe__item">
-                                <input type="checkbox" name="change_system" id="change-system1" class="chios-inp"></input>
-                                <label for="change-system1" class="popup-subscribe__label smtext chios-lab">Изменения в системе</label>
+                                <input type="checkbox" name="change_system" id="change-system1"
+                                       class="chios-inp"></input>
+                                <label for="change-system1" class="popup-subscribe__label smtext chios-lab">Изменения в
+                                    системе</label>
                             </div>
                         </div>
                     </div>
@@ -229,9 +251,12 @@
                         <div class="popup-subscribe__add smtext btn">+ Добавить место</div>
                     </div>
                     <div class="popup-subscribe__info">
-                        <p class="popup-subscribe__text smtext">Общий объем<span class="popup-subscribe__span smtext">500 МБ</span></p>
-                        <p class="popup-subscribe__text smtext">Занято<span class="popup-subscribe__span smtext">260 МБ</span></p>
-                        <p class="popup-subscribe__text smtext">Свободно<span class="popup-subscribe__span smtext">240 МБ</span></p>
+                        <p class="popup-subscribe__text smtext">Общий объем<span class="popup-subscribe__span smtext">500 МБ</span>
+                        </p>
+                        <p class="popup-subscribe__text smtext">Занято<span
+                                class="popup-subscribe__span smtext">260 МБ</span></p>
+                        <p class="popup-subscribe__text smtext">Свободно<span class="popup-subscribe__span smtext">240 МБ</span>
+                        </p>
                     </div>
                 </div>
                 <div class="popup__btns form__btns">
@@ -250,10 +275,14 @@
             <div class="">
                 <form action="#" name="saChangePass" id="" class="popup-auth__form popup-sa-ch-p__form">
                     <div class="popup-sa-ch-p__inputs">
-                        <label for="four-num" class="popup-auth__label popup-sa-ch-p__label"><span class="popup-auth__label-span lgtext">Введите новый пароль</span>
-                            <input type="text" name="four_numbers" id="four-num" class="popup-auth__input lgtext" maxlength="20"></label>
-                        <label for="four-num" class="popup-auth__label popup-sa-ch-p__label"><span class="popup-auth__label-span lgtext">Подтвердите новый пароль</span>
-                            <input type="text" name="four_numbers" id="four-num" class="popup-auth__input lgtext" maxlength="20"></label>
+                        <label for="four-num" class="popup-auth__label popup-sa-ch-p__label"><span
+                                class="popup-auth__label-span lgtext">Введите новый пароль</span>
+                            <input type="text" name="four_numbers" id="four-num" class="popup-auth__input lgtext"
+                                   maxlength="20"></label>
+                        <label for="four-num" class="popup-auth__label popup-sa-ch-p__label"><span
+                                class="popup-auth__label-span lgtext">Подтвердите новый пароль</span>
+                            <input type="text" name="four_numbers" id="four-num" class="popup-auth__input lgtext"
+                                   maxlength="20"></label>
                     </div>
                     <input type="submit" value="Подтвердить" class="popup-sa-ch-p__submit">
                 </form>
@@ -270,7 +299,8 @@
                 <form action="#" name="addState" id="" class="popup__form form">
                     <div class="form__row">
                         <p class="form__label smtext">Название статьи</p>
-                        <input data-aplha type="text" name="new_state" class="form__input " placeholder="Введите название статьи" maxlength="50">
+                        <input data-aplha type="text" name="new_state" class="form__input "
+                               placeholder="Введите название статьи" maxlength="50">
                     </div>
                     <div class="popup-add-state__btns popup__btns form__btns">
                         <input type="submit" value="Сохранить" class="popup__btn">

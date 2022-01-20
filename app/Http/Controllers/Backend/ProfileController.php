@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Helpers\documents;
 use App\Http\Controllers\Controller;
 use App\Models\Company;
+use App\Models\Document;
 use App\Models\Manager;
 use App\Models\Phone;
 use App\Models\User;
@@ -11,8 +13,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-
+use File;
 class ProfileController extends Controller
 {
 
@@ -165,34 +168,54 @@ class ProfileController extends Controller
         } else {
             $newmanagerid = Company::find($companyid->id)->manager;
 
-//                $newmanagerid->surname = $request['surname'];
-//                $newmanagerid->name = $request['name'];
-//                $newmanagerid->patronymic = $request['patronymic'];
-//                $newmanagerid->phone =  $request['phone'];
-//                $newmanagerid->email = $request['email'];
-            $filter = array_filter($request->all());
-            $newmanagerid->update($filter);
+            $newmanagerid->surname = $request['surname'];
+            $newmanagerid->name = $request['name'];
+            $newmanagerid->patronymic = $request['patronymic'];
+            $newmanagerid->phone = $request['phone_dir'];
+            $newmanagerid->email = $request['email_dir'];
+//            $filter = array_filter($request->all());
+            $newmanagerid->update();
         }
         $credentialcompany = array_filter($request->all());
         $companyid->ppppcccc = $request->input('ppppcccc');
         $companyid->kkkkcccc = $request->input('kkkkcccc');
 
         $request->validate([
-            'phonecompany.*.phone' => 'required',
+            'phonecompany.*.phone' => 'required'
         ]);
 
-        print_r($request->phoneid);
-        foreach ($request->phoneid as $id)
-        {
-    print_r($id);
+        $companyphones = Company::find($companyid->id)->phones;
+        if ($companyphones->isEmpty()) {
+            foreach ($request->phonecompany as $phonename) {
+                $item = Phone::firstOrNew($phonename);
+                $item->save();
+                $item->companies()->sync($companyid);
+            }
+        } else {
+            foreach ($request->phoneid as $ids) {
+                foreach ($ids as $id) {
+
+                    foreach ($request->phonecompany as $key => $phonename) {
+
+                        if ($request->input('phonecompany.' . $id . '.phone') != $request->input('phonecompanyreqvery.' . $id . '.input')) {
+                            if ($key == $request->input('phoneid.' . $id . '.id')) {
+                                $phone = Phone::with('companies')->find($request->input('phoneid.' . $id . '.id'));
+                                $phone->phone = $request->input('phonecompany.' . $id . '.phone');
+                                $phone->update();
+                            }
+
+                        }
+                    }
+                }
+            }
         }
 
+        foreach ($request->phonecompany as $phonename) {
+            $item = Phone::firstOrNew($phonename);
+            $item->save();
+            $item->companies()->sync($companyid);
+        }
 
-//        $phone = Phone::updateOrCreate($values);
-//        $phone->companies()->sync($companyid);
-//        $item = Phone::firstOrNew($values);
-//        $item->save();
-//        $item->companies()->sync($companyid);
         $companyid->update($credentialcompany);
         return response()->json([
             'status' => 200,
@@ -203,14 +226,13 @@ class ProfileController extends Controller
     public function fetchcompany()
     {
         $i = 0;
-        $b = 0;
-        $c = 0;
-        $c1 = 0;
-        $c2 = 0;
+        $g = 0;
         $id = Auth::user()->getAuthIdentifier();
         $data = User::find($id)->company;
         $newmanagerid = Company::find($data->id)->manager;
         $output = '';
+        $document = '';
+        $rightdocuments = '';
         $total_row = $data->count();
         if ($total_row > 0) {
             $output .= '<div class="company-main__main">
@@ -267,9 +289,10 @@ class ProfileController extends Controller
                                     <div id="imput_phone">
                                     ';
             foreach ($data->phones as $phonoe) {
-                $output .= '<input type="text" style="color:red" name="phoneid[' . $c1++ . '][id' . $c2++ . ']" id="phone_input_id" class="company-name__input form__input" value="' . $phonoe->id . '" placeholder="+ 7 (999) 999-99-99" maxlength="17">
-                <input type="tel" style="color:yellow"  name="phonecompanyreqvery[' . $b++ . '][input' . $c++ . ']" id="phone_input" class="company-name__input form__input" value="' . $phonoe->phone . '" placeholder="+ 7 (999) 999-99-99" maxlength="17">
-                <input type="tel" name="phonecompany[' . $i++ . '][phone]" id="phone_input" class="company-name__input form__input" value="' . $phonoe->phone . '" placeholder="+ 7 (999) 999-99-99" maxlength="17">';
+                $output .= '<input type="hidden" style="color:red" name="phoneid[' . $phonoe->id . '][id]" id="phone_input_id" class="company-name__input form__input" value="' . $phonoe->id . '" placeholder="+ 7 (999) 999-99-99" maxlength="17">
+                <input type="hidden" style="color:yellow"  name="phonecompanyreqvery[' . $phonoe->id . '][input]" id="phone_input" class="company-name__input form__input" value="' . $phonoe->phone . '" placeholder="+ 7 (999) 999-99-99" maxlength="17">
+                <input type="hidden" style="color:blue"  name="count[' . $i++ . '][count]" id="phone_input" class="company-name__input form__input" value="' . $phonoe->phone . '" placeholder="+ 7 (999) 999-99-99" maxlength="17">
+                <input type="tel" name="phonecompany[' . $phonoe->id . '][phone]" id="phone_input" class="company-name__input form__input" value="' . $phonoe->phone . '" placeholder="+ 7 (999) 999-99-99" maxlength="17">';
             }
             $output .= '
 <input type="hidden" name="" id="count_inputs" class="" value="' . $i . '" placeholder="+ 7 (999) 999-99-99" maxlength="17">
@@ -298,11 +321,11 @@ class ProfileController extends Controller
                             </div>
                             <div class="company-main__input-wrapper">
                                 <p class="company-main__label smtext form__label">Контактный телефон</p>
-                                <input type="tel" name="phone" id="" class="form__input" value="' . $newmanagerid->phone . '" placeholder="+7 (999) 999-99-99" maxlength="17">
+                                <input type="tel" name="phone_dir" id="" class="form__input" value="' . $newmanagerid->phone . '" placeholder="+7 (999) 999-99-99" maxlength="17">
                             </div>
                             <div class="company-main__input-wrapper">
                                 <p class="company-main__label smtext form__label">E-mail</p>
-                                <input type="email" name="email" id="" class="form__input" value="' . $newmanagerid->email . '" placeholder="example@gmail.com" maxlength="30">
+                                <input type="email" name="email_dir" id="" class="form__input" value="' . $newmanagerid->email . '" placeholder="example@gmail.com" maxlength="30">
                             </div>
                         </div>
                         <div class="company-main__bank block">
@@ -343,17 +366,131 @@ class ProfileController extends Controller
                        <button type="submit"  class="form__btn lk-btns__submit btn smtext">Сохранить</button>
                         <div data-reset class="form__cancel smtext cancel">Отменить</div>
                         </div>';
+            $document .= '<div class="company-docs__head module__head">
+                            <p class="module__heading ic_m_corr">Добавление нового документа</p>
+                        </div>
+                        <div class="company-docs__body block">
+                            <p class="company-docs__label smtext">Название</p>
+                            <div class="company-docs__row">
+                                <div class="company-docs__main" id="file_inputs_list">
+                                    <div class="company-docs__input-wrapper" >
+                                        <input type="text" name="doc_name[0][title]" id="" class="company-docs__input form__input" placeholder="Свидетельство о регистрации.pdf" maxlength="100">
+                                       <label class="popup-add-doc__btn">
+                        <input type="file" name="doc_file[0][filename]" id="doc_file" class="popup-add-doc__file">
+                        Выбрать файл
+                    </label>
+                                        <button type="button" class="company-docs__del ic_close remove-input-field"></button>
+                                    </div>
+                                    <div id="submitbutton" class="company-docs__add smtext"><input type="submit" value="">Добавить в список</div>
+                                </div>
+                                <div id="file-list-display"></div>
+                                <div class="company-docs__load  btngreen" id="add_new_imput">+ Загрузить другие документы</div>
+                            </div>
+                        </div>';
+            $rightdocuments .= '<div class="module__head">
+                            <p class="module__heading ic_m_corr">Список документов</p>
+                        </div>
+                        <div class="company-docs__list">';
+            foreach ($data->documents as $documentval) {
+                $rightdocuments .= '
+                            <div class="company-docs__item">
+                                <div class="company-docs__item-wrapper">
+                                    <button type="button" id="deletefile" value="'.$documentval->id.'" class="company-docs__delete ic_close"></button>
+                                    <a  href="'.asset('uploads/documents/'.$documentval->filename.'').'" class="company-docs__name smtext" target="_blank">'.$documentval->title.'.'.$documentval->type.'</a>
+                                </div>
+                                <p class="company-docs__size smtext">'.documents::bytesToHuman($documentval->weight).'</p>
+                                <a href="'.url('/download_file',$documentval->filename).'" class="company-docs__dload ic_dload"></a>
+                            </div>
+                        ';
+            }
+            $rightdocuments .= '</div>
+<a href="'.url('/downloadArchive').'" class="company-docs__dload-all smtext ic_dload">Скачать все одним архивом</a>
+                        </div>';
         } else {
             $output = 'Компания не найдена!';
         }
         $data = array(
             'company' => $output,
+            'document' => $document,
+            'rightdocuments' => $rightdocuments,
         );
         echo json_encode($data);
     }
 
-    public function addfile()
+    public function addfile(Request $request)
     {
+        $id = Auth::user()->getAuthIdentifier();
+        $companyid = User::find($id)->company;
 
+
+
+        foreach ($request->doc_name as $values) {
+            foreach ($values as $value) {
+                foreach ($request->doc_file as $files) {
+                    foreach ($files as $file) {
+                        $path = $file;
+                        $weight = $path->getSize();
+                        $filename = $value . '.' . $path->getClientOriginalExtension();
+                        $type = $path->getClientOriginalExtension();
+                        $file->move('uploads/documents', $filename);
+                        $item = Document::firstOrNew($values);
+                        $item->filename = $filename;
+                        $item->weight = $weight;
+                        $item->type = $type;
+                        $item->save();
+                        $item->companies()->sync($companyid);
+
+                    }
+                }
+            }
+        }
+        return response()->json([
+            'status' => 200,
+            'message' => 'Компания успешно создана!',
+        ]);
+    }
+    public function downloadfile(Request $request,$file)
+    {
+         return response()->download(public_path('uploads/documents/'.$file));
+    }
+
+    public function downloadarchive(Request $request)
+    {
+        $zip = new \ZipArchive();
+        $fileName = 'Архив.zip';
+        if ($zip->open(public_path($fileName), \ZipArchive::CREATE)== TRUE)
+        {
+            $files = File::files(public_path('uploads/documents/'));
+            foreach ($files as $key => $value){
+                $relativeName = basename($value);
+                $zip->addFile($value, $relativeName);
+            }
+            $zip->close();
+        }
+
+        return response()->download(public_path($fileName))->deleteFileAfterSend(true);
+    }
+
+    public function deletefile($id)
+    {
+        $document = Document::find($id);
+        if ($document) {
+            $path = (public_path('uploads/documents/' . $document->filename));
+
+            if (File::exists($path)) {
+
+                File::delete($path);
+            }
+            $document->delete();
+            return response()->json([
+                'status' => 200,
+                'message' => 'document Deleted Successfully.'
+            ]);
+        } else {
+            return response()->json([
+                'status' => 404,
+                'message' => 'No document was Found.'
+            ]);
+        }
     }
 }
