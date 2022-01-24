@@ -239,7 +239,6 @@
 
                             $('#success_message').addClass('alert alert-success');
                             $('#success_message').text(response.message);
-                            $('#lkForm').find('input').val('');
                             fetchprofile();
                         }
                     }

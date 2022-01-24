@@ -207,33 +207,33 @@
                 </div>
             </div>
             <div id="state" class="company__block company-state ">
-                <form action="#" name="state" id="" class="company-state__content">
+                <form action="#" name="state" id="create_new_worker" class="company-state__content">
                     <div class="company-state__left">
                         <div class="company-state__person block">
                             <div class="module__head">
                                 <p class="company-state__heading module__heading ic_add_p">Новый сотрудник</p>
                             </div>
                             <div class="company-state__data">
-                                <label for="add-photo" class="company-state__add-photo add-photo">
-                                    <input type="file" name="add-photo" id="add-photo" class="add-photo__input">
-                                    <img src="/css/img/svg/add_foto.svg" alt="Добавить фото" class="add-photo__img">
+                                <label for="image_worker" class="company-state__add-photo add-photo">
+                                    <input type="file" name="image_worker" id="image_worker" class="add-photo__input">
+                                    <img src="/css/img/svg/add_foto.svg" alt="Добавить фото" id="photo-worker-show" class="add-photo__img">
                                     <span class="add-photo__icon ic_photo"></span>
                                 </label>
                                 <div class="company-state__inputs">
                                     <div class="company-state__row">
                                         <div class="company-state__input-wrapper">
                                             <p class="company-state__label smtext form__label">Фамилия</p>
-                                            <input data-aplha type="text" name="surname" id="" class="form__input " placeholder="Иванов" maxlength="30">
+                                            <input data-aplha type="text" name="surname_worker" id="surname_worker" class="form__input " placeholder="Иванов" maxlength="30">
                                         </div>
                                         <div class="company-state__input-wrapper">
                                             <p class="company-state__label smtext form__label">Имя</p>
-                                            <input data-aplha type="text" name="name" id="" class="form__input " placeholder="Артем" maxlength="30">
+                                            <input data-aplha type="text" name="name_worker" id="name_worker" class="form__input " placeholder="Артем" maxlength="30">
                                         </div>
                                     </div>
                                     <div class="company-state__row">
                                         <div class="company-state__input-wrapper">
                                             <p class="company-state__label smtext form__label">Отчество</p>
-                                            <input data-aplha type="text" name="patron" id="" class="form__input " placeholder="Дмитриевич" maxlength="30">
+                                            <input data-aplha type="text" name="patronymic_worker" id="patronymic_worker" class="form__input " placeholder="Дмитриевич" maxlength="30">
                                         </div>
                                     </div>
                                 </div>
@@ -249,7 +249,7 @@
                                         <p class="company-state__label smtext form__label">Проектируемые разделы</p>
                                         <div data-drop class="form__input-wrapper">
                                             <span data-drop-arr class="form__input-arr ic_arr_d"></span>
-                                            <input  type="text" name="des_sec" id="" class="form__input" placeholder="Конструкции" maxlength="30" readonly>
+                                            <input  type="text" name="designed_sections" id="designed_sections" class="form__input" placeholder="Конструкции" maxlength="30" readonly>
                                         </div>
                                         <div data-drop-list class="drop">
                                             <p class="drop__item">Конструкции1</p>
@@ -263,7 +263,7 @@
                                         <p class="company-state__label smtext form__label">Должность</p>
                                         <div data-drop class="form__input-wrapper">
                                             <span data-drop-arr class="form__input-arr ic_arr_d"></span>
-                                            <input data-drop type="text" name="position" id="" class="form__input" placeholder="Архитектор" maxlength="30" readonly>
+                                            <input data-drop type="text" name="experience_worker" id="experience_worker" class="form__input" placeholder="Архитектор" maxlength="30" readonly>
                                         </div>
                                         <div data-drop-list class="drop">
                                             <p class="drop__item">Архитектор1</p>
@@ -275,12 +275,12 @@
                                 <div class="company-state__row">
                                     <div class="company-state__input-wrapper">
                                         <p class="company-state__label smtext form__label">Оклад</p>
-                                        <input type="text" name="salary" id="" class="company-state__salary form__input" placeholder="75 000 руб" maxlength="20">
+                                        <input type="text" name="salary_worker" id="salary_worker" class="company-state__salary form__input" placeholder="75 000 руб" maxlength="20">
                                     </div>
                                 </div>
                             </div>
                             <div class="company-state__btns">
-                                <input type="submit" value="Добавить в список сотрудников" class="company-state__submit btngreen">
+                                <input type="submit" value="Добавить в список сотрудников" id="add_new_worker" class="company-state__submit btngreen">
                                 <div data-reset class="company-state__cancel ">Отменить</div>
                             </div>
                         </div>
@@ -293,18 +293,18 @@
                                     <div class="company-state__row">
                                         <div class="company-state__input-wrapper">
                                             <p class="company-state__label smtext form__label">E-mail</p>
-                                            <input type="text" name="surname" id="" class="form__input" placeholder="example@gmail.com" maxlength="30">
+                                            <input type="text" name="email_worker" id="email_worker" class="form__input" placeholder="example@gmail.com" maxlength="30">
                                         </div>
                                         <div class="company-state__input-wrapper">
                                             <p class="company-state__label smtext form__label">Телефон=логин</p>
-                                            <input type="tel" name="phone" id="" class="form__input" placeholder="+7 (999) 999-99-99" maxlength="17">
+                                            <input type="tel" name="phone_worker" id="phone_worker" class="form__input" placeholder="+7 (999) 999-99-99" maxlength="17">
                                             <p class="company-state__confirm smtext ic_atten">Номер телефона подтвержден!</p>
                                         </div>
                                     </div>
                                     <div class="company-state__row company-state__row_gen">
                                         <div class="company-state__input-wrapper">
                                             <p class="company-state__label smtext form__label">Пароль для входа в систему</p>
-                                            <input type="text" name="passw" id="" class="form__input" placeholder="XYZ7965305k" maxlength="20">
+                                            <input type="text" name="password_worker" id="password_worker" class="form__input" placeholder="XYZ7965305k" maxlength="20">
                                         </div>
                                         <div class="company-state__generate text">Сгенерировать пароль</div>
                                     </div>
@@ -312,6 +312,7 @@
                                         <div class="company-state__input-wrapper">
                                             <p class="company-state__label smtext form__label">Ссылка для входа</p>
                                             <input type="url" name="link_enter" id="" class="form__input" placeholder="Дмитриевич">
+                                            <input type="hidden" name="role_worker" id="role_worker" value="4" class="form__input">
                                         </div>
                                         <div class="company-state__generate text">Сгенерировать ccылку</div>
                                     </div>
@@ -465,6 +466,22 @@
                         $('#company').html(data.company);
                         $('#documents').html(data.document);
                         $('#right_docs').html(data.rightdocuments);
+
+                        var input = document.getElementById( 'doc_file[0]' );
+                        var infoArea = document.getElementById( 'file_input_fild[0]' );
+
+                        input.addEventListener( 'change', showFileName );
+
+                        function showFileName( event ) {
+
+                            // the change event gives us the input it occurred in
+                            var input = event.srcElement;
+
+                            // the input has an array of files in the `files` property, each one has a name that you can use. We're just using the name here.
+                            var fileName = input.files[0].name;
+                            // use fileName however fits your app best, i.e. add it into a div
+                            infoArea.value = fileName.split('.').slice(0, -1).join('.');
+                        }
                     }
                 });
             }
@@ -492,32 +509,21 @@
                             });
                         });
 
+                        var input = document.getElementById( 'doc_file[0]' );
+                        var infoArea = document.getElementById( 'file_input_fild[0]' );
 
+                        input.addEventListener( 'change', showFileName );
 
-                        var filecoutnt = $('#file_coutnt').val();
-                        var  i = 0;
-                        var maxFileField = 99;
-                        $(document).on('click', '#add_new_imput', function (e) {
-                            e.preventDefault();
-                            $(document).each(function () {
-                                if (i < maxFileField) {
-                                    i++;
-                                    $('#file_inputs_list').append('<div class="company-docs__input-wrapper" id="item_file">\
-                                        <input type="text" name="doc_name['+i+'][title]" id="" class="company-docs__input form__input" placeholder="Свидетельство о регистрации.pdf" maxlength="100">\
-                                        <label class="popup-add-doc__btn">\
-                                        <input type="file" name="doc_file['+i+'][filename]" id="doc_file" class="popup-add-doc__file">\
-                                        Выбрать файл\
-                                    </label>\
-                                    <button type="button" id="remove-input-field['+i+']" class="company-docs__del ic_close"></button>\
-                                </div>');
-                                } else {
-                                    alert('привышен лимит!')
-                                }
-                                $(document).on('click', '.ic_close', function () {
-                                    $('#item_file').remove();
-                                });
-                            });
-                        });
+                        function showFileName( event ) {
+
+                            // the change event gives us the input it occurred in
+                            var input = event.srcElement;
+
+                            // the input has an array of files in the `files` property, each one has a name that you can use. We're just using the name here.
+                            var fileName = input.files[0].name;
+                            // use fileName however fits your app best, i.e. add it into a div
+                            infoArea.value = fileName.split('.').slice(0, -1).join('.');
+                        }
                     }
                 });
             }
@@ -621,6 +627,103 @@
                             $('#success_message').text(response.message);
                             fetchcompany();
                         }
+                    }
+                });
+            });
+
+            $('#image_worker').change(function(){
+
+                let reader = new FileReader();
+
+                reader.onload = (e) => {
+                    $('#photo-worker-show').html("")
+                    $('#photo-worker-show').attr('src', e.target.result);
+                    $(this).parent().css('border', 0);
+                }
+
+                reader.readAsDataURL(this.files[0]);
+
+            });
+
+            $(document).on('click', '#add_new_worker', function (e) {
+                e.preventDefault();
+                let data = new FormData($('#create_new_worker')[0]);
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                    type: "POST",
+                    enctype: 'multipart/form-data',
+                    url: "/create_worker",
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        if (response.status == 400) {
+                            $('#saveForm_errList').html("");
+                            $('#saveForm_errList').addClass('alert alert-danger');
+                            $.each(response.errors, function (key, err_values) {
+                                $('#saveForm_errList').append('<li>' + err_values + '</li>');
+                            });
+                        } else {
+                            $('#success_message').html("")
+                            $('#success_message').addClass('alert alert-success')
+                            $('#success_message').text(response.message)
+                            alert('Пользователь успешно создан!')
+                            $('#create_new_worker').find('input').val("");
+                            // $('#photo-user').val("");
+                            // $('#user-admin').prop('checked', false);
+                            // $('#user-member').prop('checked', false);
+                            // $('#user-local').prop('checked', false);
+                            // $('#photo_create').attr("src", "/img/load.png");
+                            // $('.modal').removeClass('active');
+                            // $('#popup-add-user').removeClass('active');
+                            // $('body').removeClass('inactive');
+                            // $('body').removeAttr('style');
+                            fetchcompany();
+
+                        }
+                    }
+                });
+            });
+            var  i = 0;
+            var maxFileField = 4;
+            $(document).on('click', '#add_new_imput', function (e) {
+                e.preventDefault();
+                $(document).each(function () {
+                    if (i < maxFileField) {
+                        i++;
+                        $('#file_inputs_list').append('<div class="company-docs__input-wrapper" id="item_file">\
+                                        <input type="text" name="doc_name['+i+']" id="file_input_fild['+i+']" class="company-docs__input form__input" placeholder="Свидетельство о регистрации.pdf" maxlength="100">\
+                                        <label class="popup-add-doc__btn">\
+                                        <input type="file" name="doc_file['+i+']" id="doc_file['+i+']" class="popup-add-doc__file">\
+                                        Выбрать файл\
+                                    </label>\
+                                </div>');
+                    } else {
+                        alert('привышен лимит!')
+                        return false;
+                    }
+                    $(document).on('click', '.ic_close', function () {
+                        document.getElementById('item_file').remove();
+                    });
+                    var input = document.getElementById( 'doc_file['+i+']' );
+                    var infoArea = document.getElementById( 'file_input_fild['+i+']' );
+
+                    input.addEventListener( 'change', showFileName );
+
+                    function showFileName( event ) {
+
+                        // the change event gives us the input it occurred in
+                        var input = event.srcElement;
+
+                        // the input has an array of files in the `files` property, each one has a name that you can use. We're just using the name here.
+                        var fileName = input.files[0].name;
+                        // use fileName however fits your app best, i.e. add it into a div
+                        infoArea.value = fileName.split('.').slice(0, -1).join('.');
                     }
                 });
             });

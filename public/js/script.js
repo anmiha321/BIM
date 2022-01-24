@@ -14371,7 +14371,7 @@ window.onload = function () {
 
 
     btnGen.addEventListener('click', function () {
-      let inputGen = this.previousElementSibling.querySelector('input[name="passw"]');
+      let inputGen = this.previousElementSibling.querySelector('input[name="password_worker"]');
       inputGen.value = '';
       inputGen.value = pass_gen(10);
     });

@@ -37,6 +37,8 @@ class User extends Authenticatable
         'role_work',
         'experience',
         'password',
+        'salary',
+        'designed_sections',
     ];
 
     /**
@@ -78,5 +80,10 @@ class User extends Authenticatable
     public function company()
     {
         return $this->hasOne(Company::class);
+    }
+
+    public function companies()
+    {
+        return $this->belongsToMany(Company::class);
     }
 }

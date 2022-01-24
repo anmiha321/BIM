@@ -28,6 +28,8 @@ class CreateUsersTable extends Migration
             $table->integer('role')->nullable();
             $table->integer('role_work')->nullable();
             $table->string('experience')->nullable();
+            $table->bigInteger('	salary')->nullable();
+            $table->string('	designed_sections')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

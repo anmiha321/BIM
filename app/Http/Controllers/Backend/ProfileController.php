@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use File;
+use Image;
 class ProfileController extends Controller
 {
 
@@ -374,9 +375,9 @@ class ProfileController extends Controller
                             <div class="company-docs__row">
                                 <div class="company-docs__main" id="file_inputs_list">
                                     <div class="company-docs__input-wrapper" >
-                                        <input type="text" name="doc_name[0][title]" id="" class="company-docs__input form__input" placeholder="Свидетельство о регистрации.pdf" maxlength="100">
+                                        <input type="text" name="doc_name[0]" id="file_input_fild[0]" class="company-docs__input form__input" placeholder="Свидетельство о регистрации.pdf" maxlength="100">
                                        <label class="popup-add-doc__btn">
-                        <input type="file" name="doc_file[0][filename]" id="doc_file" class="popup-add-doc__file">
+                        <input type="file" name="doc_file[0]" id="doc_file[0]" class="popup-add-doc__file">
                         Выбрать файл
                     </label>
                                         <button type="button" class="company-docs__del ic_close remove-input-field"></button>
@@ -395,16 +396,16 @@ class ProfileController extends Controller
                 $rightdocuments .= '
                             <div class="company-docs__item">
                                 <div class="company-docs__item-wrapper">
-                                    <button type="button" id="deletefile" value="'.$documentval->id.'" class="company-docs__delete ic_close"></button>
-                                    <a  href="'.asset('uploads/documents/'.$documentval->filename.'').'" class="company-docs__name smtext" target="_blank">'.$documentval->title.'.'.$documentval->type.'</a>
+                                    <button type="button" id="deletefile" value="' . $documentval->id . '" class="company-docs__delete ic_close"></button>
+                                    <a  href="' . asset('uploads/documents/' . $documentval->filename . '') . '" class="company-docs__name smtext" target="_blank">' . $documentval->title . '.' . $documentval->type . '</a>
                                 </div>
-                                <p class="company-docs__size smtext">'.documents::bytesToHuman($documentval->weight).'</p>
-                                <a href="'.url('/download_file',$documentval->filename).'" class="company-docs__dload ic_dload"></a>
+                                <p class="company-docs__size smtext">' . documents::bytesToHuman($documentval->weight) . '</p>
+                                <a href="' . url('/download_file', $documentval->filename) . '" class="company-docs__dload ic_dload"></a>
                             </div>
                         ';
             }
             $rightdocuments .= '</div>
-<a href="'.url('/downloadArchive').'" class="company-docs__dload-all smtext ic_dload">Скачать все одним архивом</a>
+<a href="' . url('/downloadArchive') . '" class="company-docs__dload-all smtext ic_dload">Скачать все одним архивом</a>
                         </div>';
         } else {
             $output = 'Компания не найдена!';
@@ -422,46 +423,73 @@ class ProfileController extends Controller
         $id = Auth::user()->getAuthIdentifier();
         $companyid = User::find($id)->company;
 
+//        foreach ($request->doc_name as $value) {
+//            foreach ($request->doc_file as $file) {
+//                $weight = $file->getSize();
+//                $filename = $value . '.' . $file->getClientOriginalExtension();
+//                $type = $file->getClientOriginalExtension();
+//                $file->move('uploads/documents', $filename);
+//                $file = new Document;
+//                $file->title = $value;
+//                $file->filename = $filename;
+//                $file->weight = $weight;
+//                $file->type = $type;
+//                $file->save();
+//                $file->companies()->sync($companyid);
+//            }
+//
+//        }
 
 
-        foreach ($request->doc_name as $values) {
-            foreach ($values as $value) {
-                foreach ($request->doc_file as $files) {
-                    foreach ($files as $file) {
-                        $path = $file;
-                        $weight = $path->getSize();
-                        $filename = $value . '.' . $path->getClientOriginalExtension();
-                        $type = $path->getClientOriginalExtension();
-                        $file->move('uploads/documents', $filename);
-                        $item = Document::firstOrNew($values);
-                        $item->filename = $filename;
-                        $item->weight = $weight;
-                        $item->type = $type;
-                        $item->save();
-                        $item->companies()->sync($companyid);
+        $namerequest = $request->input('doc_name');
+        $docs = $request->file('doc_file');
 
-                    }
-                }
-            }
+        for ($count = 0; $count < count($namerequest); $count++) {
+            $title = $namerequest[$count];
+            $file = $docs[$count];
+            $filename = $title . '.' . $file->getClientOriginalExtension();
+            $weight = $file->getSize();
+            $type = $file->getClientOriginalExtension();
+            $data = array(
+                'title' => $title,
+                'filename' => $filename,
+                'weight' => $weight,
+                'type' => $type,
+            );
+            $item = Document::create($data);
+            $item->companies()->sync($companyid);
         }
+
+        foreach (array_combine($namerequest, $docs) as $name => $doc) {
+            $filename = $name . '.' . $doc->getClientOriginalExtension();
+            $doc->move('uploads/documents',$filename);
+        }
+
+//        $item = Document::Create([
+//            'title' => $value,
+//            'filename' => $filename,
+//            'weight' => $weight,
+//            'type' => $type,
+//        ]);
+
         return response()->json([
             'status' => 200,
             'message' => 'Компания успешно создана!',
         ]);
     }
-    public function downloadfile(Request $request,$file)
+
+    public function downloadfile(Request $request, $file)
     {
-         return response()->download(public_path('uploads/documents/'.$file));
+        return response()->download(public_path('uploads/documents/' . $file));
     }
 
     public function downloadarchive(Request $request)
     {
         $zip = new \ZipArchive();
         $fileName = 'Архив.zip';
-        if ($zip->open(public_path($fileName), \ZipArchive::CREATE)== TRUE)
-        {
+        if ($zip->open(public_path($fileName), \ZipArchive::CREATE) == TRUE) {
             $files = File::files(public_path('uploads/documents/'));
-            foreach ($files as $key => $value){
+            foreach ($files as $key => $value) {
                 $relativeName = basename($value);
                 $zip->addFile($value, $relativeName);
             }
@@ -490,6 +518,58 @@ class ProfileController extends Controller
             return response()->json([
                 'status' => 404,
                 'message' => 'No document was Found.'
+            ]);
+        }
+    }
+    public function create_worker(Request $request)
+    {
+        $id = Auth::user()->getAuthIdentifier();
+        $companyid = User::find($id)->company;
+
+        $validator = Validator::make($request->all(), [
+            'image_worker' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:4096'],
+            'surname_worker' => ['required', 'string', 'max:255'],
+            'name_worker' => ['required', 'string', 'max:255'],
+            'patronymic_worker' => ['required', 'string', 'max:255'],
+            'email_worker' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+            'password_worker' => ['required', 'string', 'max:255'],
+            'phone_worker' => ['required', 'string', 'unique:users,phone'],
+            'experience_worker' => ['required', 'string', 'max:255'],
+            'salary_worker' => ['required', 'string'],
+            'designed_sections' => ['required', 'string', 'max:255'],
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->messages(),
+            ]);
+        } else {
+
+            if ($request->hasFile('image_worker')) {
+                $image = $request->file('image_worker');
+                $filename = time() . '.' . $image->getClientOriginalExtension();
+                Image::make($image)->resize(300, 300)->save(public_path('/uploads/units/' . $filename));
+
+
+                $item = User::create([
+                    'image' => $filename,
+                    'surname' => $request['surname_worker'],
+                    'name' => $request['name_worker'],
+                    'patronymic' => $request['patronymic_worker'],
+                    'id_company' => $companyid->title,
+                    'phone' => $request['phone_worker'],
+                    'role' => $request->input('role_worker', '4'),
+                    'experience' => $request['experience_worker'],
+                    'salary' => $request['salary_worker'],
+                    'designed_sections' => $request['designed_sections'],
+                    'password' => Hash::make($request['password_worker']),
+                ]);
+                $item->companies()->sync($companyid);
+            }
+            return response()->json([
+                'status' => 200,
+                'message' => 'Пользователь успешно создан!',
             ]);
         }
     }
