@@ -309,6 +309,26 @@
             </div>
         </div>
     </div>
+    <div id="popup-add-every-mouth-state" class="popup popup-add-state ">
+        <div class="popup-change-passw__content">
+            <div class="popup__head">
+                <p class="popup__title lgtext ic_m_econ">Добавление статьи</p>
+                <p data-close class="popup__close ic_close"></p>
+            </div>
+            <div class="popup__main">
+                <form action="#" name="addState" id="" class="popup__form form">
+                    <div class="form__row">
+                        <p class="form__label smtext">Название статьи</p>
+                        <input data-aplha type="text" name="new_state" class="form__input "
+                               placeholder="Введите название статьи" maxlength="50">
+                    </div>
+                    <div class="popup-add-state__btns popup__btns form__btns">
+                        <input type="submit" value="Сохранить" class="popup__btn">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script src="/js/script.js"></script>

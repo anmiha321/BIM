@@ -280,7 +280,7 @@
                                 </div>
                             </div>
                             <div class="company-state__btns">
-                                <input type="submit" value="Добавить в список сотрудников" id="add_new_worker" class="company-state__submit btngreen">
+                                <button type="submit" id="add_new_worker" class="company-state__submit btngreen">Добавить в список сотрудников</button>
                                 <div data-reset class="company-state__cancel ">Отменить</div>
                             </div>
                         </div>
@@ -326,31 +326,13 @@
                             <div class="module__head">
                                 <p class="company-state__heading module__heading ic_units">Список сотрудников</p>
                             </div>
-                            <div class="company-state__list-persons units-list">
-                                <div class="units-list__item">
-                                    <button data-popup="info-unit" type="button" class="units-list__edit ic_edit"></button>
-                                    <button type="button" class="units-list__arch ic_close"></button>
-                                    <div class="units-list__photo"><img src="/uploads/units/2s.png" alt="Пользователь" class="units-list__img"></div>
-                                    <p class="units-list__name smtext">Грозный П.У.  - Проектировщик - АР - 50 000 ₽</p>
-                                </div>
-                                <div class="units-list__item">
-                                    <button data-popup="info-unit" type="button" class="units-list__edit ic_edit"></button>
-                                    <button type="button" class="units-list__arch ic_close"></button>
-                                    <div class="units-list__photo"><img src="/uploads/units/3s.png" alt="Пользователь" class="units-list__img"></div>
-                                    <p class="units-list__name smtext">Петров В.В. -  Бухгалтер - 60 000 ₽</p>
-                                </div>
-                                <div class="units-list__item">
-                                    <button data-popup="info-unit" type="button" class="units-list__edit ic_edit"></button>
-                                    <button type="button" class="units-list__arch ic_close"></button>
-                                    <div class="units-list__photo"><img src="/uploads/units/4s.png" alt="Пользователь" class="units-list__img"></div>
-                                    <p class="units-list__name smtext">Сидоров С.С. - Юрист - 70 000 ₽</p>
-                                </div>
-                                <div class="units-list__item">
-                                    <button data-popup="info-unit" type="button" class="units-list__edit ic_edit"></button>
-                                    <button type="button" class="units-list__arch ic_close"></button>
-                                    <div class="units-list__photo"><img src="/uploads/units/5s.png" alt="Пользователь" class="units-list__img"></div>
-                                    <p class="units-list__name smtext">Проект В.Е. - ГИП - 150 000 ₽</p>
-                                </div>
+                            <div class="company-state__list-persons units-list" id="worker_list">
+{{--                                <div class="units-list__item">--}}
+{{--                                    <button data-popup="info-unit" type="button" class="units-list__edit ic_edit"></button>--}}
+{{--                                    <button type="button" class="units-list__arch ic_close"></button>--}}
+{{--                                    <div class="units-list__photo"><img src="/uploads/units/2s.png" alt="Пользователь" class="units-list__img"></div>--}}
+{{--                                    <p class="units-list__name smtext">Грозный П.У.  - Проектировщик - АР - 50 000 ₽</p>--}}
+{{--                                </div>--}}
                             </div>
                             <p class="company-state__show-arch smtext ic_arch"><span data-popup="arch-units" class="company-state__show-span">Посмотреть архивных пользователей</span></p>
                         </div>
@@ -360,89 +342,90 @@
             <div id="constr" class="company__block company-constructor"></div>
             <div id="expend" class="company__block company-expend ">
                 <div class="company-expend__content">
-                    <form action="#" name="expItems" id="" class="company-expend__block block">
-                        <div class="module__head">
-                            <p class="module__heading ic_m_econ">Расходные статьи - 5</p>
-                            <p class="module__icon ic_upload"></p>
-                        </div>
-                        <p class="company-expend__notify smtext">В месяц</p>
-                        <div class="company-expend__main">
-                            <div class="company-expend__list">
-                                <div class="company-expend__item">
-                                    <p class="company-expend__text smtext">1. Аренда офиса</p>
-                                    <input type="text" name="rent_office" id="" class="company-expend__input smtext" placeholder="300 000&#8381;">
-                                    <button type="button" class="company-expend__del ic_close"></button>
-                                </div>
-                                <div class="company-expend__item">
-                                    <p class="company-expend__text smtext">2. Коммунальные платежи</p>
-                                    <input type="text" name="com_pay" id="" class="company-expend__input smtext" placeholder="30 000&#8381;">
-                                    <button type="button" class="company-expend__del ic_close"></button>
-                                </div>
-                                <div class="company-expend__item">
-                                    <p class="company-expend__text smtext">3. Вода чистая питьевая</p>
-                                    <input type="text" name="water" id="" class="company-expend__input smtext" placeholder="4 000&#8381;">
-                                    <button type="button" class="company-expend__del ic_close"></button>
-                                </div>
-                                <div class="company-expend__item">
-                                    <p class="company-expend__text smtext">4. Телефония</p>
-                                    <input type="text" name="phone" id="" class="company-expend__input smtext" placeholder="30 000&#8381;">
-                                    <button type="button" class="company-expend__del ic_close"></button>
-                                </div>
-                                <div class="company-expend__item">
-                                    <div class="company-expend__text smtext">
-                                        <span data-tip class="company-expend__text-span ic_m_brif">5. ФОТ</span>
-                                    </div>
-                                    <input type="text" name="wage_fund" id="" class="company-expend__input smtext" placeholder="600 000&#8381;">
-                                    <button type="button" class="company-expend__del ic_close"></button>
-                                    <div data-tooltip class="company-expend__tooltip">
-                                        <div class="company-expend__popup">
-                                            <p class="company-expend__popup-text smtext">В фот зайдут те те и те В фот зайдут те те и те transform: matrix(-1, 0, 0, 1, 0, 0);</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="company-expend__add ic_plus"><span data-popup="add-state" class="company-expend__add-text">Добавить новую статью расходов</span></div>
-                            <p class="company-expend__sum smtext"><span class="company-expend__sum-span">Итого: </span>964 000&#8381;</p>
-                            <input type="submit" value="Сохранить" class="company-expend__submit btn">
-                        </div>
+                    <form action="#" name="expItems" id="mouth_costs" class="company-expend__block block">
+{{--                        <div class="module__head">--}}
+{{--                            <p class="module__heading ic_m_econ">Расходные статьи - 5</p>--}}
+{{--                            <p class="module__icon ic_upload"></p>--}}
+{{--                        </div>--}}
+{{--                        <p class="company-expend__notify smtext">В месяц</p>--}}
+{{--                        <div class="company-expend__main">--}}
+{{--                            <div class="company-expend__list">--}}
+{{--                                <div class="company-expend__item">--}}
+{{--                                    <p class="company-expend__text smtext">1. Аренда офиса</p>--}}
+{{--                                    <input type="text" name="rent_office" id="" class="company-expend__input smtext" placeholder="300 000&#8381;">--}}
+{{--                                    <button type="button" class="company-expend__del ic_close"></button>--}}
+{{--                                </div>--}}
+{{--                                <div class="company-expend__item">--}}
+{{--                                    <p class="company-expend__text smtext">2. Коммунальные платежи</p>--}}
+{{--                                    <input type="text" name="com_pay" id="" class="company-expend__input smtext" placeholder="30 000&#8381;">--}}
+{{--                                    <button type="button" class="company-expend__del ic_close"></button>--}}
+{{--                                </div>--}}
+{{--                                <div class="company-expend__item">--}}
+{{--                                    <p class="company-expend__text smtext">3. Вода чистая питьевая</p>--}}
+{{--                                    <input type="text" name="water" id="" class="company-expend__input smtext" placeholder="4 000&#8381;">--}}
+{{--                                    <button type="button" class="company-expend__del ic_close"></button>--}}
+{{--                                </div>--}}
+{{--                                <div class="company-expend__item">--}}
+{{--                                    <p class="company-expend__text smtext">4. Телефония</p>--}}
+{{--                                    <input type="text" name="phone" id="" class="company-expend__input smtext" placeholder="30 000&#8381;">--}}
+{{--                                    <button type="button" class="company-expend__del ic_close"></button>--}}
+{{--                                </div>--}}
+{{--                                <div class="company-expend__item">--}}
+{{--                                    <div class="company-expend__text smtext">--}}
+{{--                                        <span data-tip class="company-expend__text-span ic_m_brif">5. ФОТ</span>--}}
+{{--                                    </div>--}}
+{{--                                    <input type="text" name="wage_fund" id="" class="company-expend__input smtext" placeholder="600 000&#8381;">--}}
+{{--                                    <button type="button" class="company-expend__del ic_close"></button>--}}
+{{--                                    <div data-tooltip class="company-expend__tooltip">--}}
+{{--                                        <div class="company-expend__popup">--}}
+{{--                                            <p class="company-expend__popup-text smtext">В фот зайдут те те и те В фот зайдут те те и те transform: matrix(-1, 0, 0, 1, 0, 0);</p>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="company-expend__add ic_plus"><span data-popup="add-state" class="company-expend__add-text">Добавить новую статью расходов</span></div>--}}
+{{--                            <p class="company-expend__sum smtext"><span class="company-expend__sum-span">Итого: </span>964 000&#8381;</p>--}}
+{{--                            <input type="submit" value="Сохранить" class="company-expend__submit btn">--}}
+{{--                        </div>--}}
+{{--                        </div>--}}
                     </form>
-                    <form action="#" name="onceItems" id="" class="company-expend__block block">
-                        <div class="module__head">
-                            <p class="module__heading ic_m_econ">Разовые расходы - 15</p>
-                            <p class="module__icon ic_upload"></p>
-                        </div>
-                        <div class="company-expend__main">
-                            <div class="company-expend__list">
-                                <div class="company-expend__item">
-                                    <p class="company-expend__text smtext">1. Покупка оборудования</p>
-                                    <input type="text" name="buy_equip" id="" class="company-expend__input smtext" placeholder="300 000&#8381;">
-                                    <button type="button" class="company-expend__del ic_close"></button>
-                                </div>
-                                <div class="company-expend__item">
-                                    <p class="company-expend__text smtext">2. Покупка техники</p>
-                                    <input type="text" name="buy_tech" id="" class="company-expend__input smtext" placeholder="30 000&#8381;">
-                                    <button type="button" class="company-expend__del ic_close"></button>
-                                </div>
-                                <div class="company-expend__item">
-                                    <p class="company-expend__text smtext">3. Покупка мебели</p>
-                                    <input type="text" name="buy_furn" id="" class="company-expend__input smtext" placeholder="4 000&#8381;">
-                                    <button type="button" class="company-expend__del ic_close"></button>
-                                </div>
-                                <div class="company-expend__item">
-                                    <p class="company-expend__text smtext">4. Покупка оборудования</p>
-                                    <input type="text" name="buy_equip" id="" class="company-expend__input smtext" placeholder="30 000&#8381;">
-                                    <button type="button" class="company-expend__del ic_close"></button>
-                                </div>
-                                <div class="company-expend__item">
-                                    <p class="company-expend__text smtext">5. Покупка мебели</p>
-                                    <input type="text" name="buy_furn" id="" class="company-expend__input smtext" placeholder="600 000&#8381;">
-                                    <button type="button" class="company-expend__del ic_close"></button>
-                                </div>
-                            </div>
-                            <div class="company-expend__add ic_plus"><span data-popup="add-state" class="company-expend__add-text">Добавить новую статью расходов</span></div>
-                            <p class="company-expend__sum smtext"><span class="company-expend__sum-span">Итого: </span>964 000&#8381;</p>
-                            <input type="submit" value="Сохранить" class="company-expend__submit btn">
-                        </div>
+                    <form action="#" name="onceItems" id="cost_ones_form" class="company-expend__block block">
+{{--                        <div class="module__head">--}}
+{{--                            <p class="module__heading ic_m_econ">Разовые расходы - 15</p>--}}
+{{--                            <p class="module__icon ic_upload"></p>--}}
+{{--                        </div>--}}
+{{--                        <div class="company-expend__main">--}}
+{{--                            <div class="company-expend__list">--}}
+{{--                                <div class="company-expend__item">--}}
+{{--                                    <p class="company-expend__text smtext">1. Покупка оборудования</p>--}}
+{{--                                    <input type="text" name="buy_equip" id="" class="company-expend__input smtext" placeholder="300 000&#8381;">--}}
+{{--                                    <button type="button" class="company-expend__del ic_close"></button>--}}
+{{--                                </div>--}}
+{{--                                <div class="company-expend__item">--}}
+{{--                                    <p class="company-expend__text smtext">2. Покупка техники</p>--}}
+{{--                                    <input type="text" name="buy_tech" id="" class="company-expend__input smtext" placeholder="30 000&#8381;">--}}
+{{--                                    <button type="button" class="company-expend__del ic_close"></button>--}}
+{{--                                </div>--}}
+{{--                                <div class="company-expend__item">--}}
+{{--                                    <p class="company-expend__text smtext">3. Покупка мебели</p>--}}
+{{--                                    <input type="text" name="buy_furn" id="" class="company-expend__input smtext" placeholder="4 000&#8381;">--}}
+{{--                                    <button type="button" class="company-expend__del ic_close"></button>--}}
+{{--                                </div>--}}
+{{--                                <div class="company-expend__item">--}}
+{{--                                    <p class="company-expend__text smtext">4. Покупка оборудования</p>--}}
+{{--                                    <input type="text" name="buy_equip" id="" class="company-expend__input smtext" placeholder="30 000&#8381;">--}}
+{{--                                    <button type="button" class="company-expend__del ic_close"></button>--}}
+{{--                                </div>--}}
+{{--                                <div class="company-expend__item">--}}
+{{--                                    <p class="company-expend__text smtext">5. Покупка мебели</p>--}}
+{{--                                    <input type="text" name="buy_furn" id="" class="company-expend__input smtext" placeholder="600 000&#8381;">--}}
+{{--                                    <button type="button" class="company-expend__del ic_close"></button>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="company-expend__add ic_plus"><span data-popup="add-every-mouth-state" class="company-expend__add-text">Добавить новую статью расходов</span></div>--}}
+{{--                            <p class="company-expend__sum smtext"><span class="company-expend__sum-span">Итого: </span>964 000&#8381;</p>--}}
+{{--                            <input type="submit" value="Сохранить" class="company-expend__submit btn">--}}
+{{--                        </div>--}}
                     </form>
                 </div>
             </div>
@@ -455,7 +438,7 @@
 @section('company')
     <script>
         $(document).ready(function () {
-
+            var i = 0;
             phoneadd();
             function fetchcompany() {
                 $.ajax({
@@ -466,7 +449,9 @@
                         $('#company').html(data.company);
                         $('#documents').html(data.document);
                         $('#right_docs').html(data.rightdocuments);
-
+                        $('#worker_list').html(data.workers);
+                        $('#mouth_costs').html(data.costs);
+                        $('#cost_ones_form').html(data.costs_ones);
                         var input = document.getElementById( 'doc_file[0]' );
                         var infoArea = document.getElementById( 'file_input_fild[0]' );
 
@@ -495,6 +480,9 @@
                         $('#company').html(data.company);
                         $('#documents').html(data.document);
                         $('#right_docs').html(data.rightdocuments);
+                        $('#worker_list').html(data.workers);
+                        $('#mouth_costs').html(data.costs);
+                        $('#cost_ones_form').html(data.costs_ones);
                         var inputcount = $('#count_inputs').val();
                         var maxField = 9;
                         $(document).on('click', '#add_phone', function (e) {
@@ -596,9 +584,12 @@
                             $('#update_msgList').html("");
                             $('#success_message').addClass('alert alert-success');
                             $('#success_message').text(response.message);
+                            i = 0;
                             fetchcompany();
                         }
+
                     }
+
                 });
             });
 
@@ -689,44 +680,46 @@
                     }
                 });
             });
-            var  i = 0;
-            var maxFileField = 4;
-            $(document).on('click', '#add_new_imput', function (e) {
-                e.preventDefault();
-                $(document).each(function () {
-                    if (i < maxFileField) {
+            addmoreimputs();
+            function addmoreimputs() {
+                var maxFileField = 4;
+                $(document).on('click', '#add_new_imput', function (e) {
+                    e.preventDefault();
+                    $(document).each(function(key, value) {
                         i++;
-                        $('#file_inputs_list').append('<div class="company-docs__input-wrapper" id="item_file">\
-                                        <input type="text" name="doc_name['+i+']" id="file_input_fild['+i+']" class="company-docs__input form__input" placeholder="Свидетельство о регистрации.pdf" maxlength="100">\
+                        if (i < maxFileField) {
+                            $('#file_inputs_list').append('<div class="company-docs__input-wrapper" id="item_file">\
+                                        <input type="text" name="doc_name[' + i + ']" id="file_input_fild[' + i + ']" class="company-docs__input form__input" placeholder="Свидетельство о регистрации.pdf" maxlength="100">\
                                         <label class="popup-add-doc__btn">\
-                                        <input type="file" name="doc_file['+i+']" id="doc_file['+i+']" class="popup-add-doc__file">\
+                                        <input type="file" name="doc_file[' + i + ']" id="doc_file[' + i + ']" class="popup-add-doc__file">\
                                         Выбрать файл\
                                     </label>\
                                 </div>');
-                    } else {
-                        alert('привышен лимит!')
-                        return false;
-                    }
-                    $(document).on('click', '.ic_close', function () {
-                        document.getElementById('item_file').remove();
+                        } else {
+                            alert('Привышен лимит!');
+                        }
+                        $(document).on('click', '.ic_close', function () {
+                            document.getElementById('item_file').remove();
+                            i = 0;
+                        });
+                        var input = document.getElementById('doc_file[' + i + ']');
+                        var infoArea = document.getElementById('file_input_fild[' + i + ']');
+
+                        input.addEventListener('change', showFileName);
+
+                        function showFileName(event) {
+
+                            // the change event gives us the input it occurred in
+                            var input = event.srcElement;
+
+                            // the input has an array of files in the `files` property, each one has a name that you can use. We're just using the name here.
+                            var fileName = input.files[0].name;
+                            // use fileName however fits your app best, i.e. add it into a div
+                            infoArea.value = fileName.split('.').slice(0, -1).join('.');
+                        }
                     });
-                    var input = document.getElementById( 'doc_file['+i+']' );
-                    var infoArea = document.getElementById( 'file_input_fild['+i+']' );
-
-                    input.addEventListener( 'change', showFileName );
-
-                    function showFileName( event ) {
-
-                        // the change event gives us the input it occurred in
-                        var input = event.srcElement;
-
-                        // the input has an array of files in the `files` property, each one has a name that you can use. We're just using the name here.
-                        var fileName = input.files[0].name;
-                        // use fileName however fits your app best, i.e. add it into a div
-                        infoArea.value = fileName.split('.').slice(0, -1).join('.');
-                    }
                 });
-            });
+            }
         });
     </script>
 @endsection

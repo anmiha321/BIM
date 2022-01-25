@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Helpers\documents;
 use App\Http\Controllers\Controller;
 use App\Models\Company;
+use App\Models\Cost;
 use App\Models\Document;
 use App\Models\Manager;
 use App\Models\Phone;
@@ -228,12 +229,18 @@ class ProfileController extends Controller
     {
         $i = 0;
         $g = 0;
+        $c = 0;
         $id = Auth::user()->getAuthIdentifier();
         $data = User::find($id)->company;
         $newmanagerid = Company::find($data->id)->manager;
+        $every_mouth_costs =  Company::find($data->id)->costs->where('type_of_cost', 0);
+        $every_mouth_ones =  Company::find($data->id)->costs->where('type_of_cost', 1);
         $output = '';
         $document = '';
         $rightdocuments = '';
+        $worker_list = '';
+        $costs_list = '';
+        $costs_list_ones = '';
         $total_row = $data->count();
         if ($total_row > 0) {
             $output .= '<div class="company-main__main">
@@ -397,7 +404,7 @@ class ProfileController extends Controller
                             <div class="company-docs__item">
                                 <div class="company-docs__item-wrapper">
                                     <button type="button" id="deletefile" value="' . $documentval->id . '" class="company-docs__delete ic_close"></button>
-                                    <a  href="' . asset('uploads/documents/' . $documentval->filename . '') . '" class="company-docs__name smtext" target="_blank">' . $documentval->title . '.' . $documentval->type . '</a>
+                                    <a  href="' . asset('uploads/'.$data->id.'/' . $documentval->filename . '') . '" class="company-docs__name smtext" target="_blank">' . $documentval->title . '.' . $documentval->type . '</a>
                                 </div>
                                 <p class="company-docs__size smtext">' . documents::bytesToHuman($documentval->weight) . '</p>
                                 <a href="' . url('/download_file', $documentval->filename) . '" class="company-docs__dload ic_dload"></a>
@@ -407,6 +414,56 @@ class ProfileController extends Controller
             $rightdocuments .= '</div>
 <a href="' . url('/downloadArchive') . '" class="company-docs__dload-all smtext ic_dload">Скачать все одним архивом</a>
                         </div>';
+            foreach ($data->workers as $worker) {
+                $worker_list .= ' <div class="units-list__item">
+                                    <button data-popup="info-unit" type="button" value="' . $worker->id . '" class="units-list__edit ic_edit"></button>
+                                    <button type="button" value="' . $worker->id . '" class="units-list__arch ic_close"></button>
+                                    <div class="units-list__photo"><img src="/uploads/units/'.$worker->image .'" alt="Пользователь" class="units-list__img"></div>
+                                    <p class="units-list__name smtext">' . $worker->surname . ' ' . $worker->getNameInitials() . '. ' . $worker->getPatronymicInitials() . '. - ' . $worker->experience . ' - ' . $worker->getsalaryRight() . ' ₽</p>
+                                </div>';
+            }
+
+            $costs_list .= '<div class="module__head">
+                            <p class="module__heading ic_m_econ">Расходные статьи - 5</p>
+                            <p class="module__icon ic_upload"></p>
+                        </div>
+                        <p class="company-expend__notify smtext">В месяц</p>
+                        <div class="company-expend__main">
+                            <div class="company-expend__list">';
+            foreach ($every_mouth_costs as $cost) {
+                $g++;
+                $costs_list .= '<div class="company-expend__item">
+                                    <p class="company-expend__text smtext">'.$g .'. '.$cost->title .'</p>
+                                    <input type="text" name="rent_office" id="" value="'.$cost->sum_of_cost .'&#8381;" class="company-expend__input smtext" placeholder="300 000&#8381;">
+                                    <button type="button" value="'.$cost->id .'" class="company-expend__del ic_close"></button>
+                                </div>
+                                ';
+            }
+            $costs_list .= ' <div class="company-expend__add ic_plus"><span data-popup="add-state" class="company-expend__add-text">Добавить новую статью расходов</span></div>
+                            <p class="company-expend__sum smtext"><span class="company-expend__sum-span">Итого: </span>964 000&#8381;</p>
+                            <input type="submit" value="Сохранить" class="company-expend__submit btn">
+                            </div>
+                        </div>';
+
+            $costs_list_ones .= ' <div class="module__head">
+                            <p class="module__heading ic_m_econ">Разовые расходы - 15</p>
+                            <p class="module__icon ic_upload"></p>
+                        </div>
+                        <div class="company-expend__main">
+                            <div class="company-expend__list">';
+            foreach ($every_mouth_ones as $cost_ones) {
+                $c++;
+                $costs_list_ones .= '<div class="company-expend__item">
+                                    <p class="company-expend__text smtext">'.$c .'. '.$cost_ones->title .'</p>
+                                    <input type="text" name="buy_equip" id="" value="'.$cost_ones->sum_of_cost .'&#8381;" class="company-expend__input smtext" placeholder="300 000&#8381;">
+                                    <button type="button" value="'.$cost_ones->id .'" class="company-expend__del ic_close"></button>
+                                </div>';
+            }
+            $costs_list_ones .= '<div class="company-expend__add ic_plus"><span data-popup="add-every-mouth-state" class="company-expend__add-text">Добавить новую статью расходов</span></div>
+                            <p class="company-expend__sum smtext"><span class="company-expend__sum-span">Итого: </span>964 000&#8381;</p>
+                            <input type="submit" value="Сохранить" class="company-expend__submit btn">
+                            </div>
+                        </div>';
         } else {
             $output = 'Компания не найдена!';
         }
@@ -414,6 +471,9 @@ class ProfileController extends Controller
             'company' => $output,
             'document' => $document,
             'rightdocuments' => $rightdocuments,
+            'workers' => $worker_list,
+            'costs' => $costs_list,
+            'costs_ones' => $costs_list_ones,
         );
         echo json_encode($data);
     }
@@ -460,9 +520,15 @@ class ProfileController extends Controller
             $item->companies()->sync($companyid);
         }
 
+        $path = public_path('uploads/'.$companyid->id.'');
+
+        if(!File::isDirectory($path)){
+            File::makeDirectory($path, 0777, true, true);
+        }
+
         foreach (array_combine($namerequest, $docs) as $name => $doc) {
             $filename = $name . '.' . $doc->getClientOriginalExtension();
-            $doc->move('uploads/documents',$filename);
+            $doc->move('uploads/'.$companyid->id.'',$filename);
         }
 
 //        $item = Document::Create([
@@ -474,21 +540,25 @@ class ProfileController extends Controller
 
         return response()->json([
             'status' => 200,
-            'message' => 'Компания успешно создана!',
+            'message' => 'Фаил успешно сохранен!',
         ]);
     }
 
     public function downloadfile(Request $request, $file)
     {
-        return response()->download(public_path('uploads/documents/' . $file));
+        $id = Auth::user()->getAuthIdentifier();
+        $companyid = User::find($id)->company;
+        return response()->download(public_path('uploads/'.$companyid->id.'/' . $file));
     }
 
     public function downloadarchive(Request $request)
     {
+        $id = Auth::user()->getAuthIdentifier();
+        $companyid = User::find($id)->company;
         $zip = new \ZipArchive();
         $fileName = 'Архив.zip';
         if ($zip->open(public_path($fileName), \ZipArchive::CREATE) == TRUE) {
-            $files = File::files(public_path('uploads/documents/'));
+            $files = File::files(public_path('uploads/'.$companyid->id.'/'));
             foreach ($files as $key => $value) {
                 $relativeName = basename($value);
                 $zip->addFile($value, $relativeName);
@@ -501,9 +571,11 @@ class ProfileController extends Controller
 
     public function deletefile($id)
     {
+        $ids = Auth::user()->getAuthIdentifier();
+        $companyid = User::find($ids)->company;
         $document = Document::find($id);
         if ($document) {
-            $path = (public_path('uploads/documents/' . $document->filename));
+            $path = (public_path('uploads/'.$companyid->id.'/' . $document->filename));
 
             if (File::exists($path)) {
 
@@ -551,7 +623,14 @@ class ProfileController extends Controller
                 $filename = time() . '.' . $image->getClientOriginalExtension();
                 Image::make($image)->resize(300, 300)->save(public_path('/uploads/units/' . $filename));
 
-
+                $salary = $request['salary_worker'];
+                function format_tel($salary)
+                {
+                    $f_salary = str_replace(' ', '', $salary); //Убираем пробелы
+                    $f_salary = str_replace('руб', '', $f_salary);
+                    return $f_salary;
+                }
+                $money = format_tel($salary);
                 $item = User::create([
                     'image' => $filename,
                     'surname' => $request['surname_worker'],
@@ -561,7 +640,7 @@ class ProfileController extends Controller
                     'phone' => $request['phone_worker'],
                     'role' => $request->input('role_worker', '4'),
                     'experience' => $request['experience_worker'],
-                    'salary' => $request['salary_worker'],
+                    'salary' => $money,
                     'designed_sections' => $request['designed_sections'],
                     'password' => Hash::make($request['password_worker']),
                 ]);

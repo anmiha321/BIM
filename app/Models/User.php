@@ -77,6 +77,14 @@ class User extends Authenticatable
         return($first_char);
     }
 
+    public function getsalaryRight()
+    {
+        $salary = $this->salary;
+        $salary_right = number_format($salary,  0, ',', ' ');
+
+        return($salary_right);
+    }
+
     public function company()
     {
         return $this->hasOne(Company::class);
