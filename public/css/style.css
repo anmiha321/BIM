@@ -3460,7 +3460,7 @@ h6 {
 }
 
 .units-list__img {
-  width: 100%;
+  max-width: 3rem;
   -webkit-border-radius: 50%;
           border-radius: 50%;
 }
@@ -4368,6 +4368,7 @@ h6 {
 }
 
 .popup-add-doc__main {
+  position: relative;
   max-width: 70rem;
   background: rgba(2, 22, 38, 0.8);
   border: 0.1rem solid #01BFEB;

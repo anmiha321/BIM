@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Company extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
     protected $table = 'companies';
     protected $fillable = [
         'user_id',
@@ -53,6 +54,10 @@ class Company extends Model
     public function workers()
     {
         return $this->belongsToMany(User::class);
+    }
+    public function workers_archive()
+    {
+        return $this->belongsToMany(User::class)->onlyTrashed();
     }
 
     public function costs()

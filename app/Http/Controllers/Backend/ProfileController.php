@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use File;
@@ -235,12 +236,14 @@ class ProfileController extends Controller
         $newmanagerid = Company::find($data->id)->manager;
         $every_mouth_costs =  Company::find($data->id)->costs->where('type_of_cost', 0);
         $every_mouth_ones =  Company::find($data->id)->costs->where('type_of_cost', 1);
+        $worker_get = Company::find($data->id)->workers_archive()->onlyTrashed()->get();
         $output = '';
         $document = '';
         $rightdocuments = '';
         $worker_list = '';
         $costs_list = '';
         $costs_list_ones = '';
+        $archive_worker_list = '';
         $total_row = $data->count();
         if ($total_row > 0) {
             $output .= '<div class="company-main__main">
@@ -416,8 +419,8 @@ class ProfileController extends Controller
                         </div>';
             foreach ($data->workers as $worker) {
                 $worker_list .= ' <div class="units-list__item">
-                                    <button data-popup="info-unit" type="button" value="' . $worker->id . '" class="units-list__edit ic_edit"></button>
-                                    <button type="button" value="' . $worker->id . '" class="units-list__arch ic_close"></button>
+                                    <button id="edit_worker" data-popup="info-unit" type="button" value="' . $worker->id . '" class="units-list__edit ic_edit"></button>
+                                    <button id="delete_worker" type="button" value="' . $worker->id . '" class="units-list__arch ic_close"></button>
                                     <div class="units-list__photo"><img src="/uploads/units/'.$worker->image .'" alt="Пользователь" class="units-list__img"></div>
                                     <p class="units-list__name smtext">' . $worker->surname . ' ' . $worker->getNameInitials() . '. ' . $worker->getPatronymicInitials() . '. - ' . $worker->experience . ' - ' . $worker->getsalaryRight() . ' ₽</p>
                                 </div>';
@@ -464,6 +467,25 @@ class ProfileController extends Controller
                             <input type="submit" value="Сохранить" class="company-expend__submit btn">
                             </div>
                         </div>';
+
+            $archive_worker_list .= '<div class="popup-arch-units__content">
+            <div class="popup__head">
+                <p class="popup__title lgtext ic_arch">Архивные сотрудники</p>
+                <p data-close class="popup-arch-units__close popup__close ic_close"></p>
+            </div>
+            <div class="units-list">';
+            foreach ($worker_get as $archive_worker) {
+                 $archive_worker_list .= '<div class="popup-arch-units__item units-list__item">
+                    <button id="edit_worker" value="' . $archive_worker->id . '" data-popup="info-unit" type="button" class="units-list__edit ic_edit"></button>
+                    <button id="delete_worker_final" value="' . $archive_worker->id . '" type="button" class="units-list__arch ic_close"></button>
+                    <div class="units-list__photo"><img src="/uploads/units/'.$archive_worker->image .'" alt="Пользователь"
+                                                        class="units-list__img"></div>
+                    <p class="units-list__name smtext">' . $archive_worker->surname . ' ' . $archive_worker->getNameInitials() . '. ' . $archive_worker->getPatronymicInitials() . '. - ' . $archive_worker->experience . ' - ' . $archive_worker->getsalaryRight() . ' ₽</p>
+                    <button value="' . $archive_worker->id . '" type="button" class="units-list__unarch ic_unarch" id="unarch_worker"></button>
+                </div>';
+            }
+            $archive_worker_list .= '</div>
+        </div>';
         } else {
             $output = 'Компания не найдена!';
         }
@@ -474,6 +496,7 @@ class ProfileController extends Controller
             'workers' => $worker_list,
             'costs' => $costs_list,
             'costs_ones' => $costs_list_ones,
+            'archive_worker_list' => $archive_worker_list,
         );
         echo json_encode($data);
     }
@@ -527,7 +550,7 @@ class ProfileController extends Controller
         }
 
         foreach (array_combine($namerequest, $docs) as $name => $doc) {
-            $filename = $name . '.' . $doc->getClientOriginalExtension();
+            $filename = $name. '.' . $doc->getClientOriginalExtension();
             $doc->move('uploads/'.$companyid->id.'',$filename);
         }
 
@@ -637,6 +660,7 @@ class ProfileController extends Controller
                     'name' => $request['name_worker'],
                     'patronymic' => $request['patronymic_worker'],
                     'id_company' => $companyid->title,
+                    'email' => $request['email_worker'],
                     'phone' => $request['phone_worker'],
                     'role' => $request->input('role_worker', '4'),
                     'experience' => $request['experience_worker'],
@@ -645,11 +669,163 @@ class ProfileController extends Controller
                     'password' => Hash::make($request['password_worker']),
                 ]);
                 $item->companies()->sync($companyid);
+
+                $email_data = array(
+                    'name' => $request['name'],
+                    'email' => $request['email'],
+                );
+
+                // send email with the template
+                Mail::send('welcome_email', $email_data, function ($message) use ($email_data) {
+                    $message->to($email_data['email'], $email_data['name'])
+                        ->subject('Welcome to MyNotePaper')
+                        ->from('info@mynotepaper.com', 'MyNotePaper');
+                });
+
+                return $item;
             }
             return response()->json([
                 'status' => 200,
                 'message' => 'Пользователь успешно создан!',
             ]);
+        }
+    }
+    public function delete_worker($id)
+    {
+        $user = User::find($id);
+        if ($user) {
+            $user->delete();
+            return response()->json([
+                'status' => 200,
+                'message' => 'Пользаватель успешно удален.'
+            ]);
+        } else {
+            return response()->json([
+                'status' => 404,
+                'message' => 'Пользователь не найден.'
+            ]);
+        }
+    }
+    public function restore_archive_worker($id)
+    {
+        $worker = User::onlyTrashed()->find($id);
+        if ($worker) {
+            $worker->restore();
+            return response()->json([
+                'status' => 200,
+                'message' => 'Пользователь востановлен успешнно!'
+            ]);
+        } else {
+            return response()->json([
+                'status' => 404,
+                'message' => 'Пользователь не найден.'
+            ]);
+        }
+    }
+    public function delete_worker_final($id)
+    {
+        $user = User::onlyTrashed()->find($id);
+        if ($user) {
+            $user->forceDelete();
+            return response()->json([
+                'status' => 200,
+                'message' => 'Пользаватель успешно удален.'
+            ]);
+        } else {
+            return response()->json([
+                'status' => 404,
+                'message' => 'Пользователь не найден.'
+            ]);
+        }
+    }
+
+    public function edit_worker($id)
+    {
+        $user = User::withTrashed()->find($id);
+        if ($user) {
+            return response()->json([
+                'status' => 200,
+                'user' => $user,
+            ]);
+        } else {
+            return response()->json([
+                'status' => 404,
+                'message' => 'Пользователь не существует!',
+            ]);
+        }
+    }
+
+    public function update_worker(Request $request, $id)
+    {
+        $ids = Auth::user()->getAuthIdentifier();
+        $companyid = User::find($ids)->company;
+
+
+        $validator = Validator::make($request->all(), [
+            'image_worker_edit' => ['image', 'mimes:jpeg,png,jpg,gif,svg', 'max:4096'],
+            'surname_worker_edit' => ['required', 'string', 'max:255'],
+            'name_worker_edit' => ['required', 'string', 'max:255'],
+            'patronymic_worker_edit' => ['required', 'string', 'max:255'],
+            'email_worker_edit' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' .$id],
+            'phone_worker_edit' => ['required', 'string', 'unique:users,phone,' .$id],
+            'experience_worker_edit' => ['required', 'string', 'max:255'],
+            'salary_worker_edit' => ['required', 'string'],
+            'designed_sections_edit' => ['required', 'string', 'max:255'],
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->messages(),
+            ]);
+        } else {
+
+            $user = User::withTrashed()->find($id);
+            if ($user) {
+
+                if ($request->hasFile('image_worker_edit')) {
+                    $path = (public_path('/uploads/units/' . $user->image));
+
+                    if (File::exists($path)) {
+
+                        File::delete($path);
+                    }
+                    $image = $request->file('image_worker_edit');
+                    $destinationPath = '/uploads/units/';
+                    $filename = time() . '.' . $image->getClientOriginalExtension();
+                    Image::make($image)->resize(300, 300)->save(public_path('/uploads/units/' . $filename));
+                    $user->image = $filename;
+                }
+
+                $salary = $request['salary_worker_edit'];
+                function format_tel($salary)
+                {
+                    $f_salary = str_replace(' ', '', $salary); //Убираем пробелы
+                    $f_salary = str_replace('руб', '', $f_salary);
+                    return $f_salary;
+                }
+                $money = format_tel($salary);
+                $user->surname = $request->input('surname_worker_edit');
+                $user->name = $request->input('name_worker_edit');
+                $user->patronymic = $request->input('patronymic_worker_edit');
+                $user->email = $request->input('email_worker_edit');
+                $user->phone = $request->input('phone_worker_edit');
+                $user->designed_sections = $request->input('designed_sections_edit');
+                $user->experience = $request->input('experience_worker_edit');
+                $user->salary = $money;
+                $user->update();
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'Пользователь обновлен успешно!'
+                ]);
+            } else {
+                return response()->json([
+                    'status' => 404,
+                    'message' => 'Пользователь не найден.'
+                ]);
+            }
+
+
         }
     }
 }

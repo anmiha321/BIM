@@ -19,46 +19,6 @@
         </div>
     </div>
     <div id="popup-arch-units" class="popup popup-arch-units">
-        <div class="popup-arch-units__content">
-            <div class="popup__head">
-                <p class="popup__title lgtext ic_arch">Архивные сотрудники</p>
-                <p data-close class="popup-arch-units__close popup__close ic_close"></p>
-            </div>
-            <div class="units-list">
-                <div class="popup-arch-units__item units-list__item">
-                    <button data-popup="info-unit" type="button" class="units-list__edit ic_edit"></button>
-                    <button type="button" class="units-list__arch ic_close"></button>
-                    <div class="units-list__photo"><img src="/uploads/units/2s.png" alt="Пользователь"
-                                                        class="units-list__img"></div>
-                    <p class="units-list__name smtext">Грозный П.У. - Проектировщик - АР - 50&nbsp;000&nbsp;₽</p>
-                    <button type="button" class="units-list__unarch ic_unarch"></button>
-                </div>
-                <div class="popup-arch-units__item units-list__item">
-                    <button data-popup="info-unit" type="button" class="units-list__edit ic_edit"></button>
-                    <button type="button" class="units-list__arch ic_close"></button>
-                    <div class="units-list__photo"><img src="/uploads/units/3s.png" alt="Пользователь"
-                                                        class="units-list__img"></div>
-                    <p class="units-list__name smtext">Петров В.В. - Бухгалтер - 60&nbsp;000&nbsp;₽</p>
-                    <button type="button" class="units-list__unarch ic_unarch"></button>
-                </div>
-                <div class="popup-arch-units__item units-list__item">
-                    <button data-popup="info-unit" type="button" class="units-list__edit ic_edit"></button>
-                    <button type="button" class="units-list__arch ic_close"></button>
-                    <div class="units-list__photo"><img src="/uploads/units/4s.png" alt="Пользователь"
-                                                        class="units-list__img"></div>
-                    <p class="units-list__name smtext">Сидоров С.С. - Юрист - 70&nbsp;000&nbsp;₽</p>
-                    <button type="button" class="units-list__unarch ic_unarch"></button>
-                </div>
-                <div class="popup-arch-units__item units-list__item">
-                    <button data-popup="info-unit" type="button" class="units-list__edit ic_edit"></button>
-                    <button type="button" class="units-list__arch ic_close"></button>
-                    <div class="units-list__photo"><img src="/uploads/units/5s.png" alt="Пользователь"
-                                                        class="units-list__img"></div>
-                    <p class="units-list__name smtext">Проект В.Е. - ГИП - 150&nbsp;000&nbsp;₽</p>
-                    <button type="button" class="units-list__unarch ic_unarch"></button>
-                </div>
-            </div>
-        </div>
     </div>
     <div id="popup-info-unit" class="popup popup-info-unit">
         <div class="popup-arch-units__content">
@@ -67,56 +27,57 @@
                 <p data-close class="popup-arch-units__close popup__close ic_close"></p>
             </div>
             <div class="popup__main">
-                <div class="popup__photo">
-                    <img src="/uploads/units/1.png" alt="Пользователь" class="popup__img">
-                    <label class="popup__add-photo add-photo">
-                        <input type="file" name="add-photo" class="add-photo__input">
-                        <span class="add-photo__icon ic_photo"></span>
-                    </label>
-                </div>
-                <form action="#" name="popupInfoUnit" id="" class="popup__form form">
+                <form action="#" name="popupInfoUnit" id="user_edit_form" class="popup__form form">
+                    <div class="popup__photo">
+                        <img src="" alt="Пользователь" id="photo-worker-show_edit" class="popup__img">
+                        <label for="image_worker_edit" class="popup__add-photo add-photo">
+                            <input type="file" name="image_worker_edit" id="image_worker_edit" class="add-photo__input">
+                            <span class="add-photo__icon ic_photo"></span>
+                        </label>
+                    </div>
                     <div class="form__row">
                         <p class="form__label smtext">Фамилия</p>
-                        <input data-aplha type="text" name="surname" class="form__input " placeholder="Артем"
+                        <input type="hidden" name="id_of_worker" class="form__input " id="edit_worker_id">
+                        <input data-aplha type="text" name="surname_worker_edit" id="surname_worker_edit" class="form__input " placeholder="Артем"
                                maxlength="30">
                     </div>
                     <div class="form__row">
                         <p class="form__label smtext">Имя</p>
-                        <input data-aplha type="text" name="name" class="form__input " placeholder="Артем"
+                        <input data-aplha type="text" name="name_worker_edit" id="name_worker_edit" class="form__input " placeholder="Артем"
                                maxlength="30">
                     </div>
                     <div class="form__row">
                         <p class="form__label smtext">Отчество</p>
-                        <input data-aplha type="text" name="patron" class="form__input " placeholder="Дмитриевич"
+                        <input data-aplha type="text" name="patronymic_worker_edit" id="patronymic_worker_edit" class="form__input " placeholder="Дмитриевич"
                                maxlength="30">
                     </div>
                     <div class="form__row">
                         <p class="form__label smtext">E-mail</p>
-                        <input type="email" name="email" class="form__input" placeholder="example@gmail.com"
+                        <input type="email" name="email_worker_edit" id="email_worker_edit" class="form__input" placeholder="example@gmail.com"
                                maxlength="40">
                     </div>
                     <div class="form__row">
                         <p class="form__label smtext">Телефон=логин</p>
-                        <input type="tel" name="phone" class="form__input" placeholder="+7 (999) 999-99-99"
+                        <input type="tel" name="phone_worker_edit" id="phone_worker_edit" class="form__input" placeholder="+7 (999) 999-99-99"
                                maxlength="17">
                     </div>
                     <div class="form__row">
                         <p class="form__label smtext">Проектируемые разделы</p>
-                        <input data-aplha type="text" name="des_sec" class="form__input " placeholder="XYZ7965305k"
+                        <input data-aplha type="text" name="designed_sections_edit" id="designed_sections_edit" class="form__input " placeholder="XYZ7965305k"
                                maxlength="60">
                     </div>
                     <div class="form__row">
                         <p class="form__label smtext">Должность</p>
-                        <input data-aplha type="text" name="position" class="form__input " placeholder=""
+                        <input data-aplha type="text" name="experience_worker_edit" id="experience_worker_edit" class="form__input " placeholder=""
                                maxlength="60">
                     </div>
                     <div class="form__row">
                         <p class="form__label smtext">Оклад</p>
-                        <input type="text" name="salary" class="popup-info-unit__salary form__input"
+                        <input type="text" name="salary_worker_edit" id="salary_worker_edit" class="popup-info-unit__salary form__input"
                                placeholder="75 000 руб" maxlength="20">
                     </div>
                     <div class="popup__btns form__btns">
-                        <input type="submit" value="Сохранить" class="popup__btn">
+                        <button type="submit" class="popup__btn">Сохранить</button>
                         <div data-reset class="popup__cancel">Отменить</div>
                     </div>
                 </form>
