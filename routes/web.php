@@ -45,5 +45,10 @@ Route::get('/return_worker/{id}', [ProfileController::class, 'restore_archive_wo
 Route::post('/create_worker',[ProfileController::class, 'create_worker'])->name('create_worker');
 Route::get('/edit_worker/{id}', [ProfileController::class, 'edit_worker'])->name('edit_worker');
 Route::post('/update_worker/{id}', [ProfileController::class, 'update_worker'])->name('update_worker');
+Route::post('/create_article_mouth', [ProfileController::class, 'create_article_mouth'])->name('create_article_mouth');
+Route::post('/update_article_mouth', [ProfileController::class, 'update_article_mouth'])->name('update_article_mouth');
+Route::post('/create_article_ones', [ProfileController::class, 'create_article_ones'])->name('create_article_ones');
+Route::post('/update_article_ones', [ProfileController::class, 'update_article_ones'])->name('update_article_ones');
+Route::delete('/delete_article/{id}', [ProfileController::class, 'delete_article'])->name('delete_article');
 Route::delete('delete_user/{id}', [UserController::class, 'destroy']);
 Route::get('return_user/{id}', [UserController::class, 'restore']);

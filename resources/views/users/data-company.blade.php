@@ -778,6 +778,7 @@
                     }
                 });
             });
+
             $(document).on('click', '#unarch_worker', function (e) {
                 e.preventDefault();
                 var id = $(this).val();
@@ -914,9 +915,257 @@
                             $('#success_message').addClass('alert alert-success');
                             $('#success_message').text(response.message);
                             $('.update_student').text('Update');
-                            $('.modal').removeClass('active');
-                            $('#popup-info-unit').removeClass('active');
                             $('#user_edit_form').find('input').val("");
+                            $('#popup-info-unit').removeClass('active');
+                            $('.modal').removeClass('active');
+                            fetchcompany();
+                        }
+                    }
+                });
+            });
+
+            $(document).on('submit', '#mouth_cost_form', function (e) {
+                e.preventDefault();
+                let data = new FormData($('#mouth_cost_form')[0]);
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                    type: "POST",
+                    enctype: 'multipart/form-data',
+                    url: "/create_article_mouth",
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        if (response.status == 400) {
+                            var errorsArr = [];
+                            $('#saveForm_errList').html("");
+                            $('#saveForm_errList').addClass('alert alert-danger');
+                            $.each(response.errors, function (key, err_values) {
+                                errorsArr.push(err_values)
+                            });
+                            alert(errorsArr.join("\n"))
+                        } else {
+                            $('#success_message').html("")
+                            $('#success_message').addClass('alert alert-success')
+                            $('#success_message').text(response.message)
+                            $('#popup-add-state').removeClass('active');
+                            $('.modal').removeClass('active');
+                            alert('Статья успешно созданна!')
+                            $('#mouth_cost_form').find('#title_mouth_cost').val("");
+                            // $('#photo-user').val("");
+                            // $('#user-admin').prop('checked', false);
+                            // $('#user-member').prop('checked', false);
+                            // $('#user-local').prop('checked', false);
+                            // $('#photo_create').attr("src", "/img/load.png");
+                            // $('.modal').removeClass('active');
+                            // $('#popup-add-user').removeClass('active');
+                            // $('body').removeClass('inactive');
+                            // $('body').removeAttr('style');
+                            fetchcompany();
+
+                        }
+                    }
+                });
+            });
+
+            $(document).on('submit', '#ones_cost_form', function (e) {
+                e.preventDefault();
+                let data = new FormData($('#ones_cost_form')[0]);
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                    type: "POST",
+                    enctype: 'multipart/form-data',
+                    url: "/create_article_ones",
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        if (response.status == 400) {
+                            var errorsArr = [];
+                            $('#saveForm_errList').html("");
+                            $('#saveForm_errList').addClass('alert alert-danger');
+                            $.each(response.errors, function (key, err_values) {
+                                errorsArr.push(err_values)
+                            });
+                            alert(errorsArr.join("\n"))
+                        } else {
+                            $('#success_message').html("")
+                            $('#success_message').addClass('alert alert-success')
+                            $('#success_message').text(response.message)
+                            alert('Статья успешно созданна!')
+                            $('#popup-add-ones-state').removeClass('active');
+                            $('.modal').removeClass('active');
+                            $('#ones_cost_form').find('#title_ones_cost_id').val("");
+                            // $('#photo-user').val("");
+                            // $('#user-admin').prop('checked', false);
+                            // $('#user-member').prop('checked', false);
+                            // $('#user-local').prop('checked', false);
+                            // $('#photo_create').attr("src", "/img/load.png");
+                            // $('.modal').removeClass('active');
+                            // $('#popup-add-user').removeClass('active');
+                            // $('body').removeClass('inactive');
+                            // $('body').removeAttr('style');
+                            fetchcompany();
+
+                        }
+                    }
+                });
+            });
+
+            $(document).on('submit', '#mouth_costs', function (e) {
+                e.preventDefault();
+                let data = new FormData($('#mouth_costs')[0]);
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                    type: "POST",
+                    enctype: 'multipart/form-data',
+                    url: "/update_article_mouth",
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        if (response.status == 400) {
+                            var errorsArr = [];
+                            $('#saveForm_errList').html("");
+                            $('#saveForm_errList').addClass('alert alert-danger');
+                            $.each(response.errors, function (key, err_values) {
+                                errorsArr.push(err_values)
+                            });
+                            alert(errorsArr.join("\n"))
+                        } else {
+                            $('#success_message').html("")
+                            $('#success_message').addClass('alert alert-success')
+                            $('#success_message').text(response.message)
+                            alert('Цены обновленны!')
+                            // $('#photo-user').val("");
+                            // $('#user-admin').prop('checked', false);
+                            // $('#user-member').prop('checked', false);
+                            // $('#user-local').prop('checked', false);
+                            // $('#photo_create').attr("src", "/img/load.png");
+                            // $('.modal').removeClass('active');
+                            // $('#popup-add-user').removeClass('active');
+                            // $('body').removeClass('inactive');
+                            // $('body').removeAttr('style');
+                            fetchcompany();
+
+                        }
+                    }
+                });
+            });
+
+            $(document).on('submit', '#cost_ones_form', function (e) {
+                e.preventDefault();
+                let data = new FormData($('#cost_ones_form')[0]);
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                    type: "POST",
+                    enctype: 'multipart/form-data',
+                    url: "/update_article_ones",
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        if (response.status == 400) {
+                            var errorsArr = [];
+                            $('#saveForm_errList').html("");
+                            $('#saveForm_errList').addClass('alert alert-danger');
+                            $.each(response.errors, function (key, err_values) {
+                                errorsArr.push(err_values)
+                            });
+                            alert(errorsArr.join("\n"))
+                        } else {
+                            $('#success_message').html("")
+                            $('#success_message').addClass('alert alert-success')
+                            $('#success_message').text(response.message)
+                            alert('Цены обновленны!')
+                            // $('#photo-user').val("");
+                            // $('#user-admin').prop('checked', false);
+                            // $('#user-member').prop('checked', false);
+                            // $('#user-local').prop('checked', false);
+                            // $('#photo_create').attr("src", "/img/load.png");
+                            // $('.modal').removeClass('active');
+                            // $('#popup-add-user').removeClass('active');
+                            // $('body').removeClass('inactive');
+                            // $('body').removeAttr('style');
+                            fetchcompany();
+
+                        }
+                    }
+                });
+            });
+
+            $(document).on('click', '#delete_mouth_article', function (e) {
+                e.preventDefault();
+                var id = $(this).val();
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                    type: "DELETE",
+                    url: "/delete_article/" + id,
+                    dataType: "json",
+                    success: function (response) {
+                        // console.log(response);
+                        if (response.status == 404) {
+                            $('#success_message').addClass('alert alert-success');
+                            $('#success_message').text(response.message);
+                        } else {
+                            $('#success_message').html("");
+                            $('#success_message').addClass('alert alert-success');
+                            $('#success_message').text(response.message);
+                            fetchcompany();
+                        }
+                    }
+                });
+            });
+
+            $(document).on('click', '#delete_ones_article', function (e) {
+                e.preventDefault();
+                var id = $(this).val();
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                    type: "DELETE",
+                    url: "/delete_article/" + id,
+                    dataType: "json",
+                    success: function (response) {
+                        // console.log(response);
+                        if (response.status == 404) {
+                            $('#success_message').addClass('alert alert-success');
+                            $('#success_message').text(response.message);
+                        } else {
+                            $('#success_message').html("");
+                            $('#success_message').addClass('alert alert-success');
+                            $('#success_message').text(response.message);
                             fetchcompany();
                         }
                     }

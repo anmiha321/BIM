@@ -427,7 +427,7 @@ class ProfileController extends Controller
             }
 
             $costs_list .= '<div class="module__head">
-                            <p class="module__heading ic_m_econ">Расходные статьи - 5</p>
+                            <p class="module__heading ic_m_econ">Расходные статьи - '.$every_mouth_costs->count().'</p>
                             <p class="module__icon ic_upload"></p>
                         </div>
                         <p class="company-expend__notify smtext">В месяц</p>
@@ -437,19 +437,19 @@ class ProfileController extends Controller
                 $g++;
                 $costs_list .= '<div class="company-expend__item">
                                     <p class="company-expend__text smtext">'.$g .'. '.$cost->title .'</p>
-                                    <input type="text" name="rent_office" id="" value="'.$cost->sum_of_cost .'&#8381;" class="company-expend__input smtext" placeholder="300 000&#8381;">
-                                    <button type="button" value="'.$cost->id .'" class="company-expend__del ic_close"></button>
+                                    <input type="text" name="rent_office[' . $cost->id . '][sum_of_cost]" id="" value="'.$cost->getsumRight() .'&#8381;" class="company-expend__input smtext" placeholder="300 000&#8381;">
+                                    <button type="button" value="'.$cost->id .'" id="delete_mouth_article" class="company-expend__del ic_close"></button>
                                 </div>
                                 ';
             }
             $costs_list .= ' <div class="company-expend__add ic_plus"><span data-popup="add-state" class="company-expend__add-text">Добавить новую статью расходов</span></div>
-                            <p class="company-expend__sum smtext"><span class="company-expend__sum-span">Итого: </span>964 000&#8381;</p>
+                            <p class="company-expend__sum smtext"><span class="company-expend__sum-span">Итого: </span>'.Cost::getsumRightfull_mouth().'&#8381;</p>
                             <input type="submit" value="Сохранить" class="company-expend__submit btn">
                             </div>
                         </div>';
 
             $costs_list_ones .= ' <div class="module__head">
-                            <p class="module__heading ic_m_econ">Разовые расходы - 15</p>
+                            <p class="module__heading ic_m_econ">Разовые расходы - '.$every_mouth_ones->count().'</p>
                             <p class="module__icon ic_upload"></p>
                         </div>
                         <div class="company-expend__main">
@@ -458,12 +458,12 @@ class ProfileController extends Controller
                 $c++;
                 $costs_list_ones .= '<div class="company-expend__item">
                                     <p class="company-expend__text smtext">'.$c .'. '.$cost_ones->title .'</p>
-                                    <input type="text" name="buy_equip" id="" value="'.$cost_ones->sum_of_cost .'&#8381;" class="company-expend__input smtext" placeholder="300 000&#8381;">
-                                    <button type="button" value="'.$cost_ones->id .'" class="company-expend__del ic_close"></button>
+                                    <input type="text" name="buy_equip[' . $cost_ones->id . '][sum_of_cost]" id="" value="'.$cost_ones->getsumRight() .'&#8381;" class="company-expend__input smtext" placeholder="300 000&#8381;">
+                                    <button type="button" value="'.$cost_ones->id .'" id="delete_ones_article" class="company-expend__del ic_close"></button>
                                 </div>';
             }
-            $costs_list_ones .= '<div class="company-expend__add ic_plus"><span data-popup="add-every-mouth-state" class="company-expend__add-text">Добавить новую статью расходов</span></div>
-                            <p class="company-expend__sum smtext"><span class="company-expend__sum-span">Итого: </span>964 000&#8381;</p>
+            $costs_list_ones .= '<div class="company-expend__add ic_plus"><span data-popup="add-ones-state" class="company-expend__add-text">Добавить новую статью расходов</span></div>
+                            <p class="company-expend__sum smtext"><span class="company-expend__sum-span">Итого: </span>'.Cost::getsumRightfull_ones().'&#8381;</p>
                             <input type="submit" value="Сохранить" class="company-expend__submit btn">
                             </div>
                         </div>';
@@ -671,15 +671,17 @@ class ProfileController extends Controller
                 $item->companies()->sync($companyid);
 
                 $email_data = array(
-                    'name' => $request['name'],
-                    'email' => $request['email'],
+                    'name' => $request['name_worker'],
+                    'email' => $request['email_worker'],
+                    'phone' => $request['phone_worker'],
+                    'password' => $request['password_worker'],
                 );
 
                 // send email with the template
-                Mail::send('welcome_email', $email_data, function ($message) use ($email_data) {
+                Mail::send('email.welcome_email', $email_data, function ($message) use ($email_data) {
                     $message->to($email_data['email'], $email_data['name'])
-                        ->subject('Welcome to MyNotePaper')
-                        ->from('info@mynotepaper.com', 'MyNotePaper');
+                        ->subject('Welcome to BIM')
+                        ->from('amogus@ww.net.ru', 'BIM');
                 });
 
                 return $item;
@@ -826,6 +828,155 @@ class ProfileController extends Controller
             }
 
 
+        }
+    }
+
+    public function create_article_mouth(Request $request)
+    {
+        $id = Auth::user()->getAuthIdentifier();
+        $companyid = User::find($id)->company;
+
+        $validator = Validator::make($request->all(), [
+            'title_mouth_cost' => ['required', 'string', 'max:255', 'unique:costs,title'],
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->messages(),
+            ]);
+        } else {
+                $item = Cost::create([
+                    'title' => $request['title_mouth_cost'],
+                    'type_of_cost' => '0',
+                ]);
+                $item->company()->sync($companyid);
+
+            return response()->json([
+                'status' => 200,
+                'message' => 'Статья успешно создана!',
+            ]);
+        }
+    }
+
+    public function create_article_ones(Request $request)
+    {
+        $id = Auth::user()->getAuthIdentifier();
+        $companyid = User::find($id)->company;
+
+        $validator = Validator::make($request->all(), [
+            'title_ones_cost' => ['required', 'string', 'max:255', 'unique:costs,title'],
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->messages(),
+            ]);
+        } else {
+            $item = Cost::create([
+                'title' => $request['title_ones_cost'],
+                'type_of_cost' => '1',
+            ]);
+            $item->company()->sync($companyid);
+
+            return response()->json([
+                'status' => 200,
+                'message' => 'Статья успешно создана!',
+            ]);
+        }
+    }
+
+    public function update_article_mouth(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'rent_office.*.sum_of_cost' => ['required'],
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->messages(),
+            ]);
+        } else {
+
+            foreach ($request->rent_office as $key => $value)
+            {
+                $item = Cost::find($key);
+
+                    $f_salary = str_replace(' ', '', $value); //Убираем пробелы
+                    $f_salary = str_replace('₽', '', $f_salary);
+
+
+
+
+                foreach ($f_salary as $keys => $values)
+                {
+                    $item->sum_of_cost = $values;
+                    $item->update();
+                }
+            }
+
+            return response()->json([
+                'status' => 200,
+                'message' => 'Цена успешно обновлена!',
+            ]);
+
+        }
+    }
+
+    public function update_article_ones(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'buy_equip.*.sum_of_cost' => ['required'],
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->messages(),
+            ]);
+        } else {
+
+            foreach ($request->buy_equip as $key => $value)
+            {
+                $item = Cost::find($key);
+
+                $f_salary = str_replace(' ', '', $value); //Убираем пробелы
+                $f_salary = str_replace('₽', '', $f_salary);
+
+
+
+
+                foreach ($f_salary as $keys => $values)
+                {
+                    $item->sum_of_cost = $values;
+                    $item->update();
+                }
+            }
+
+            return response()->json([
+                'status' => 200,
+                'message' => 'Цена успешно обновлена!',
+            ]);
+
+        }
+    }
+
+    public function delete_article($id)
+    {
+        $cost = Cost::find($id);
+        if ($cost) {
+            $cost->delete();
+            return response()->json([
+                'status' => 200,
+                'message' => 'Статья успешно удалена.'
+            ]);
+        } else {
+            return response()->json([
+                'status' => 404,
+                'message' => 'Статья не найдена.'
+            ]);
         }
     }
 }
