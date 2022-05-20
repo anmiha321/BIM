@@ -91,18 +91,18 @@
                 <p data-close class="popup__close ic_close"></p>
             </div>
             <div class="popup__main">
-                <form action="#" name="changePass" id="" class="popup__form form">
+                <form action="#" name="changePass" id="changePass" class="popup__form form">
                     <div class="form__row">
                         <p class="form__label smtext">Старый пароль</p>
-                        <input type="text" name="old_passw" class="form__input" placeholder="ZYZ7456HH" maxlength="20">
+                        <input type="text" name="old_password" class="form__input" placeholder="ZYZ7456HH" maxlength="20">
                     </div>
                     <div class="form__row">
                         <p class="form__label smtext">Новый пароль</p>
-                        <input type="text" name="new_passw" class="form__input" placeholder="555699JKIY" maxlength="20">
+                        <input type="text" name="password" class="form__input" placeholder="555699JKIY" maxlength="20">
                     </div>
                     <div class="form__row">
                         <p class="form__label smtext">Подтверждение пароля</p>
-                        <input type="text" name="conf_new_passw" class="form__input" placeholder="555699JKIY"
+                        <input type="text" name="password_confirmation_edit-password" class="form__input" placeholder="555699JKIY"
                                maxlength="20">
                     </div>
                     <div class="popup__btns form__btns">
@@ -120,36 +120,36 @@
                 <p data-close class="popup__close ic_close"></p>
             </div>
             <div class="popup__main">
-                <div class="popup-account__table">
-                    <div class="popup-account__row">
-                        <p class="popup-account__left ic_user smtext">ФИО</p>
-                        <p class="popup-account__right smtext">Петров Игорь Сергеевич</p>
-                    </div>
-                    <div class="popup-account__row">
-                        <p class="popup-account__left ic_mail smtext">E-mail</p>
-                        <p class="popup-account__right smtext">example@gmail.com</p>
-                    </div>
-                    <div class="popup-account__row">
-                        <p class="popup-account__left ic_call smtext">Телефон</p>
-                        <p class="popup-account__right smtext">+7 (999) 999-99-99</p>
-                    </div>
-                    <div class="popup-account__row">
-                        <p class="popup-account__left ic_earth smtext">Страна</p>
-                        <p class="popup-account__right smtext">Россия</p>
-                    </div>
-                    <div class="popup-account__row">
-                        <p class="popup-account__left ic_role smtext">Роль</p>
-                        <p class="popup-account__right smtext">Администратор</p>
-                    </div>
-                    <div class="popup-account__row">
-                        <p class="popup-account__left ic_cal smtext">Дата регистрации</p>
-                        <p class="popup-account__right smtext">15.10.2020</p>
-                    </div>
-                    <div class="popup-account__row">
-                        <p class="popup-account__left ic_time smtext">Последняя активность</p>
-                        <p class="popup-account__right smtext"><span class="popup-account__right-time">15.10.2021</span>18:41
-                        </p>
-                    </div>
+                <div class="popup-account__table" id="popup-account__table">
+{{--                    <div class="popup-account__row">--}}
+{{--                        <p class="popup-account__left ic_user smtext">ФИО</p>--}}
+{{--                        <p class="popup-account__right smtext">Петров Игорь Сергеевич</p>--}}
+{{--                    </div>--}}
+{{--                    <div class="popup-account__row">--}}
+{{--                        <p class="popup-account__left ic_mail smtext">E-mail</p>--}}
+{{--                        <p class="popup-account__right smtext">example@gmail.com</p>--}}
+{{--                    </div>--}}
+{{--                    <div class="popup-account__row">--}}
+{{--                        <p class="popup-account__left ic_call smtext">Телефон</p>--}}
+{{--                        <p class="popup-account__right smtext">+7 (999) 999-99-99</p>--}}
+{{--                    </div>--}}
+{{--                    <div class="popup-account__row">--}}
+{{--                        <p class="popup-account__left ic_earth smtext">Страна</p>--}}
+{{--                        <p class="popup-account__right smtext">Россия</p>--}}
+{{--                    </div>--}}
+{{--                    <div class="popup-account__row">--}}
+{{--                        <p class="popup-account__left ic_role smtext">Роль</p>--}}
+{{--                        <p class="popup-account__right smtext">Администратор</p>--}}
+{{--                    </div>--}}
+{{--                    <div class="popup-account__row">--}}
+{{--                        <p class="popup-account__left ic_cal smtext">Дата регистрации</p>--}}
+{{--                        <p class="popup-account__right smtext">15.10.2020</p>--}}
+{{--                    </div>--}}
+{{--                    <div class="popup-account__row">--}}
+{{--                        <p class="popup-account__left ic_time smtext">Последняя активность</p>--}}
+{{--                        <p class="popup-account__right smtext"><span class="popup-account__right-time">15.10.2021</span>18:41--}}
+{{--                        </p>--}}
+{{--                    </div>--}}
                 </div>
             </div>
         </div>
@@ -234,15 +234,16 @@
                 <p data-close class="popup__close ic_close"></p>
             </div>
             <div class="">
-                <form action="#" name="saChangePass" id="" class="popup-auth__form popup-sa-ch-p__form">
+                <form action="#" name="saChangePass" id="saChangePass" class="popup-auth__form popup-sa-ch-p__form">
                     <div class="popup-sa-ch-p__inputs">
                         <label for="four-num" class="popup-auth__label popup-sa-ch-p__label"><span
                                 class="popup-auth__label-span lgtext">Введите новый пароль</span>
-                            <input type="text" name="four_numbers" id="four-num" class="popup-auth__input lgtext"
+                            <input type="hidden" id="user_id">
+                            <input type="text" name="password" id="four-num" class="popup-auth__input lgtext"
                                    maxlength="20"></label>
                         <label for="four-num" class="popup-auth__label popup-sa-ch-p__label"><span
                                 class="popup-auth__label-span lgtext">Подтвердите новый пароль</span>
-                            <input type="text" name="four_numbers" id="four-num" class="popup-auth__input lgtext"
+                            <input type="text" name="password_confirmation" id="four-num" class="popup-auth__input lgtext"
                                    maxlength="20"></label>
                     </div>
                     <input type="submit" value="Подтвердить" class="popup-sa-ch-p__submit">

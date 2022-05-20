@@ -85,6 +85,14 @@ class User extends Authenticatable
         return($salary_right);
     }
 
+    public function getsDateOfRegistrationRight()
+    {
+        $date = $this->created_at;
+        $date_display = date($date, 'd/m/Y');
+
+        return($date_display);
+    }
+
     public function company()
     {
         return $this->hasOne(Company::class);

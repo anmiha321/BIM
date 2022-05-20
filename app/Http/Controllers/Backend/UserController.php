@@ -77,8 +77,8 @@ class UserController extends Controller
                     <div class="sa__cell sa__cell_photo"><div class="sa__photo"><img src="/uploads/units/' . $row->image . '" alt="Пользователь" class="sa__img"></div></div>
                     <div class="sa__cell sa__cell_fio"><p class="sa__text text">' . $row->surname . ' ' . $row->name . ' ' . $row->patronymic . '</p></div>
                     <div class="sa__cell sa__cell_status">
-                        ' . ($row->deleted_at != Null ? '<p class="sa__text text ic_arr_d">Архивный</p>' : '<p class="sa__text text ic_arr_d">Активный</p>') . '
-                        <div class="drop">
+                        ' . ($row->deleted_at != Null ? '<p data-status class="sa__text text ic_arr_d">Архивный</p>' : '<p data-status class="sa__text text ic_arr_d">Активный</p>') . '
+                        <div data-status-drop class="drop-sa">
                             <button value="' . $row->id . '" id="activate" class="drop__item">Активный</button>
                             ' . ($row->id == $auth_id ? '' : ' <button value="' . $row->id . '" id="arhivate" class="drop__item">Архивный</button>') . '
                         </div>
@@ -305,8 +305,8 @@ class UserController extends Controller
                     <div class="sa__cell sa__cell_photo"><div class="sa__photo"><img src="/uploads/units/' . $row->image . '" alt="Пользователь" class="sa__img"></div></div>
                     <div class="sa__cell sa__cell_fio"><p class="sa__text text">' . $row->surname . ' ' . $row->name . ' ' . $row->patronymic . '</p></div>
                     <div class="sa__cell sa__cell_status">
-                        ' . ($row->deleted_at != Null ? '<p class="sa__text text ic_arr_d">Архивный</p>' : '<p class="sa__text text ic_arr_d">Активный</p>') . '
-                        <div class="drop">
+                        ' . ($row->deleted_at != Null ? '<p data-status class="sa__text text ic_arr_d">Архивный</p>' : '<p data-status class="sa__text text ic_arr_d">Активный</p>') . '
+                        <div data-status-drop class="drop-sa">
                             <button value="' . $row->id . '" id="activate" class="drop__item">Активный</button>
                             <button value="' . $row->id . '" id="arhivate" class="drop__item">Архивный</button>
                         </div>

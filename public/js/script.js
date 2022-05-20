@@ -14344,7 +14344,7 @@ window.onload = function () {
     });
   }
 
-  if (document.querySelector('.module.company')) {
+  if (document.querySelector('.module.company').length !== 0) {
     const tabs = document.querySelector('.company__content');
     const tabButton = document.querySelectorAll('.nav-company__link');
     const contents = document.querySelectorAll('.company__block');
@@ -14371,7 +14371,7 @@ window.onload = function () {
 
 
     btnGen.addEventListener('click', function () {
-      let inputGen = this.previousElementSibling.querySelector('input[name="password_worker"]');
+      let inputGen = this.previousElementSibling.querySelector('input[name="passw"]');
       inputGen.value = '';
       inputGen.value = pass_gen(10);
     });
@@ -14402,6 +14402,9 @@ window.onload = function () {
 };
 
 $(function () {
+  $(document).on('change', function () {
+    $('input[type="tel"]').mask('+7 (999) 999-9999');
+  });
   $('input[type="tel"]').mask('+7 (999) 999-9999');
   const body = $('body');
   const modal = $('.modal');
@@ -14439,10 +14442,10 @@ $(function () {
     let idPopup = $(this).attr('data-popup');
     openModal(idPopup);
   });
-  // $(document).on('click', '[data-add-input]', function () {
-  //   let phone = $(this).prev().clone().mask('+7 (999) 999-9999');
-  //   $(this).before(phone);
-  // });
+  $(document).on('click', '[data-add-input]', function () {
+    let phone = $(this).prev().clone().mask('+7 (999) 999-9999');
+    $(this).before(phone);
+  });
   $(document).on('click', '[data-close]', function () {
     if ($('.popup.active').length <= 1) {
       modal.removeClass('active');

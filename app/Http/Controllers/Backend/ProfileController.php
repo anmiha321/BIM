@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use File;
 use Image;
+
 class ProfileController extends Controller
 {
 
@@ -35,11 +36,124 @@ class ProfileController extends Controller
     public function fetchprofile()
     {
         $id = Auth::user()->getAuthIdentifier();
-        $data = User::find($id);
-        return response()->json([
-            'user' => $data,
-
-        ]);
+        $datauser = User::find($id);
+        $datacompany = User::find($id)->company;
+        $workers = $datacompany->workers->where('role', 4)->where('deleted_at', NULL);
+        $output = '';
+        $total_row = $datauser->count();
+        if ($total_row > 0) {
+            $output .= '<form action="#" name="lkForm" id="lkForm" class="lk__form form">
+                            <div class="lk__data">
+                                <div class="lk__person">
+                                    <div class="lk__photo"><img src="/uploads/units/' . $datauser->image . '" alt="Пользователь" class="lk__img"></div>
+                                    <div class="lk__info">
+                                        <p class="lk__name text"><span class="lk__bold">' . $datauser->surname . '</span> <br>' . $datauser->name . ' ' . $datauser->patronymic . '</p>
+                                        <p class="lk__name-company text ic_m_treat">' . $datauser->id_company . '</p>
+                                    </div>
+                                </div>
+                                <div class="lk__inputs">
+                                    <div class="lk__input-wrapper">
+                                        <p class="lk__label smtext">Фамилия</p>
+                                        <input type="text" name="surname" class="form__input lk__input onlyAlpha" placeholder="Евдокимов" value="' . $datauser->surname . '" maxlength="30">
+                                    </div>
+                                    <div class="lk__input-wrapper">
+                                        <p class="lk__label smtext">Имя</p>
+                                        <input type="text" name="name" class="form__input lk__input onlyAlpha" placeholder="Артем" value="' . $datauser->name . '" maxlength="30">
+                                    </div>
+                                    <div class="lk__input-wrapper">
+                                        <p class="lk__label smtext">Отчество</p>
+                                        <input type="text" name="patronymic" class="form__input lk__input onlyAlpha" placeholder="Дмитриевич" value="' . $datauser->patronymic . '" maxlength="30">
+                                    </div>
+                                    <div class="lk__input-wrapper lk__input-wrapper_big">
+                                        <p class="lk__label smtext">Компания</p>
+                                        <input type="text" name="id_company" class="form__input lk__input" placeholder="ООО “ГИС”" value="' . $datauser->id_company . '" maxlength="150">
+                                    </div>
+                                    <div class="lk__input-wrapper">
+                                        <p class="lk__label smtext">Страна</p>
+                                        <div data-drop class="form__input-wrapper ic_arr_d"><span data-drop-arr class="form__input-arr ic_arr_d"></span><input data-aplha type="text" name="country" class="form__input lk__input onlyAlpha" placeholder="Россия" value="' . $datauser->country . '" maxlength="30" readonly></div>
+                                        <div data-drop-list class="drop">
+                                            <p class="drop__item">Россия</p>
+                                            <p class="drop__item">Страна1</p>
+                                            <p class="drop__item">Страна2</p>
+                                            <p class="drop__item">Страна3</p>
+                                            <p class="drop__item">Страна4</p>
+                                            <p class="drop__item">Страна5</p>
+                                        </div>
+                                    </div>
+                                    <div class="lk__input-wrapper">
+                                        <p class="lk__label smtext">Город</p>
+                                        <div data-drop class="form__input-wrapper ic_arr_d"><span data-drop-arr class="form__input-arr ic_arr_d"></span><input data-aplha type="text" name="city" class="form__input lk__input onlyAlpha" placeholder="Тюмень" value="' . $datauser->city . '" maxlength="30" readonly></div>
+                                        <div data-drop-list class="drop">
+                                            <p class="drop__item">Тюмень</p>
+                                            <p class="drop__item">Город1</p>
+                                            <p class="drop__item">Город2</p>
+                                            <p class="drop__item">Город3</p>
+                                            <p class="drop__item">Город4</p>
+                                            <p class="drop__item">Город5</p>
+                                        </div>
+                                    </div>
+                                    <div class="lk__input-wrapper">
+                                        <p class="lk__label smtext">Телефон</p>
+                                        <input type="tel" name="phone" class="form__input lk__input" placeholder="+7 (999) 999-99-99" value="' . $datauser->phone . '" maxlength="17">
+                                    </div>
+                                    <div class="lk__input-wrapper">
+                                        <p class="lk__label smtext">E-mail</p>
+                                        <input type="email" name="email" class="form__input lk__input" placeholder="example@gmail.com" value="' . $datauser->email . '" maxlength="30">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="lk-btns form__btns">
+                                <input type="submit" value="Сохранить" class="form__btn lk-btns__submit btn smtext">
+                                <div class="form__cancel smtext cancel">Отменить</div>
+                            </div>
+            </form>
+            <div class="lk__company">
+                <p class="lk__title ic_portfel text">Компания</p>
+                <div class="lk__table">
+                    <div class="lk__row">
+                        <p class="lk__heading ic_units smtext">Штат</p>
+                        ';
+                $output .= ' <p class="lk__text smtext">'.$workers->count().' сотрудников</p>';
+            $output .= '</div>
+                    <div class="lk__row lk__row_sub">
+                        <div class="lk__col">
+                            <p class="lk__heading lk__heading_exp ic_m_econ smtext">Расходы</p>
+                            <div class="lk__subcol">
+                                <p class="lk__text lk__text_exp smtext">Разовые</p>
+                                <p class="lk__text lk__text_exp smtext">Постоянные</p>
+                            </div>
+                        </div>
+                        <div class="lk__col">
+                            <p class="lk__text lk__text_num smtext">'.Cost::getsumRightfullAll().' &#8381;</p>
+                            <p class="lk__text lk__text_num smtext">'.Cost::getsumRightfull_ones().' &#8381;</p>
+                            <p class="lk__text lk__text_num smtext">'.Cost::getsumRightfull_mouth().' &#8381;</p>
+                        </div>
+                    </div>
+                    <div class="lk__row">
+                        <p class="lk__heading ic_m_treat smtext">Система налогообложения</p>
+                        <p class="lk__text smtext">'.$datacompany->tax_system.'</p>
+                    </div>
+                    <div class="lk__row">
+                        <p class="lk__heading ic_chbox smtext">Тендерное сопровождение</p>
+                        <p class="lk__text smtext">'.$datacompany->tender.'</p>
+                    </div>
+                </div>
+            </div>
+            <nav class="lk__nav nav-lk">
+                <div data-popup="change-passw" class="nav-lk__item"><p class="nav-lk__text ic_lock">Изменить пароль</p></div>
+            <div class="nav-lk__item"><a href="#" class="nav-lk__link ic_mob">Мобильное приложение</a></div>
+            <div data-popup="account" class="nav-lk__item"><p class="nav-lk__text ic_user">Аккаунт</p></div>
+            <div data-popup="subscribe" class="nav-lk__item"><p class="nav-lk__text ic_c_mark">Подписки</p></div>
+                <div class="nav-lk__item"><a href="' . route('data_company') . '" class="nav-lk__link text ic_portfel">Данные
+                        компании</a></div>
+            </nav>';
+        } else {
+            $output = 'Профиль не найден!';
+        }
+        $data = array(
+            'profile' => $output,
+        );
+        echo json_encode($data);
     }
 
     public function fullinfo()
@@ -64,7 +178,7 @@ class ProfileController extends Controller
             'city' => ['max:255'],
             'position' => ['max:255'],
             'phone' => ['max:255', 'unique:users,phone,' . $id],
-            'email_profile' => ['max:255', 'unique:users,email,' . $id],
+            'email' => ['max:255', 'unique:users,email,' . $id],
         ]);
 
         if ($validator->fails()) {
@@ -86,7 +200,7 @@ class ProfileController extends Controller
                 $profile->country = $request->input('country', $user->country);
                 $profile->city = $request->input('city', $user->city);
                 $profile->phone = $request->input('phone', $user->phone);
-                $profile->email = $request->input('email_profile', $user->email);
+                $profile->email = $request->input('email');
                 $credentials = array_filter($request->all());
                 $user->update($credentials);
                 if (empty($companyid)) {
@@ -112,6 +226,7 @@ class ProfileController extends Controller
 
     public function updatepasswordprofile(Request $request, $id)
     {
+        $ids = Auth::user()->getAuthIdentifier();
         $validator = Validator::make($request->all(), [
             'old_password' => ['required', 'different:password'],
             'password' => ['required', 'min:8', 'same:password_confirmation_edit-password'],
@@ -123,7 +238,7 @@ class ProfileController extends Controller
             ]);
         } else {
 
-            $user = User::find($id);
+            $user = User::find($ids);
             $profile = Auth::user();
             if (!Hash::check($request->input('old_password'), $user->password)) {
                 return response()->json([
@@ -234,8 +349,8 @@ class ProfileController extends Controller
         $id = Auth::user()->getAuthIdentifier();
         $data = User::find($id)->company;
         $newmanagerid = Company::find($data->id)->manager;
-        $every_mouth_costs =  Company::find($data->id)->costs->where('type_of_cost', 0);
-        $every_mouth_ones =  Company::find($data->id)->costs->where('type_of_cost', 1);
+        $every_mouth_costs = Company::find($data->id)->costs->where('type_of_cost', 0);
+        $every_mouth_ones = Company::find($data->id)->costs->where('type_of_cost', 1);
         $worker_get = Company::find($data->id)->workers_archive()->onlyTrashed()->get();
         $output = '';
         $document = '';
@@ -407,7 +522,7 @@ class ProfileController extends Controller
                             <div class="company-docs__item">
                                 <div class="company-docs__item-wrapper">
                                     <button type="button" id="deletefile" value="' . $documentval->id . '" class="company-docs__delete ic_close"></button>
-                                    <a  href="' . asset('uploads/'.$data->id.'/' . $documentval->filename . '') . '" class="company-docs__name smtext" target="_blank">' . $documentval->title . '.' . $documentval->type . '</a>
+                                    <a  href="' . asset('uploads/' . $data->id . '/' . $documentval->filename . '') . '" class="company-docs__name smtext" target="_blank">' . $documentval->title . '.' . $documentval->type . '</a>
                                 </div>
                                 <p class="company-docs__size smtext">' . documents::bytesToHuman($documentval->weight) . '</p>
                                 <a href="' . url('/download_file', $documentval->filename) . '" class="company-docs__dload ic_dload"></a>
@@ -421,13 +536,13 @@ class ProfileController extends Controller
                 $worker_list .= ' <div class="units-list__item">
                                     <button id="edit_worker" data-popup="info-unit" type="button" value="' . $worker->id . '" class="units-list__edit ic_edit"></button>
                                     <button id="delete_worker" type="button" value="' . $worker->id . '" class="units-list__arch ic_close"></button>
-                                    <div class="units-list__photo"><img src="/uploads/units/'.$worker->image .'" alt="Пользователь" class="units-list__img"></div>
+                                    <div class="units-list__photo"><img src="/uploads/units/' . $worker->image . '" alt="Пользователь" class="units-list__img"></div>
                                     <p class="units-list__name smtext">' . $worker->surname . ' ' . $worker->getNameInitials() . '. ' . $worker->getPatronymicInitials() . '. - ' . $worker->experience . ' - ' . $worker->getsalaryRight() . ' ₽</p>
                                 </div>';
             }
 
             $costs_list .= '<div class="module__head">
-                            <p class="module__heading ic_m_econ">Расходные статьи - '.$every_mouth_costs->count().'</p>
+                            <p class="module__heading ic_m_econ">Расходные статьи - ' . $every_mouth_costs->count() . '</p>
                             <p class="module__icon ic_upload"></p>
                         </div>
                         <p class="company-expend__notify smtext">В месяц</p>
@@ -436,20 +551,20 @@ class ProfileController extends Controller
             foreach ($every_mouth_costs as $cost) {
                 $g++;
                 $costs_list .= '<div class="company-expend__item">
-                                    <p class="company-expend__text smtext">'.$g .'. '.$cost->title .'</p>
-                                    <input type="text" name="rent_office[' . $cost->id . '][sum_of_cost]" id="" value="'.$cost->getsumRight() .'&#8381;" class="company-expend__input smtext" placeholder="300 000&#8381;">
-                                    <button type="button" value="'.$cost->id .'" id="delete_mouth_article" class="company-expend__del ic_close"></button>
+                                    <p class="company-expend__text smtext">' . $g . '. ' . $cost->title . '</p>
+                                    <input type="text" name="rent_office[' . $cost->id . '][sum_of_cost]" id="" value="' . $cost->getsumRight() . '&#8381;" class="company-expend__input smtext" placeholder="300 000&#8381;">
+                                    <button type="button" value="' . $cost->id . '" id="delete_mouth_article" class="company-expend__del ic_close"></button>
                                 </div>
                                 ';
             }
             $costs_list .= ' <div class="company-expend__add ic_plus"><span data-popup="add-state" class="company-expend__add-text">Добавить новую статью расходов</span></div>
-                            <p class="company-expend__sum smtext"><span class="company-expend__sum-span">Итого: </span>'.Cost::getsumRightfull_mouth().'&#8381;</p>
+                            <p class="company-expend__sum smtext"><span class="company-expend__sum-span">Итого: </span>' . Cost::getsumRightfull_mouth() . '&#8381;</p>
                             <input type="submit" value="Сохранить" class="company-expend__submit btn">
                             </div>
                         </div>';
 
             $costs_list_ones .= ' <div class="module__head">
-                            <p class="module__heading ic_m_econ">Разовые расходы - '.$every_mouth_ones->count().'</p>
+                            <p class="module__heading ic_m_econ">Разовые расходы - ' . $every_mouth_ones->count() . '</p>
                             <p class="module__icon ic_upload"></p>
                         </div>
                         <div class="company-expend__main">
@@ -457,13 +572,13 @@ class ProfileController extends Controller
             foreach ($every_mouth_ones as $cost_ones) {
                 $c++;
                 $costs_list_ones .= '<div class="company-expend__item">
-                                    <p class="company-expend__text smtext">'.$c .'. '.$cost_ones->title .'</p>
-                                    <input type="text" name="buy_equip[' . $cost_ones->id . '][sum_of_cost]" id="" value="'.$cost_ones->getsumRight() .'&#8381;" class="company-expend__input smtext" placeholder="300 000&#8381;">
-                                    <button type="button" value="'.$cost_ones->id .'" id="delete_ones_article" class="company-expend__del ic_close"></button>
+                                    <p class="company-expend__text smtext">' . $c . '. ' . $cost_ones->title . '</p>
+                                    <input type="text" name="buy_equip[' . $cost_ones->id . '][sum_of_cost]" id="" value="' . $cost_ones->getsumRight() . '&#8381;" class="company-expend__input smtext" placeholder="300 000&#8381;">
+                                    <button type="button" value="' . $cost_ones->id . '" id="delete_ones_article" class="company-expend__del ic_close"></button>
                                 </div>';
             }
             $costs_list_ones .= '<div class="company-expend__add ic_plus"><span data-popup="add-ones-state" class="company-expend__add-text">Добавить новую статью расходов</span></div>
-                            <p class="company-expend__sum smtext"><span class="company-expend__sum-span">Итого: </span>'.Cost::getsumRightfull_ones().'&#8381;</p>
+                            <p class="company-expend__sum smtext"><span class="company-expend__sum-span">Итого: </span>' . Cost::getsumRightfull_ones() . '&#8381;</p>
                             <input type="submit" value="Сохранить" class="company-expend__submit btn">
                             </div>
                         </div>';
@@ -475,10 +590,10 @@ class ProfileController extends Controller
             </div>
             <div class="units-list">';
             foreach ($worker_get as $archive_worker) {
-                 $archive_worker_list .= '<div class="popup-arch-units__item units-list__item">
+                $archive_worker_list .= '<div class="popup-arch-units__item units-list__item">
                     <button id="edit_worker" value="' . $archive_worker->id . '" data-popup="info-unit" type="button" class="units-list__edit ic_edit"></button>
                     <button id="delete_worker_final" value="' . $archive_worker->id . '" type="button" class="units-list__arch ic_close"></button>
-                    <div class="units-list__photo"><img src="/uploads/units/'.$archive_worker->image .'" alt="Пользователь"
+                    <div class="units-list__photo"><img src="/uploads/units/' . $archive_worker->image . '" alt="Пользователь"
                                                         class="units-list__img"></div>
                     <p class="units-list__name smtext">' . $archive_worker->surname . ' ' . $archive_worker->getNameInitials() . '. ' . $archive_worker->getPatronymicInitials() . '. - ' . $archive_worker->experience . ' - ' . $archive_worker->getsalaryRight() . ' ₽</p>
                     <button value="' . $archive_worker->id . '" type="button" class="units-list__unarch ic_unarch" id="unarch_worker"></button>
@@ -543,15 +658,15 @@ class ProfileController extends Controller
             $item->companies()->sync($companyid);
         }
 
-        $path = public_path('uploads/'.$companyid->id.'');
+        $path = public_path('uploads/' . $companyid->id . '');
 
-        if(!File::isDirectory($path)){
+        if (!File::isDirectory($path)) {
             File::makeDirectory($path, 0777, true, true);
         }
 
         foreach (array_combine($namerequest, $docs) as $name => $doc) {
-            $filename = $name. '.' . $doc->getClientOriginalExtension();
-            $doc->move('uploads/'.$companyid->id.'',$filename);
+            $filename = $name . '.' . $doc->getClientOriginalExtension();
+            $doc->move('uploads/' . $companyid->id . '', $filename);
         }
 
 //        $item = Document::Create([
@@ -571,7 +686,7 @@ class ProfileController extends Controller
     {
         $id = Auth::user()->getAuthIdentifier();
         $companyid = User::find($id)->company;
-        return response()->download(public_path('uploads/'.$companyid->id.'/' . $file));
+        return response()->download(public_path('uploads/' . $companyid->id . '/' . $file));
     }
 
     public function downloadarchive(Request $request)
@@ -581,7 +696,7 @@ class ProfileController extends Controller
         $zip = new \ZipArchive();
         $fileName = 'Архив.zip';
         if ($zip->open(public_path($fileName), \ZipArchive::CREATE) == TRUE) {
-            $files = File::files(public_path('uploads/'.$companyid->id.'/'));
+            $files = File::files(public_path('uploads/' . $companyid->id . '/'));
             foreach ($files as $key => $value) {
                 $relativeName = basename($value);
                 $zip->addFile($value, $relativeName);
@@ -598,7 +713,7 @@ class ProfileController extends Controller
         $companyid = User::find($ids)->company;
         $document = Document::find($id);
         if ($document) {
-            $path = (public_path('uploads/'.$companyid->id.'/' . $document->filename));
+            $path = (public_path('uploads/' . $companyid->id . '/' . $document->filename));
 
             if (File::exists($path)) {
 
@@ -616,6 +731,7 @@ class ProfileController extends Controller
             ]);
         }
     }
+
     public function create_worker(Request $request)
     {
         $id = Auth::user()->getAuthIdentifier();
@@ -653,6 +769,7 @@ class ProfileController extends Controller
                     $f_salary = str_replace('руб', '', $f_salary);
                     return $f_salary;
                 }
+
                 $money = format_tel($salary);
                 $item = User::create([
                     'image' => $filename,
@@ -692,6 +809,7 @@ class ProfileController extends Controller
             ]);
         }
     }
+
     public function delete_worker($id)
     {
         $user = User::find($id);
@@ -708,6 +826,7 @@ class ProfileController extends Controller
             ]);
         }
     }
+
     public function restore_archive_worker($id)
     {
         $worker = User::onlyTrashed()->find($id);
@@ -724,6 +843,7 @@ class ProfileController extends Controller
             ]);
         }
     }
+
     public function delete_worker_final($id)
     {
         $user = User::onlyTrashed()->find($id);
@@ -768,8 +888,8 @@ class ProfileController extends Controller
             'surname_worker_edit' => ['required', 'string', 'max:255'],
             'name_worker_edit' => ['required', 'string', 'max:255'],
             'patronymic_worker_edit' => ['required', 'string', 'max:255'],
-            'email_worker_edit' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' .$id],
-            'phone_worker_edit' => ['required', 'string', 'unique:users,phone,' .$id],
+            'email_worker_edit' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $id],
+            'phone_worker_edit' => ['required', 'string', 'unique:users,phone,' . $id],
             'experience_worker_edit' => ['required', 'string', 'max:255'],
             'salary_worker_edit' => ['required', 'string'],
             'designed_sections_edit' => ['required', 'string', 'max:255'],
@@ -806,6 +926,7 @@ class ProfileController extends Controller
                     $f_salary = str_replace('руб', '', $f_salary);
                     return $f_salary;
                 }
+
                 $money = format_tel($salary);
                 $user->surname = $request->input('surname_worker_edit');
                 $user->name = $request->input('name_worker_edit');
@@ -846,11 +967,11 @@ class ProfileController extends Controller
                 'errors' => $validator->messages(),
             ]);
         } else {
-                $item = Cost::create([
-                    'title' => $request['title_mouth_cost'],
-                    'type_of_cost' => '0',
-                ]);
-                $item->company()->sync($companyid);
+            $item = Cost::create([
+                'title' => $request['title_mouth_cost'],
+                'type_of_cost' => '0',
+            ]);
+            $item->company()->sync($companyid);
 
             return response()->json([
                 'status' => 200,
@@ -900,18 +1021,14 @@ class ProfileController extends Controller
             ]);
         } else {
 
-            foreach ($request->rent_office as $key => $value)
-            {
+            foreach ($request->rent_office as $key => $value) {
                 $item = Cost::find($key);
 
-                    $f_salary = str_replace(' ', '', $value); //Убираем пробелы
-                    $f_salary = str_replace('₽', '', $f_salary);
+                $f_salary = str_replace(' ', '', $value); //Убираем пробелы
+                $f_salary = str_replace('₽', '', $f_salary);
 
 
-
-
-                foreach ($f_salary as $keys => $values)
-                {
+                foreach ($f_salary as $keys => $values) {
                     $item->sum_of_cost = $values;
                     $item->update();
                 }
@@ -938,18 +1055,14 @@ class ProfileController extends Controller
             ]);
         } else {
 
-            foreach ($request->buy_equip as $key => $value)
-            {
+            foreach ($request->buy_equip as $key => $value) {
                 $item = Cost::find($key);
 
                 $f_salary = str_replace(' ', '', $value); //Убираем пробелы
                 $f_salary = str_replace('₽', '', $f_salary);
 
 
-
-
-                foreach ($f_salary as $keys => $values)
-                {
+                foreach ($f_salary as $keys => $values) {
                     $item->sum_of_cost = $values;
                     $item->update();
                 }

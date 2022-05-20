@@ -6,28 +6,20 @@
 @section('content')
     <div class="module sa">
         <div class="module__content sa__content">
-            <div class="sa__head">
-                <form action="#" class="sa__filters form">
-                    <div class="sa__filter">
-                        <div class="sa__input-wrapper form__input-wrapper ic_search"><input data-search type="text" name="fio_id" id="fio_id" class="sa__input form__input" placeholder="Поиск по ФИО или ID"></div>
-{{--                        <div class="sa__drop drop">--}}
-{{--                            <p class="sa__drop-item drop__item">Петров Сергей<span class="sa__drop-span">id 787877889</span></p>--}}
-{{--                            <p class="sa__drop-item drop__item">Савельев Николай<span class="sa__drop-span">id 787877889</span></p>--}}
-{{--                            <p class="sa__drop-item drop__item">Савельев Николай<span class="sa__drop-span">id 787877889</span></p>--}}
-{{--                        </div>--}}
+            <div class="sa__head search-block">
+                <form action="#" class="search-block__items form">
+                    <div class="search-block__item">
+                        <div class="search-block__input-wrap form__input-wrapper ic_search"><input data-search type="text" name="fio_id" id="fio_id" class="search-block__input form__input" placeholder="Поиск по ФИО или ID"autocomplete="off"></div>
                     </div>
-                    <div class="sa__filter">
-                        <div class="sa__input-wrapper form__input-wrapper ic_search"><input data-search type="text" name="inn_tel" id="inn_tel" class="sa__input form__input" placeholder="Поиск по ИНН или телефону"></div>
-{{--                        <div class="sa__drop drop">--}}
-{{--                            <p class="sa__drop-item drop__item">+7 (999) 999-99-99</p>--}}
-{{--                            <p class="sa__drop-item drop__item">+7 (999) 999-99-99</p>--}}
-{{--                            <p class="sa__drop-item drop__item">+7 (000) 999-99-90</p>--}}
-{{--                            <p class="sa__drop-item drop__item">589315452</p>--}}
-{{--                        </div>--}}
+                    <div class="search-block__item">
+                        <div class="search-block__input-wrap form__input-wrapper ic_search"><input data-search type="text" name="inn_tel" id="inn_tel" class="search-block__input form__input" placeholder="Поиск по ИНН или телефону" autocomplete="off"></div>
                     </div>
-                    <div class="sa__filter">
-                        <div class="sa__input-wrapper form__input-wrapper ic_arr_d"><input type="text" disabled="disabled" name="status" id="status" class="sa__input form__input" placeholder="Сортировка по статусу"></div>
-                        <div class="sa__drop drop">
+                    <div class="search-block__item">
+                        <div data-drop class="search-block__input-wrap form__input-wrapper">
+                            <span data-drop-arr class="form__input-arr ic_arr_d"></span>
+                            <input type="text" name="status" id="status" class="search-block__input form__input" placeholder="Сортировка по статусу" readonly>
+                        </div>
+                        <div data-drop-list class="sa__drop drop">
                             <button id="active" value="Активный" class="sa__drop-item drop__item">Активный</button>
                             <button id="archive" value="Архивный" class="sa__drop-item drop__item">Архивный</button>
                         </div>
@@ -193,6 +185,20 @@
                 $('.popup__close').find('input').val('');
             });
 
+            $('#image_worker_edit').change(function () {
+
+                let reader = new FileReader();
+
+                reader.onload = (e) => {
+                    $('#photo-worker-show_edit').html("")
+                    $('#photo-worker-show_edit').attr('src', e.target.result);
+                    $(this).parent().css('border', 0);
+                }
+
+                reader.readAsDataURL(this.files[0]);
+
+            });
+
             $(document).on('click', '#edit_user', function (e) {
                 e.preventDefault();
                 var user_id = $(this).val();
@@ -205,14 +211,16 @@
                             $('#success_message').text(response.message);
                             $('.modal').modal('hide');
                         } else {
-                            $('#edit_user_id').val(user_id);
-                            $('#edit_user_image').attr("src", '/uploads/units/' + response.user.image);
-                            $('#surname_edit').val(response.user.surname);
-                            $('#name_edit').val(response.user.name);
-                            $('#patronymic_edit').val(response.user.patronymic);
-                            $('#emai_edit').val(response.user.email);
-                            $('#phone_edit').val(response.user.phone);
-                            $('#expirience_edit').val(response.user.experience);
+                            $('#edit_worker_id').val(user_id);
+                            $('#photo-worker-show_edit').attr("src", '/uploads/units/' + response.user.image);
+                            $('#surname_worker_edit').val(response.user.surname);
+                            $('#name_worker_edit').val(response.user.name);
+                            $('#patronymic_worker_edit').val(response.user.patronymic);
+                            $('#email_worker_edit').val(response.user.email);
+                            $('#phone_worker_edit').val(response.user.phone);
+                            $('#designed_sections_edit').val(response.user.designed_sections);
+                            $('#experience_worker_edit').val(response.user.experience);
+                            $('#salary_worker_edit').val(response.user.salary);
                         }
 
                     }
@@ -264,10 +272,10 @@
                 });
             });
 
-            $(document).on('submit', '#popupInfoUnit', function (e) {
+            $(document).on('submit', '#user_edit_form', function (e) {
                 e.preventDefault();
                 var id = $('#edit_user_id').val();
-                let UpdateFormData = new FormData($('#popupInfoUnit')[0]);
+                let UpdateFormData = new FormData($('#user_edit_form')[0]);
 
                 $.ajaxSetup({
                     headers: {

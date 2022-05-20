@@ -50,6 +50,17 @@ class Cost extends Model
     }
 
 
+    public function getsumRightfullAll()
+    {
+        $id = Auth::user()->getAuthIdentifier();
+        $data = User::find($id)->company;
+        $every_mouth_costs =  Company::find($data->id)->costs;
+        $cost = $every_mouth_costs->sum('sum_of_cost');
+        $cost_right_full = number_format($cost,  0, ',', ' ');
+
+        return($cost_right_full);
+    }
+
     public function company()
     {
         return $this->belongsToMany(Company::class);

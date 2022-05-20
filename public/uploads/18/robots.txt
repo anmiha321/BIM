@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /
+Disallow: /404.php
+Disallow: /backend/
+Disallow: /uploads/
+Disallow: .htaccess
+Host: https://portal.ww.net.ru
+Sitemap: https://portal.ww.net.ru/sitemap.xml

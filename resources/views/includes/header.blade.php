@@ -67,73 +67,65 @@ $keywords = 'keywords';
             </div>
             <div class="menu__body">
                 <div class="menu__wrap">
-                    <a href="/modules/brif/" class="menu__link ic_m_brif"><span class="menu__text text">Бриф</span></a>
+                    <a href="{{route('users')}}" class="menu__link menu__link_special"><span class="menu__text text">Суперадмин</span></a>
                 </div>
                 <div class="menu__wrap">
-                    <a href="/modules/incoming/" class="menu__link ic_m_mail"><span
-                            class="menu__text text">Входящие</span></a>
+                    <a href="/modules/brief/" class="menu__link ic_m_brif"><span class="menu__text text">Бриф</span></a>
                 </div>
                 <div class="menu__wrap">
-                    <a href="{{route('profile')}}" class="menu__link ic_m_lk"><span
-                            class="menu__text text">Личный кабинет</span></a>
+                    <a href="/modules/incoming/" class="menu__link ic_m_mail"><span class="menu__text text">Входящие</span></a>
                 </div>
                 <div class="menu__wrap">
-                    <a href="/modules/mp/" class="menu__link ic_m_mp"><span
-                            class="menu__text text">Менеджер проектов</span></a>
+                    <a href="{{route('profile')}}" class="menu__link ic_m_lk"><span class="menu__text text">Личный кабинет</span></a>
+                </div>
+                <div class="menu__wrap">
+                    <a href="/modules/mp/" class="menu__link ic_m_mp"><span class="menu__text text">Менеджер проектов</span></a>
                 </div>
                 <div class="menu__wrap">
                     <a href="/modules/gip/" class="menu__link ic_m_gip"><span class="menu__text text">ГИП</span></a>
                 </div>
                 <div class="menu__wrap">
-                    <a href="/modules/corr/" class="menu__link ic_m_corr"><span
-                            class="menu__text text">Корреспонденция</span></a>
+                    <a href="/modules/corr/" class="menu__link ic_m_corr"><span class="menu__text text">Корреспонденция</span></a>
                 </div>
                 <div class="menu__wrap">
-                    <a href="/modules/treat/" class="menu__link ic_m_treat"><span
-                            class="menu__text text">Договоры</span></a>
+                    <a href="/modules/treat/" class="menu__link ic_m_treat"><span class="menu__text text">Договоры</span></a>
                 </div>
                 <div class="menu__wrap">
-                    <a href="/modules/statistic/" class="menu__link ic_m_stat"><span
-                            class="menu__text text">Статистика</span></a>
+                    <a href="/modules/statistic/" class="menu__link ic_m_stat"><span class="menu__text text">Статистика</span></a>
                 </div>
                 <div class="menu__wrap">
-                    <a href="/modules/economic/" class="menu__link ic_m_econ"><span
-                            class="menu__text text">Экономика</span></a>
+                    <a href="/modules/economic/" class="menu__link ic_m_econ"><span class="menu__text text">Экономика</span></a>
                 </div>
                 <div class="menu__wrap">
-                    <a href="/modules/files/" class="menu__link ic_m_files"><span
-                            class="menu__text text">Файлы</span></a>
+                    <a href="/modules/files/" class="menu__link ic_m_files"><span class="menu__text text">Файлы</span></a>
                 </div>
                 <div class="menu__wrap">
-                    <a href="/modules/conf/" class="menu__link ic_m_conf"><span
-                            class="menu__text text">Конференция</span></a>
+                    <a href="/modules/conf/" class="menu__link ic_m_conf"><span class="menu__text text">Конференция</span></a>
                 </div>
                 <div class="menu__wrap">
                     <a href="/modules/ts/" class="menu__link ic_m_ts"><span class="menu__text text">Техническая поддержка</span></a>
                 </div>
                 <div class="menu__wrap">
-                    <a href="/modules/backdoor/" class="menu__link ic_m_back"><span
-                            class="menu__text text">Backdoor</span></a>
+                    <a href="/modules/backdoor/" class="menu__link ic_m_back"><span class="menu__text text">Backdoor</span></a>
                 </div>
                 <div class="menu__wrap">
-                    <a href="/modules/desktop/" class="menu__link ic_m_desk"><span
-                            class="menu__text text">Рабочий стол</span></a>
+                    <a href="/modules/desktop/" class="menu__link ic_m_desk"><span class="menu__text text">Рабочий стол</span></a>
                 </div>
                 <div class="menu__wrap">
-                    <a href="/modules/log/" class="menu__link ic_m_log"><span
-                            class="menu__text text">Лог действий</span></a>
+                    <a href="/modules/log/" class="menu__link ic_m_log"><span class="menu__text text">Лог действий</span></a>
                 </div>
                 <div class="menu__wrap">
                     <a href="/modules/generation/" class="menu__link ic_m_gen"><span class="menu__text text">Генерация ИУЛ</span></a>
                 </div>
             </div>
+            <a class="header__exit text" href="{{ route('logout') }}"
+               onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">Выйти</a>
             <div class="menu__bottom">
                 <p class="menu__hide text">Свернуть окно</p>
                 <p class="menu__arrow ic_m_arr"></p>
             </div>
-            <a class="header__exit text" href="{{ route('logout') }}"
-               onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">Выйти</a>
+            <button type="button" class="header__exit-mobile text">Выйти</button>
         </div>
         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
             @csrf
@@ -161,11 +153,11 @@ $keywords = 'keywords';
                     <p class="header__btn header__btn_brif ic_m_brif"></p>
                     <div class="header__drop"></div>
                 </div>
-                <div class="header__person" data-da=".header__title,1440,1">
+                <div data-drop="logout" class="header__person" data-da=".header__title,1440,1">
                     <div class="header__photo"><img src="/uploads/units/{{Auth::user()->image}}" alt="Человек" class="header__img"></div>
                     <div class="header__info">
                         <p class="header__name smtext">{{Auth::user()->surname}} {{Auth::user()->getNameInitials()}}. {{Auth::user()->getPatronymicInitials()}}.</p>
-                        <p class="header__company smtext">"{{Auth::user()->id_company}}"</p>
+                        <p class="header__company smtext">{{Auth::user()->id_company}}</p>
                     </div>
                 </div>
             </div>
@@ -180,6 +172,7 @@ $keywords = 'keywords';
     </header>
     @yield('content')
 </div>
+</body>
 <script src="{{asset('/js/script.js')}}"></script>
 @yield('profile')
 @yield('users')
